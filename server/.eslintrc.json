@@ -15,16 +15,6 @@
       {
         "js": "always"
       }
-    ],
-    "comma-dangle": [
-      "error",
-      {
-        "arrays": "always",
-        "objects": "always-multiline",
-        "imports": "never",
-        "exports": "never",
-        "functions": "never"
-      }
     ]
   }
 }

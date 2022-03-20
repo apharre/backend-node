@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }));
 app.use(cors());
 
 /* *************** MongoDB Connection *************** */
+// process.env.MONGO_USERNAME
 const mongoUsername = 'dankal11';
 const mongoPassword = 't4dkLHzJT!SP2RCUqxwb';
 
