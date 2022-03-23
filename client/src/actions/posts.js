@@ -1,10 +1,4 @@
-// uses the index.js file in src/api/index
-// Part 1 50:53
-// import { FETCH_ALL } from '../components/'
-
-// THIS LINE IS SORT OF BROKEN
-// import * as API from "../api/index";
-import fetchPosts from "../api/index";
+import { fetchPosts, createPost } from "../api/index";
 
 // Action creators - functions that return actions
 // action - an object that has a type and a payload
@@ -26,5 +20,16 @@ const getPosts = () => async (dispatch) => {
   }
 };
 
+const createPostAction = (post) => async (dispatch) => {
+  try {
+    // sending a "post" object using the API
+    // const { data } = await API.createPost(post);
+    const { ...data } = await createPost(post);
+    dispatch({ type: "CREATE", payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // then go to src/reducers/posts to handle the logic of fetchin the posts
-export default getPosts;
+export { getPosts, createPostAction };

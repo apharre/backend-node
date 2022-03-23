@@ -1,4 +1,5 @@
 import React from "react";
+import { Grid, CircularProgress } from "@material-ui/core";
 import { useSelector } from "react-redux";
 // pulls data from /src/reducers/posts.js
 
@@ -12,14 +13,25 @@ function Posts() {
   const posts = useSelector((state) => state.posts);
   const classes = useStyles();
 
-  // eslint-disable-next-line no-console
-  console.log(posts);
+  // // eslint-disable-next-line no-console
+  // console.log(posts);
 
-  return (
-    <>
-      <h1 className={classes.mainContainer}>POSTS</h1>;
-      <Post />
-    </>
+  return !posts.length ? (
+    <CircularProgress />
+  ) : (
+    <Grid
+      className={classes.container}
+      container
+      alignItems="stretch"
+      spacing={3}
+    >
+      {posts.map((post) => (
+        // eslint-disable-next-line no-underscore-dangle
+        <Grid key={post._id} item xs={12} sm={6}>
+          <Post post={post} />
+        </Grid>
+      ))}
+    </Grid>
   );
 }
 

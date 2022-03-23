@@ -8,7 +8,7 @@ export default (posts = [], action) => {
       // the component that uses this returned data is components/Posts/Posts
       return action.payload;
     case "CREATE":
-      return posts;
+      return [...posts, action.payload];
     default:
       return posts;
   }

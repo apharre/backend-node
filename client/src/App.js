@@ -4,7 +4,7 @@ import { Container, AppBar, Typography, Grow, Grid } from "@mui/material";
 // allows to dispatch an action
 import { useDispatch } from "react-redux";
 
-import getPosts from "./actions/posts";
+import { getPosts } from "./actions/posts";
 import Form from "./components/Form/Form";
 import Posts from "./components/Posts/Posts";
 import gopherRipped from "./images/gopherRipped.png";
@@ -24,7 +24,7 @@ function App() {
     <Container maxwidth="lg">
       <AppBar className={classes.appBar} position="static" color="inherit">
         <Typography className={classes.heading} variant="h2" align="center">
-          Memories
+          Apharre
         </Typography>
         <img
           className={classes.image}
