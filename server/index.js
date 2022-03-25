@@ -8,14 +8,14 @@ import postRoutes from './routes/posts.js';
 
 const app = express();
 
-/* *************** API Restrictions *************** */
-// every route inside postRoutes starts with "post"
-app.use('/posts', postRoutes);
-
 /* *************** API Limits *************** */
 app.use(bodyParser.json({ limit: '10mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }));
 app.use(cors());
+
+/* *************** API Restrictions *************** */
+// every route inside postRoutes starts with "post"
+app.use('/posts', postRoutes);
 
 /* *************** MongoDB Connection *************** */
 // process.env.MONGO_USERNAME
