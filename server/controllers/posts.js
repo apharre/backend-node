@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import mongoose from 'mongoose';
-// REFERENCE THIS
+
 // PostMessage is the model based on the mongoose schema
 import PostMessage from '../models/postMessage.js';
 
@@ -51,4 +51,20 @@ export const deletePost = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that ID');
   await PostMessage.findByIdAndRemove(_id);
   res.json({ message: 'Post deleted successfully' });
+};
+
+// eslint-disable-next-line consistent-return
+export const likePost = async (req, res) => {
+  const { id: _id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that ID');
+  const post = await PostMessage.findById(_id);
+
+  // after _id, pass in the updates. So you set the likeCount to be equal to post.likeCount + 1
+  const updatedPost = await PostMessage.findByIdAndUpdate(
+    _id,
+    { likeCount: post.likeCount + 1 },
+    { new: true }
+  );
+  res.json(updatedPost);
 };
