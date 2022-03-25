@@ -22,7 +22,8 @@ function App() {
   useEffect(
     () => {
       dispatch(getPosts());
-    }, // adding currentId (from clear function in Form.jsx) means when currentId gets changed, the app will dispatch and getPosts. Then the app gets new posts on every action.
+    },
+    // adding currentId (from clear function in Form.jsx) means when currentId gets changed, the app will dispatch and getPosts. Then the app gets new posts on every action.
     [currentId, dispatch]
     // make sure the server/controllers/posts.js file
   );
@@ -51,7 +52,7 @@ function App() {
             <Grid item xs={12} sm={7}>
               <Posts setCurrentId={setCurrentId} />
             </Grid>
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={12} sm={5}>
               <Form currentId={currentId} setCurrentId={setCurrentId} />
             </Grid>
           </Grid>

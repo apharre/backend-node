@@ -1,5 +1,5 @@
 // import { applyMiddleware } from "redux";
-import { fetchPosts, createPost, updatePost } from "../api/index";
+import { fetchPosts, createPost, updatePost, deletePost } from "../api/index";
 
 // Action creators - functions that return actions
 // action - an object that has a type and a payload
@@ -42,5 +42,15 @@ const updatePostAction = (id, post) => async (dispatch) => {
   }
 };
 
+const deletePostAction = (id) => async (dispatch) => {
+  try {
+    // do not need the response from this action, so don't need 'const response = deletePost(id);'
+    await deletePost(id);
+    dispatch({ type: "DELETE", payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // then go to src/reducers/posts to handle the logic of fetching the posts
-export { getPosts, createPostAction, updatePostAction };
+export { getPosts, createPostAction, updatePostAction, deletePostAction };

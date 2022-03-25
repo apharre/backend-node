@@ -21,7 +21,6 @@ function Form({ currentId, setCurrentId }) {
   const post = useSelector((state) => {
     if (currentId) {
       // return the post with the current ID, or nothing
-      // eslint-disable-next-line no-underscore-dangle
       return state.posts.find((p) => p._id === currentId);
     }
     return null;

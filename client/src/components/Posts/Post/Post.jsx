@@ -12,11 +12,14 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 
+import { deletePostAction } from "../../../actions/posts";
 import useStyles from "./styles";
 
 function Posts({ post, setCurrentId }) {
-  console.log(post);
+  // console.log(post);
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   return (
@@ -36,7 +39,6 @@ function Posts({ post, setCurrentId }) {
         <Button
           style={{ color: "white" }}
           size="small"
-          // eslint-disable-next-line no-underscore-dangle
           onClick={() => setCurrentId(post._id)}
         >
           <MoreHorizIcon fontSize="medium" />
@@ -44,8 +46,9 @@ function Posts({ post, setCurrentId }) {
       </div>
       <div className={classes.details}>
         <Typography variant="body2" color="textSecondary">
-          {post.tags}
-          {/* {post.tags.map((tag) => `#${tag}`)} */}
+          {/* {post.tags} */}
+          {/* eslint-disable-next-line react/prop-types */}
+          {post.tags.map((tag) => `#${tag}`)}
           {/* {!post.length ? "no Tags" : post.tags.map((tag) => `#${tag}`)} */}
         </Typography>
       </div>
@@ -63,7 +66,11 @@ function Posts({ post, setCurrentId }) {
           Like
           {post.likeCount}
         </Button>
-        <Button size="small" color="primary" onClick={() => {}}>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => dispatch(deletePostAction(post._id))}
+        >
           <DeleteIcon fontSize="small" />
           Delete
         </Button>

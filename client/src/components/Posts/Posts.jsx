@@ -27,7 +27,6 @@ function Posts({ setCurrentId }) {
       spacing={3}
     >
       {posts.map((post) => (
-        // eslint-disable-next-line no-underscore-dangle
         <Grid key={post._id} item xs={12} sm={6}>
           <Post post={post} setCurrentId={setCurrentId} />
         </Grid>
