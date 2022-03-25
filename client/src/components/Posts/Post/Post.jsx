@@ -15,7 +15,7 @@ import PropTypes from "prop-types";
 
 import useStyles from "./styles";
 
-function Posts({ post }) {
+function Posts({ post, setCurrentId }) {
   console.log(post);
   const classes = useStyles();
 
@@ -33,7 +33,12 @@ function Posts({ post }) {
         </Typography>
       </div>
       <div className={classes.overlay2}>
-        <Button style={{ color: "white" }} size="small" onClick={() => {}}>
+        <Button
+          style={{ color: "white" }}
+          size="small"
+          // eslint-disable-next-line no-underscore-dangle
+          onClick={() => setCurrentId(post._id)}
+        >
           <MoreHorizIcon fontSize="medium" />
         </Button>
       </div>
@@ -44,6 +49,9 @@ function Posts({ post }) {
           {/* {!post.length ? "no Tags" : post.tags.map((tag) => `#${tag}`)} */}
         </Typography>
       </div>
+      <Typography className={classes.title} variant="h5" gutterBottom>
+        {post.title}
+      </Typography>
       <CardContent>
         <Typography className={classes.title} variant="h5" gutterBottom>
           {post.message}
@@ -75,6 +83,7 @@ Posts.propTypes = {
       tags: PropTypes.arrayOf(PropTypes.shape({ tag: PropTypes.string })),
     })
   ).isRequired,
+  setCurrentId: PropTypes.func.isRequired,
 };
 
 export default Posts;

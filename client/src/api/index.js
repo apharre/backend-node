@@ -18,4 +18,10 @@ const createPost = (newPost) => {
   axios.post(url, newPost);
 };
 
-export { fetchPosts, createPost };
+// instantaneous return, so arrow function
+const updatePost = (id, updatedPost) => {
+  axios.patch(`${url}/${id}`, updatedPost);
+};
+
+export { fetchPosts, createPost, updatePost };
+// then go to src/actions/posts.js to add the updated function

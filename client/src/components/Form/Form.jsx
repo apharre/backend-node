@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 // import FileBase from "react-file-base64";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 import useStyles from "./styles";
-import { createPostAction } from "../../actions"; // TODO: this could be a problem
+import { createPostAction, updatePostAction } from "../../actions/posts"; // TODO: this could be a problem
 
-function Form() {
+// fetch data from redux in src/components/Posts.jsx const posts = useSelector((state) =>
+function Form({ currentId, setCurrentId }) {
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -14,18 +16,53 @@ function Form() {
     tags: "",
     // selectedFile: "",
   });
+
+  // only get the data from one post, not all of them
+  const post = useSelector((state) => {
+    if (currentId) {
+      // return the post with the current ID, or nothing
+      // eslint-disable-next-line no-underscore-dangle
+      return state.posts.find((p) => p._id === currentId);
+    }
+    return null;
+  });
+
   const classes = useStyles();
   const dispatch = useDispatch(); // allows for dispatching of actions
+
+  // useEffect populates the values of the form.
+  // has 2 parameters, a callback function, and a dependency array
+  // the callback function should be run when the dependency array changes [post]
+  useEffect(() => {
+    if (post) setPostData(post);
+  }, [post]);
+
+  const clear = () => {
+    setCurrentId(null);
+    setPostData({
+      creator: "",
+      title: "",
+      message: "",
+      tags: "",
+      // selectedFile: "",
+    });
+  };
 
   const handleSubmit = (event) => {
     // to send the data that the user wants to submit
     event.preventDefault();
-    // src/actions/posts.js::createPost()
-    dispatch(createPostAction(postData));
-    // once the action is dispatched, go to reducers/posts
-  };
 
-  const clear = () => {};
+    if (currentId) {
+      dispatch(updatePostAction(currentId, postData));
+      // actions use the API, so you need to change src/api/index to add this
+      // then add this to the posts under src/actions/posts
+    } else {
+      // src/actions/posts.js::createPostAction()
+      dispatch(createPostAction(postData));
+      // once the action is dispatched, go to reducers/posts
+    }
+    clear();
+  };
 
   return (
     <Paper className={classes.Paper}>
@@ -35,7 +72,10 @@ function Form() {
         className={`${classes.root}${classes.form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant="h6">Create a Memory</Typography>
+        {/* Change the title based on wether you're editing or not */}
+        <Typography variant="h6">
+          {currentId ? "Edit" : "Create"} an Element
+        </Typography>
         <TextField
           name="creator"
           variant="outlined"
@@ -113,5 +153,10 @@ function Form() {
     </Paper>
   );
 }
+
+Form.propTypes = {
+  currentId: PropTypes.string.isRequired,
+  setCurrentId: PropTypes.func.isRequired,
+};
 
 export default Form;

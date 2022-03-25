@@ -1,4 +1,5 @@
-import { fetchPosts, createPost } from "../api/index";
+// import { applyMiddleware } from "redux";
+import { fetchPosts, createPost, updatePost } from "../api/index";
 
 // Action creators - functions that return actions
 // action - an object that has a type and a payload
@@ -31,5 +32,15 @@ const createPostAction = (post) => async (dispatch) => {
   }
 };
 
-// then go to src/reducers/posts to handle the logic of fetchin the posts
-export { getPosts, createPostAction };
+const updatePostAction = (id, post) => async (dispatch) => {
+  try {
+    const { data } = await updatePost(id, post);
+    // Redux types set as action types ("UPDATE")
+    dispatch({ type: "UPDATE", payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// then go to src/reducers/posts to handle the logic of fetching the posts
+export { getPosts, createPostAction, updatePostAction };

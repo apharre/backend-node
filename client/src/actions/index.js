@@ -1,4 +1,4 @@
-import { getPosts, createPostAction } from "./posts";
+import { getPosts, createPostAction, updatePostAction } from "./posts";
 import getVehicles from "./vehicles";
 
-export { getPosts, createPostAction, getVehicles };
+export { getPosts, createPostAction, updatePostAction, getVehicles };

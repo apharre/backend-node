@@ -1,13 +1,14 @@
 import React from "react";
 import { Grid, CircularProgress } from "@material-ui/core";
 import { useSelector } from "react-redux";
-// pulls data from /src/reducers/posts.js
+import PropTypes from "prop-types";
 
+// pulls data from /src/reducers/posts.js
 import Post from "./Post/Post";
 
 import useStyles from "./styles";
 
-function Posts() {
+function Posts({ setCurrentId }) {
   // the state is the whole global redux store or state.
   // this is found in src/reducers/index.js
   const posts = useSelector((state) => state.posts);
@@ -28,11 +29,15 @@ function Posts() {
       {posts.map((post) => (
         // eslint-disable-next-line no-underscore-dangle
         <Grid key={post._id} item xs={12} sm={6}>
-          <Post post={post} />
+          <Post post={post} setCurrentId={setCurrentId} />
         </Grid>
       ))}
     </Grid>
   );
 }
+
+Posts.propTypes = {
+  setCurrentId: PropTypes.func.isRequired,
+};
 
 export default Posts;
