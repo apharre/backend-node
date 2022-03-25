@@ -14,11 +14,10 @@ import moment from "moment";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 
-import { deletePostAction } from "../../../actions/posts";
+import { deletePostAction, likePostAction } from "../../../actions/posts";
 import useStyles from "./styles";
 
 function Posts({ post, setCurrentId }) {
-  // console.log(post);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -56,15 +55,23 @@ function Posts({ post, setCurrentId }) {
         {post.title}
       </Typography>
       <CardContent>
-        <Typography className={classes.title} variant="h5" gutterBottom>
+        <Typography
+          className={classes.title}
+          variant="body2"
+          color="textSecondary"
+          component="p"
+        >
           {post.message}
         </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" onClick={() => {}}>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => dispatch(likePostAction(post._id))}
+        >
           <ThumbUpAltIcon fontSize="small" />
-          Like
-          {post.likeCount}
+          Like {post.likeCount}
         </Button>
         <Button
           size="small"

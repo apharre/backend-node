@@ -27,5 +27,9 @@ const deletePost = (id) => {
   axios.delete(`${url}/${id}`);
 };
 
-export { fetchPosts, createPost, updatePost, deletePost };
+const likePost = (id) => {
+  axios.patch(`${url}/${id}/likePost`);
+};
+
+export { fetchPosts, createPost, updatePost, deletePost, likePost };
 // then go to src/actions/posts.js to add the updated function
