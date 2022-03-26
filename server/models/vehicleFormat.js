@@ -6,9 +6,10 @@ const vehicleSchema = mongoose.Schema({
   speed: Number,
   count: Number,
   temp: Number,
-  date: Date,
+  date: Number,
+  test_time: String,
 });
 
-const VehicleDocument = mongoose.model('vehicleDocument', vehicleSchema);
+const VehicleDocument = mongoose.model('i-25-mm-99-test', vehicleSchema);
 
 export default VehicleDocument;
