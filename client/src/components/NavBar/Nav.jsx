@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 // import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
+import useStyles from "./style"; // "./styles";
 
 import gopherRipped from "../../images/gopherRipped.png"; // "./images/gopherRipped.png";
 
@@ -21,6 +22,7 @@ const pages = ["Map", "Posts", "Contact Us"];
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   // const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const classes = useStyles();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -38,8 +40,8 @@ function ResponsiveAppBar() {
   // };
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
+    <AppBar position="static" className={classes.navBar}>
+      <Container maxWidth={false}>
         <Toolbar disableGutters>
           <Typography
             variant="h6"

@@ -19,7 +19,7 @@ import NavBarRoutes from "./components/Routes/NavBarRoutes";
 
 function App() {
   return (
-    <Container>
+    <Container maxWidth={false}>
       <ResponsiveAppBar />
       <NavBarRoutes />
     </Container>
