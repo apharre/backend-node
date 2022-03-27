@@ -25,7 +25,7 @@ const getPosts = () => async (dispatch) => {
     dispatch({ type: FETCH_ALL, payload: data });
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.log(error.message);
+    console.log(error);
   }
 };
 

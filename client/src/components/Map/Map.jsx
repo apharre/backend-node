@@ -8,8 +8,14 @@ import {
   // InfoWindow,
 } from "@react-google-maps/api";
 // import Container from "@mui/material/Container";
+// import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { CircularProgress } from "@material-ui/core";
+
 import mapStyles from "./mapStyles";
 import cameraIcon from "./Icons/camera_icon.png";
+
+// import { getAllCameras } from "../../actions"; //               UNCOMMENT
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -21,14 +27,6 @@ const center = {
   lng: -104.99025,
 };
 
-// const myStyles = [
-//   {
-//     featureType: "poi",
-//     elementType: "labels",
-//     stylers: [{ visibility: "off" }],
-//   },
-// ];
-
 const options = {
   styles: mapStyles,
   disableDefaultUI: true,
@@ -36,7 +34,14 @@ const options = {
 };
 
 function Map() {
-  const [markers, setMarkers] = React.useState([]);
+  // const dispatch = useDispatch();
+  // const cameraInfo = dispatch(getAllCameras());
+  // console.log(cameraInfo);
+
+  const cameras = useSelector((state) => state.cameras);
+  console.log(cameras);
+
+  // const [cameras, setCameras] = React.useState([]);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyAiRGEqlNf4ACBA6RfhVKdgkb5c_DUhbQY", // process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -46,25 +51,27 @@ function Map() {
   if (loadError) return "Error Loading Maps";
   if (!isLoaded) return "Loading Maps";
 
-  return (
+  return !cameras.length ? (
+    <CircularProgress />
+  ) : (
     <div>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={12}
         center={center}
         options={options}
-        onClick={(event) => {
-          setMarkers((current) => [
-            ...current,
-            {
-              lat: event.latLng.lat(),
-              lng: event.latLng.lng(),
-              time: new Date(),
-            },
-          ]);
-        }}
+        // onClick={(event) => {
+        //   setCameras((current) => [
+        //     ...current,
+        //     {
+        //       lat: event.latLng.lat(),
+        //       lng: event.latLng.lng(),
+        //       time: new Date(),
+        //     },
+        //   ]);
+        // }}
       >
-        {markers.map((marker) => (
+        {cameras.map((marker) => (
           <Marker
             key={marker.time.toISOString()}
             position={{ lat: marker.lat, lng: marker.lng }}
