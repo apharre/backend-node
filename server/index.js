@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 
 import postRoutes from './routes/posts.js';
 import vehicleRoutes from './routes/vehicleRoutes.js';
+import cameraRoutes from './routes/cameraRoutes.js';
 
 const app = express();
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(cors());
 // every route inside postRoutes starts with "post"
 app.use('/posts', postRoutes);
 app.use('/vehicles', vehicleRoutes);
+app.use('/cameras', cameraRoutes);
 
 /* *************** MongoDB Connection *************** */
 const PORT = process.env.PORT || 5000;
