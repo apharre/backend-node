@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Map from "../Map/Map";
 import PostPage from "../PostPage/PostPage";
-import Chart from "../Chart/Chart";
+import LineChart from "../Chart/Chart";
 // import App from "../../App";
 
 function NavBarRoutes() {
@@ -12,7 +12,7 @@ function NavBarRoutes() {
       {/* <Route path="/" element={<App />} /> */}
       <Route path="/map" element={<Map />} />
       <Route path="/posts" element={<PostPage />} />
-      <Route path="/chart" element={<Chart />} />
+      <Route path="/chart" element={<LineChart />} />
     </Routes>
   );
 }
