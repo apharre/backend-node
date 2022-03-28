@@ -1,14 +1,14 @@
-import { FETCH_ALL, UPDATE } from "../constants/actionTypes";
+import { FETCH_ALL } from "../constants/actionTypes";
 
 // eslint-disable-next-line default-param-last
-export default (cameras = [], action) => {
+const cameraReducer = (state = [], action) => {
   switch (action.type) {
     case FETCH_ALL:
       return action.payload;
-    case UPDATE:
-      return action.payload;
 
     default:
-      return cameras;
+      return state;
   }
 };
+
+export default cameraReducer;

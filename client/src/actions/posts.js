@@ -6,7 +6,6 @@ import {
   deletePost,
   likePost,
 } from "../api/index";
-
 import { CREATE, UPDATE, DELETE, FETCH_ALL } from "../constants/actionTypes";
 
 // Action creators - functions that return actions

@@ -1,4 +1,4 @@
-import { fetchCameras } from "../api/cameras";
+import { fetchCameras } from "../api/index";
 import { FETCH_ALL } from "../constants/actionTypes";
 
 const getAllCameras = () => async (dispatch) => {

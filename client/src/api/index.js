@@ -1,35 +1,52 @@
-import axios from "axios";
+import {
+  fetchPosts,
+  createPost,
+  updatePost,
+  deletePost,
+  likePost,
+} from "./posts";
 
-const url = "http://localhost:5000/posts";
+import { fetchCameras, fillerFunctionCamera } from "./cameras";
+// import axios from "axios";
 
-// function fetchPosts() {
-//   axios.get(url);
-// }
+// const url = "http://localhost:5000/posts";
 
-const fetchPosts = () => {
-  return axios.get(url);
-};
+// // function fetchPosts() {
+// //   axios.get(url);
+// // }
 
-// for submitting the form on the main page
-// function createPost(newPost) {
+// const fetchPosts = () => {
+//   return axios.get(url);
+// };
+
+// // for submitting the form on the main page
+// // function createPost(newPost) {
+// //   axios.post(url, newPost);
+// // }
+// const createPost = (newPost) => {
 //   axios.post(url, newPost);
-// }
-const createPost = (newPost) => {
-  axios.post(url, newPost);
-};
+// };
 
-// instantaneous return, so arrow function
-const updatePost = (id, updatedPost) => {
-  axios.patch(`${url}/${id}`, updatedPost);
-};
+// // instantaneous return, so arrow function
+// const updatePost = (id, updatedPost) => {
+//   axios.patch(`${url}/${id}`, updatedPost);
+// };
 
-const deletePost = (id) => {
-  axios.delete(`${url}/${id}`);
-};
+// const deletePost = (id) => {
+//   axios.delete(`${url}/${id}`);
+// };
 
-const likePost = (id) => {
-  axios.patch(`${url}/${id}/likePost`);
-};
+// const likePost = (id) => {
+//   axios.patch(`${url}/${id}/likePost`);
+// };
 
-export { fetchPosts, createPost, updatePost, deletePost, likePost };
+export {
+  fetchPosts,
+  createPost,
+  updatePost,
+  deletePost,
+  likePost,
+  fetchCameras,
+  fillerFunctionCamera,
+};
 // then go to src/actions/posts.js to add the updated function

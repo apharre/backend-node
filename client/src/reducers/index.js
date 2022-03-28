@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 
-import posts from "./posts";
-import cameras from "./cameras";
+import postReducer from "./posts";
+import cameraReducer from "./cameras";
 // Combine all reducers from all over the app. posts: posts are the same, so keep just the single word
-export default combineReducers({
-  posts,
-  cameras,
+const rootReducer = combineReducers({
+  posts: postReducer,
+  cameras: cameraReducer,
 });
+
+export default rootReducer;
