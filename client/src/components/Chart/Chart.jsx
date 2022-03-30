@@ -11,8 +11,10 @@ import {
   Filler,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import { Grid } from "@mui/material";
 import faker from "faker";
 import useStyles from "./styles";
+import ChartForm from "./chartForm/ChartForm";
 
 ChartJS.register(
   CategoryScale,
@@ -60,7 +62,16 @@ export const data = {
 
 function LineChart() {
   const classes = useStyles();
-  return <Line className={classes.lineChart} options={options} data={data} />;
+  return (
+    <Grid container alignItems="stretch">
+      <Grid xs={2} md={2}>
+        <ChartForm />
+      </Grid>
+      <Grid xs={9} md={9}>
+        <Line className={classes.lineChart} options={options} data={data} />
+      </Grid>
+    </Grid>
+  );
 }
 
 export default LineChart;

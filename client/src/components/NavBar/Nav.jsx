@@ -12,17 +12,17 @@ import Button from "@mui/material/Button";
 // import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
-import useStyles from "./style"; // "./styles";
+// import useStyles from "./style"; // "./styles";
 
 import gopherRipped from "../../images/gopherRipped.png"; // "./images/gopherRipped.png";
 
-const pages = ["Map", "Posts", "Contact Us"];
+const pages = ["Map", "Posts", "Chart", "Contact Us"];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   // const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const classes = useStyles();
+  // const classes = useStyles();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -40,7 +40,7 @@ function ResponsiveAppBar() {
   // };
 
   return (
-    <AppBar position="static" className={classes.navBar}>
+    <AppBar position="static">
       <Container maxWidth={false}>
         <Toolbar disableGutters>
           <Typography
@@ -106,7 +106,7 @@ function ResponsiveAppBar() {
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 <Link
-                  style={{ textDecoration: "none", color: "white" }}
+                  style={{ textDecoration: "none", color: "black" }}
                   to={`/${page}`}
                 >
                   {page}
