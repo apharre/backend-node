@@ -143,13 +143,6 @@ function ChartForm() {
               {tempOption}
             </MenuItem>
           ))}
-          {/* <MenuItem value="All">All</MenuItem>
-          <MenuItem value="0-32">0-32</MenuItem>
-          <MenuItem value="32-50">32-50</MenuItem>
-          <MenuItem value="50-60">50-60</MenuItem>
-          <MenuItem value="60-70">60-70</MenuItem>
-          <MenuItem value="70-80">70-80</MenuItem>
-          <MenuItem value="80+">80+</MenuItem> */}
         </Select>
         <Button
           className={classes.buttonSubmit}

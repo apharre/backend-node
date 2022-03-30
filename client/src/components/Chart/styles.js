@@ -23,5 +23,9 @@ export default makeStyles(() => ({
   // },
   lineChart: {
     background: "white",
+    // height: "100%",
+    height: "max-content",
+    width: "100%",
+    // item: { display: "flex" },
   },
 }));
