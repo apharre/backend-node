@@ -24,7 +24,13 @@ import useStyles from "./styles";
 
 // eslint-disable-next-line no-unused-vars
 const timeOptions = ["Past Hour", "Past Day", "Past Week", "Past Month"];
-const vehicleOptions = ["All", "Commuter", "Truck", "Bus", "Emergency"];
+const vehicleOptions = [
+  "All",
+  "Commuter",
+  "Tractor Trailer",
+  "Bus",
+  "Emergency",
+];
 const laneOptions = ["All", "1", "2", "3", "4"];
 const speedOptions = ["All", "0-50", "50-60", "60-70", "70+"];
 // const count = null;

@@ -61,8 +61,9 @@ export const options = {
       stepSize: 5,
     },
     x: {
-      suggestedMin: 1647, // ,
+      suggestedMin: 1645, // ,
       suggestedMax: 1650, // 1648271727,
+      stepSize: 0.5,
     },
   },
 };
@@ -106,12 +107,13 @@ function LineChart({ vehicleData }) {
   console.log(vehicleTime);
 
   const chartData = {
-    vehicleTime,
+    labels: vehicleTime,
     datasets: [
       {
         label: "First Car Plot",
-        data: vehicleTime.map(() => vehicleSpeed),
-        borderColr: "rgb(53, 162, 235)",
+        // data: vehicleTime.map(() => vehicleSpeed),
+        data: vehicleSpeed,
+        borderColor: "rgb(53, 162, 235)",
       },
     ],
   };
