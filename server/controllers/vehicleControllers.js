@@ -7,13 +7,13 @@ const getAllVehicles = asyncHandler(async (req, res, next) => {
 
   const reqQuery = { ...req.query };
   // {price: {lte: '900'}, sort: "-price" }
-  const removeFields = ['sort'];
-  removeFields.forEach((val) => delete reqQuery[val]);
+  // const removeFields = ['sort'];
+  // removeFields.forEach((val) => delete reqQuery[val]);
   let queryStr = JSON.stringify(reqQuery);
   // add a $ in front of each mongo operator for the mongoDB query
   queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, (match) => `$${match}`);
-
-  query = VehicleDocument.find(JSON.parse(queryStr));
+  console.log(queryStr);
+  query = VehicleDocument.find(JSON.parse(queryStr)).sort({ date: 1 });
 
   // 1:10:40 https://www.youtube.com/watch?v=3t_PXFa7i8Q
   if (req.query.sort) {
@@ -21,6 +21,7 @@ const getAllVehicles = asyncHandler(async (req, res, next) => {
     const sortByStr = sortByArr.join(' ');
     query = query.sort(sortByStr);
   }
+  // console.log(query);
   // else {
   //   query = query.sort('-price')
   // }
