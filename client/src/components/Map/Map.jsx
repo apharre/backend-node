@@ -4,9 +4,10 @@ import {
   // MarkerClusterer,
   useLoadScript,
   Marker,
-  InfoWindow,
+  // InfoWindow,
 } from "@react-google-maps/api";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { CircularProgress } from "@material-ui/core";
 
@@ -36,15 +37,17 @@ const options = {
  * Calls the getAllCameras function to retrieve the cameras and display them
  */
 
-function Map() {
+// eslint-disable-next-line react/prop-types, no-unused-vars
+function Map({ currentCamera, setCurrentCamera }) {
   const cameras = useSelector((state) => state.cameras);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getAllCameras());
   }, [dispatch]);
 
-  const [selected, setSelected] = React.useState(null);
+  // const [selected, setSelected] = React.useState(null);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyAiRGEqlNf4ACBA6RfhVKdgkb5c_DUhbQY", // process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -88,11 +91,13 @@ function Map() {
               anchor: new window.google.maps.Point(12, 12),
             }}
             onClick={() => {
-              setSelected(camera);
+              // setSelected(camera);
+              setCurrentCamera(camera);
+              navigate("/Chart");
             }}
           />
         ))}
-        {selected ? (
+        {/* {selected ? (
           <InfoWindow
             position={{ lat: selected.lat, lng: selected.lng }}
             onCloseClick={() => {
@@ -103,7 +108,7 @@ function Map() {
               <p>{selected.name}</p>
             </div>
           </InfoWindow>
-        ) : null}
+        ) : null} */}
       </GoogleMap>
     </div>
   );

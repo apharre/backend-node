@@ -44,6 +44,8 @@ function ChartForm({
   // eslint-disable-next-line no-unused-vars
   urlQuery,
   setUrlQuery,
+  // eslint-disable-next-line no-unused-vars
+  currentCamera,
 }) {
   const classes = useStyles();
   const navigate = useNavigate();
@@ -82,7 +84,7 @@ function ChartForm({
           {/* <form autoComplete="off" noValidate onSubmit={handleSubmit}> */}
           <Typography className={classes.menuTitle} variant="h6">
             {/* TODO: get camera name here */}
-            Camera Name
+            {currentCamera.name}
           </Typography>
           <InputLabel className={classes.inputLabel}>Timeframe</InputLabel>
           <Select

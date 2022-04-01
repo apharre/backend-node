@@ -10,7 +10,8 @@ import ChartForm from "./chartForm/ChartForm";
 import { GET } from "../../constants/actionTypes";
 import LineChart from "./LineChart/LineChart";
 
-function ChartPage() {
+// eslint-disable-next-line react/prop-types, no-unused-vars
+function ChartPage({ currentCamera, setCurrentCamera }) {
   const navigate = useNavigate();
   const location = useLocation();
   console.log(location.search);
@@ -85,6 +86,8 @@ function ChartPage() {
                 urlQuery={urlQuery}
                 setUrlQuery={setUrlQuery}
                 navigate={navigate}
+                currentCamera={currentCamera}
+                setCurrentCamera={setCurrentCamera}
               />
             </Grid>
             <Grid item xs={9} md={9}>
@@ -93,7 +96,10 @@ function ChartPage() {
                 options={options}
                 data={chartFormattingdata}
               /> */}
-              <LineChart vehicleData={vehicleData} />
+              <LineChart
+                vehicleData={vehicleData}
+                currentCamera={currentCamera}
+              />
             </Grid>
           </>
         )}

@@ -41,53 +41,8 @@ ChartJS.register(
   Filler
 );
 
-// export const options = {
-//   responsive: true,
-//   plugins: {
-//     legend: {
-//       position: "top",
-//     },
-//     title: {
-//       display: true,
-//       text: "Apharre Line Chart",
-//     },
-//   },
-//   scales: {
-//     y: {
-//       suggestedMin: 40,
-//       suggestedMax: 100,
-//       stepSize: 5,
-//     },
-//     x: {
-//       suggestedMin: 164500000, // ,
-//       suggestedMax: 165000000, // 1648271727,
-//       stepSize: 0.5,
-//     },
-//   },
-// };
-
-// const labels = ["January", "February", "March", "April", "May", "June", "July"];
-// export const chartFormattingdata = {
-//   labels,
-//   datasets: [
-//     {
-//       label: "Dataset 1",
-//       data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-//       borderColor: "rgb(255, 99, 132)",
-//       backgroundColor: "rgba(255, 99, 132, 0.5)",
-//     },
-//     {
-//       label: "Dataset 2",
-//       data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-//       borderColor: "rgb(53, 162, 235)",
-//       backgroundColor: "rgba(53, 162, 235, 0.5)",
-//     },
-//   ],
-// };
-// console.log(chartFormattingdata);
-
 // eslint-disable-next-line no-unused-vars, react/prop-types
-function LineChart({ vehicleData }) {
+function LineChart({ vehicleData, currentCamera }) {
   const classes = useStyles();
 
   // all Commuter vehicle types
@@ -128,7 +83,7 @@ function LineChart({ vehicleData }) {
   };
   // console.log(chartData);
 
-  const options = chartFormattingOptions(vehicleSpeed, vehicleTime);
+  const options = chartFormattingOptions(vehicleSpeed, currentCamera.name);
 
   return (
     <Line className={classes.lineChart} options={options} data={chartData} />
