@@ -10,7 +10,6 @@ function NavBarRoutes() {
   const [currentCamera, setCurrentCamera] = useState("");
   return (
     <Routes>
-      {/* <Route path="/" element={<App />} /> */}
       <Route
         path="/map"
         element={

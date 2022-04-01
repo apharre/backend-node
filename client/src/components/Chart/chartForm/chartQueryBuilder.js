@@ -3,7 +3,14 @@ function returnQuery(variable, min, max) {
   return `${variable}[gte]=${min}&${variable}[lte]${max}&`;
 }
 
-function chartQueryBuilder(date, vehicleType, lane, speed, temp) {
+function chartQueryBuilder(
+  currentCamera,
+  date,
+  vehicleType,
+  lane,
+  speed,
+  temp
+) {
   // var vehicleQuery = "?";
   let vehicleQuery = "";
   let laneQuery = "";
@@ -77,8 +84,12 @@ function chartQueryBuilder(date, vehicleType, lane, speed, temp) {
     default:
       break;
   }
+  // TODO: HARDCODING CAMERA COLLECTIONS
+  const result = `?<${currentCamera}>${timeQuery}${vehicleQuery}${laneQuery}${speedQuery}${tempQuery}`;
+  console.log(result);
+  return result;
 
-  return `?${timeQuery}${vehicleQuery}${laneQuery}${speedQuery}${tempQuery}`;
+  // return `?${timeQuery}${vehicleQuery}${laneQuery}${speedQuery}${tempQuery}`;
 }
 
 export default chartQueryBuilder;

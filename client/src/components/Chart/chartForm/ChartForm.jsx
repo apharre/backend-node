@@ -62,14 +62,28 @@ function ChartForm({
   //   buildParamFilter(date, vehicleType, lane, speed, temp)
   // };
 
+  // // eslint-disable-next-line no-shadow, no-unused-vars
+  // const handleSubmit = (event) => {
+  //   const urlFilter = chartQueryBuilder(date, vehicleType, lane, speed, temp);
+  //   console.log(urlFilter);
+  //   setUrlQuery(urlFilter);
+  //   navigate(urlFilter);
+  // };
+
+  // TODO: HARDCODING THE CAMERAS, SO CHANGE THIS LATER
   // eslint-disable-next-line no-shadow, no-unused-vars
   const handleSubmit = (event) => {
-    const urlFilter = chartQueryBuilder(date, vehicleType, lane, speed, temp);
+    const urlFilter = chartQueryBuilder(
+      currentCamera.vehicle_collection,
+      date,
+      vehicleType,
+      lane,
+      speed,
+      temp
+    );
     console.log(urlFilter);
     setUrlQuery(urlFilter);
     navigate(urlFilter);
-    // console.log(timeFrame, vehicleType, lane, speed, temp);
-    // buildParamFilter(date, vehicleType, lane, speed, temp);
   };
 
   return (

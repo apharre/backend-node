@@ -23,12 +23,6 @@ import {
 } from "./chartFunctions";
 
 import useStyles from "../styles";
-// import axios from "axios";
-
-// import { CircularProgress, Container } from "@material-ui/core";
-// import useStyles from "./styles";
-// import ChartForm from "./chartForm/ChartForm";
-// import { GET } from "../../constants/actionTypes";
 
 ChartJS.register(
   CategoryScale,

@@ -48,7 +48,6 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
         } else {
           query = urlQuery;
         }
-
         const { data } = await axios({
           method: GET,
           url: `/vehicles${query}`,
