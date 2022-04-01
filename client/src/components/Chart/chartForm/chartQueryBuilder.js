@@ -85,7 +85,7 @@ function chartQueryBuilder(
       break;
   }
   // TODO: HARDCODING CAMERA COLLECTIONS
-  const result = `?<${currentCamera}>${timeQuery}${vehicleQuery}${laneQuery}${speedQuery}${tempQuery}`;
+  const result = `?${timeQuery}${vehicleQuery}${laneQuery}${speedQuery}${tempQuery}`;
   console.log(result);
   return result;
 
