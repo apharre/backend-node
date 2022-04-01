@@ -6,7 +6,6 @@ import {
   deletePost,
   likePost,
 } from "../api/index";
-
 import { CREATE, UPDATE, DELETE, FETCH_ALL } from "../constants/actionTypes";
 
 // Action creators - functions that return actions
@@ -25,7 +24,7 @@ const getPosts = () => async (dispatch) => {
     dispatch({ type: FETCH_ALL, payload: data });
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.log(error.message);
+    console.log(error);
   }
 };
 
