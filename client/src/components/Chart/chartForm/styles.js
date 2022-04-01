@@ -20,7 +20,7 @@ export default makeStyles((theme) => ({
   },
   form: {
     display: "flex",
-    flexWrap: "wrap",
+    // flexWrap: "wrap",
     justifyContent: "center",
     marginLeft: "5px",
   },
@@ -34,12 +34,14 @@ export default makeStyles((theme) => ({
     width: "75%",
   },
   inputLabel: {
-    margin: "5px 20px 5px",
+    margin: "5px 20px 0px",
     width: "75%",
     position: "relative",
+    fontSize: "1rem",
   },
   dropdownMenu: {
     width: "75%",
-    margin: "5px 20px 5px",
+    margin: "0px 20px 5px",
+    fontSize: "1rem",
   },
 }));

@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Map from "../Map/Map";
 import PostPage from "../PostPage/PostPage";
-import ChartPage from "../Chart/Chart";
+import ChartPage from "../Chart/ChartPage";
 // import App from "../../App";
 
 function NavBarRoutes() {
