@@ -36,7 +36,7 @@ ChartJS.register(
 );
 
 // eslint-disable-next-line no-unused-vars, react/prop-types
-function LineChart({ vehicleData, currentCamera }) {
+function LineChart({ vehicleData, currentCamera, chartFilters }) {
   const classes = useStyles();
 
   // all Commuter vehicle types
@@ -46,18 +46,71 @@ function LineChart({ vehicleData, currentCamera }) {
 
   const vehicleSpeed = [];
   vehicleData.forEach((vehicle) => vehicleSpeed.push(vehicle.speed));
-  for (let i = 0; i < 100; i += 1) {
-    vehicleSpeed.push(77 + Math.floor(Math.random() * 15));
-  }
-  // console.log(vehicleSpeed);
+  // for (let i = 0; i < 100; i += 1) {
+  //   vehicleSpeed.push(77 + Math.floor(Math.random() * 15));
+  // }
+
+  const commuterSpeed = [];
+  const truckSpeed = [];
+  const busSpeed = [];
+  const motorcycleSpeed = [];
 
   // all timestamps
   const vehicleTime = [];
+  let myDataset = [];
   vehicleData.forEach((vehicle) => vehicleTime.push(vehicle.date));
-  for (let i = 0; i < 100; i += 1) {
-    vehicleTime.push(1648271727 + Math.floor(Math.random() * 15000));
-  }
+  // for (let i = 0; i < 100; i += 1) {
+  //   vehicleTime.push(1648271727 + Math.floor(Math.random() * 15000));
+  // }
   // console.log(vehicleTime);
+
+  if (chartFilters.vehicleType === "All") {
+    vehicleData.forEach((vehicle) => {
+      if (vehicle.type === "commuter") {
+        commuterSpeed.push(vehicle.speed);
+      } else if (vehicle.type === "truck") {
+        truckSpeed.push(vehicle.speed);
+      } else if (vehicle.type === "bus") {
+        busSpeed.push(vehicle.speed);
+      } else if (vehicle.type === "motorcycle") {
+        motorcycleSpeed.push(vehicle.speed);
+      } else {
+        commuterSpeed.push(vehicle.speed);
+      }
+    });
+
+    myDataset = [
+      {
+        label: "Commuter",
+        data: commuterSpeed,
+        borderColor: "rgb(53, 162, 235)",
+      },
+      {
+        label: "Truck",
+        data: truckSpeed,
+        // backgroundColor: "#35fc03",
+        borderColor: "rgb(53, 252, 3)",
+      },
+      {
+        label: "Bus",
+        data: busSpeed,
+        borderColor: "rgb(173, 113, 134)",
+      },
+      {
+        label: "Motorcycle",
+        data: motorcycleSpeed,
+        borderColor: "rgb(252, 186, 3)",
+      },
+    ];
+  } else {
+    myDataset = [
+      {
+        label: "First Car Plot",
+        data: vehicleSpeed,
+        borderColor: "rgb(53, 162, 235)",
+      },
+    ];
+  }
 
   const chartData = {
     // TODO: date vs time for the true variable
@@ -66,14 +119,15 @@ function LineChart({ vehicleData, currentCamera }) {
     //   breakArrayIntoTenTicks(vehicleTime)
     // ),
     labels: convertUSTtoDateTime(vehicleTime),
-    datasets: [
-      {
-        label: "First Car Plot",
-        // data: vehicleTime.map(() => vehicleSpeed),
-        data: vehicleSpeed,
-        borderColor: "rgb(53, 162, 235)",
-      },
-    ],
+    datasets: myDataset,
+    // [
+    //   {
+    //     label: "First Car Plot",
+    //     // data: vehicleTime.map(() => vehicleSpeed),
+    //     data: vehicleSpeed,
+    //     borderColor: "rgb(53, 162, 235)",
+    //   },
+    // ],
   };
   // console.log(chartData);
 

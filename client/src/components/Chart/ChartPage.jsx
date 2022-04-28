@@ -14,7 +14,6 @@ import LineChart from "./LineChart/LineChart";
 function ChartPage({ currentCamera, setCurrentCamera }) {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.search);
 
   const params = location.search ? location.search : null;
 
@@ -90,14 +89,10 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
               />
             </Grid>
             <Grid item xs={9} md={9}>
-              {/* <Line
-                className={classes.lineChart}
-                options={options}
-                data={chartFormattingdata}
-              /> */}
               <LineChart
                 vehicleData={vehicleData}
                 currentCamera={currentCamera}
+                chartFilters={chartFilters}
               />
             </Grid>
           </>
