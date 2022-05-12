@@ -3,15 +3,18 @@ import {
   GoogleMap,
   // MarkerClusterer,
   useLoadScript,
-  Marker,
+  // Marker,
   InfoWindow,
 } from "@react-google-maps/api";
 import { useSelector, useDispatch } from "react-redux";
 
 import { CircularProgress } from "@material-ui/core";
 
+import MyMarker from "./MyMarker";
 import mapStyles from "./mapStyles";
-import cameraIcon from "./Icons/camera_icon_black.png";
+// import cameraIconBlack from "./Icons/camera_icon_black.png";
+// import cameraIconOrange from "./Icons/camera_icon_orange.png";
+// import cameraIconRed from "./Icons/camera_icon_red.png";
 
 // import { getAllCameras } from "../../actions";
 import { getAllCameras } from "../../actions";
@@ -63,23 +66,19 @@ function Map() {
         zoom={11}
         center={center}
         options={options}
-        // onClick={(event) => {
-        //   setCameras((current) => [
-        //     ...current,
-        //     {
-        //       lat: event.latLng.lat(),
-        //       lng: event.latLng.lng(),
-        //       time: new Date(),
-        //     },
-        //   ]);
-        // }}
       >
         {cameras.map((camera) => (
-          <Marker
+          <MyMarker
+            key={camera._id}
+            camera={camera}
+            setSelected={setSelected}
+          />
+          /* {<Marker
             key={camera._id}
             position={{ lat: camera.lat, lng: camera.lng }}
+            // change the color of the camera icon
             icon={{
-              url: cameraIcon,
+              url: cameraIconBlack,
               // eslint-disable-next-line no-undef
               scaledSize: new window.google.maps.Size(25, 25),
               // eslint-disable-next-line no-undef
@@ -90,7 +89,7 @@ function Map() {
             onClick={() => {
               setSelected(camera);
             }}
-          />
+          /> } */
         ))}
         {selected ? (
           <InfoWindow
