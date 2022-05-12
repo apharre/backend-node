@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { CircularProgress } from "@material-ui/core";
 
 import mapStyles from "./mapStyles";
-import cameraIcon from "./Icons/camera_icon.png";
+import cameraIcon from "./Icons/camera_icon_black.png";
 
 // import { getAllCameras } from "../../actions";
 import { getAllCameras } from "../../actions";
@@ -101,6 +101,7 @@ function Map() {
           >
             <div>
               <p>{selected.name}</p>
+              <p>Traffic flow is {selected.status}</p>
             </div>
           </InfoWindow>
         ) : null}

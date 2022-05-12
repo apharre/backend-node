@@ -13,7 +13,7 @@ export default [
     elementType: "all",
     stylers: [
       {
-        color: "#be0c0c",
+        color: "#a8dab5",
       },
     ],
   },
@@ -22,7 +22,7 @@ export default [
     elementType: "geometry.fill",
     stylers: [
       {
-        hue: "#ff0000",
+        hue: "#91bf9d",
       },
     ],
   },
@@ -34,7 +34,7 @@ export default [
         visibility: "on",
       },
       {
-        color: "#e5f7b2",
+        color: "#8ab896",
       },
     ],
   },
