@@ -76,7 +76,10 @@ function Map() {
           />
         ))}
         {selected ? (
-          <InfoWindow position={{ lat: selected.lat, lng: selected.lng }}>
+          <InfoWindow
+            keyForWindow={selected._id}
+            position={{ lat: selected.lat, lng: selected.lng }}
+          >
             <div>
               <p>{selected.name}</p>
               <p>WB Traffic flow is {selected.status}</p>

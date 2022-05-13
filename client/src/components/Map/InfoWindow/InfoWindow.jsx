@@ -5,7 +5,10 @@ import { InfoWindow } from "@react-google-maps/api";
 // eslint-disable-next-line react/prop-types
 function InfoWindowDisplay({ selected }) {
   return (
-    <InfoWindow position={{ lat: selected.lat, lng: selected.lng }}>
+    <InfoWindow
+      keyForWindow={selected._id}
+      position={{ lat: selected.lat, lng: selected.lng }}
+    >
       <div>
         <p>{selected.name}</p>
         <p>WB Traffic flow is {selected.status}</p>
