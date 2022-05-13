@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { CircularProgress } from "@material-ui/core";
 
-import CustomMarker from "./CustomMarker";
+import CustomMarker from "./InfoWindow/CustomMarker";
 import mapStyles from "./mapStyles";
 // import cameraIconBlack from "./Icons/camera_icon_black.png";
 // import cameraIconOrange from "./Icons/camera_icon_orange.png";
