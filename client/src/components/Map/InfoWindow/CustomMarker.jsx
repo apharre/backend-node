@@ -26,7 +26,7 @@ function CustomMarker({ key, camera, setSelected }) {
       icon={{
         url: iconColor,
         // eslint-disable-next-line no-undef
-        scaledSize: new window.google.maps.Size(25, 25),
+        scaledSize: new window.google.maps.Size(22, 22),
         // eslint-disable-next-line no-undef
         origin: new window.google.maps.Point(0, 0),
         // eslint-disable-next-line no-undef

@@ -4,17 +4,15 @@ import {
   // MarkerClusterer,
   useLoadScript,
   // Marker,
-  InfoWindow,
+  // InfoWindow,
 } from "@react-google-maps/api";
 import { useSelector, useDispatch } from "react-redux";
 
 import { CircularProgress } from "@material-ui/core";
 
 import CustomMarker from "./InfoWindow/CustomMarker";
+import InfoWindowDisplay from "./InfoWindow/InfoWindowDisplay";
 import mapStyles from "./mapStyles";
-// import cameraIconBlack from "./Icons/camera_icon_black.png";
-// import cameraIconOrange from "./Icons/camera_icon_orange.png";
-// import cameraIconRed from "./Icons/camera_icon_red.png";
 
 // import { getAllCameras } from "../../actions";
 import { getAllCameras } from "../../actions";
@@ -76,18 +74,7 @@ function Map() {
           />
         ))}
         {selected ? (
-          <InfoWindow
-            keyForWindow={selected._id}
-            position={{ lat: selected.lat, lng: selected.lng }}
-          >
-            <div>
-              <p>{selected.name}</p>
-              <p>WB Traffic flow is {selected.status}</p>
-              <p>EB Traffic flow is {selected.status}</p>
-              <p>WB Avg Speed past 30 minutes: 63</p>
-              <p>EB Avg Speed past 30 minutes: 62</p>
-            </div>
-          </InfoWindow>
+          <InfoWindowDisplay key={selected._id} selected={selected} />
         ) : null}
       </GoogleMap>
     </div>
