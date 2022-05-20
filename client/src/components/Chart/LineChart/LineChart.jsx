@@ -14,6 +14,9 @@ import {
 import { Line } from "react-chartjs-2";
 // import faker from "faker";
 
+// EXAMPLE HERE FOR MORE OF WHAT WE WANT
+// https://codesandbox.io/s/zl8u4?file=/src/components/Line.tsx:816-926
+
 import {
   // convertUSTtoHourMinSec,
   // breakArrayIntoTenTicks,

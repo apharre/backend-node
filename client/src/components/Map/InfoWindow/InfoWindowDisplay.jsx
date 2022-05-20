@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-// import Math from ;
 import { InfoWindow } from "@react-google-maps/api";
 import { Table } from "@mantine/core";
-// import { fontWeight } from "@mui/system";
 
-// eslint-disable-next-line react/prop-types
 function InfoWindowDisplay({ key, selected }) {
+  /** TEMPORARY DIRECTION INFORMATION UNTIL BACKEND IS FIGURED OUT */
+  // Flickering due to content being created as it is being loaded into infowindow
   let directionOne;
   let directionTwo;
   let speedOne;
@@ -42,15 +41,15 @@ function InfoWindowDisplay({ key, selected }) {
         <tbody>
           <tr>
             <td>Traffic Status</td>
-            <td>{selected.status}</td>
+            <td align="right">{selected.status}</td>
           </tr>
           <tr>
             <td>{directionOne} Avg Speed Last 30 min</td>
-            <td>{speedOne}</td>
+            <td align="right">{speedOne}</td>
           </tr>
           <tr>
             <td>{directionTwo} Avg Speed Last 30 min</td>
-            <td>{speedTwo}</td>
+            <td align="right">{speedTwo}</td>
           </tr>
         </tbody>
       </Table>
