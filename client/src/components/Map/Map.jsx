@@ -5,9 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { CircularProgress } from "@material-ui/core";
 
-import mapStyles from "./mapStyles";
 import CustomMarker from "./Marker/CustomMarker";
 import InfoWindowDisplay from "./Marker/InfoWindowDisplay";
+import mapStyles from "./mapStyles";
 import { getAllCameras } from "../../actions";
 
 const libraries = ["places"];

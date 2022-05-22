@@ -14,6 +14,9 @@ import {
 import { Line } from "react-chartjs-2";
 // import faker from "faker";
 
+// EXAMPLE HERE FOR MORE OF WHAT WE WANT
+// https://codesandbox.io/s/zl8u4?file=/src/components/Line.tsx:816-926
+
 import {
   // convertUSTtoHourMinSec,
   // breakArrayIntoTenTicks,
@@ -113,24 +116,9 @@ function LineChart({ vehicleData, currentCamera, chartFilters }) {
   }
 
   const chartData = {
-    // TODO: date vs time for the true variable
-    // labels: convertUSTtoHourMinSec(
-    //   //   1648271727
-    //   breakArrayIntoTenTicks(vehicleTime)
-    // ),
     labels: convertUSTtoDateTime(vehicleTime),
     datasets: myDataset,
-    // [
-    //   {
-    //     label: "First Car Plot",
-    //     // data: vehicleTime.map(() => vehicleSpeed),
-    //     data: vehicleSpeed,
-    //     borderColor: "rgb(53, 162, 235)",
-    //   },
-    // ],
   };
-  // console.log(chartData);
-
   const options = chartFormattingOptions(vehicleSpeed, currentCamera.name);
 
   return (
