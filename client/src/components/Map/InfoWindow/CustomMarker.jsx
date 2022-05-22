@@ -6,9 +6,13 @@ import { Marker } from "@react-google-maps/api";
 import cameraIconBlack from "../Icons/camera_icon_green.png";
 import cameraIconOrange from "../Icons/camera_icon_orange.png";
 import cameraIconRed from "../Icons/camera_icon_red.png";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line no-unused-vars
 function CustomMarker({ key, camera, setSelected }) {
+  // allows for navigation from current (map) page to the chart page
+  const navigate = useNavigate();
+
   let iconColor;
 
   if (camera.status === "reduced") {
@@ -37,6 +41,11 @@ function CustomMarker({ key, camera, setSelected }) {
       }}
       onMouseOut={() => {
         setSelected(null);
+      }}
+      onClick={() => {
+        setSelected(camera);
+        // setCurrentCamera(camera);
+        navigate("/Chart");
       }}
     />
   );

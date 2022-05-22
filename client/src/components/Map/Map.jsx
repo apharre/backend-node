@@ -7,7 +7,6 @@ import {
   // InfoWindow,
 } from "@react-google-maps/api";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 import { CircularProgress } from "@material-ui/core";
 
@@ -41,7 +40,6 @@ const options = {
 function Map({ currentCamera, setCurrentCamera }) {
   const cameras = useSelector((state) => state.cameras);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getAllCameras());
@@ -58,6 +56,56 @@ function Map({ currentCamera, setCurrentCamera }) {
   if (!isLoaded) return "Loading Maps";
 
   return !cameras.length ? (
+    <CircularProgress />
+  ) : (
+    <div>
+      <GoogleMap
+        mapContainerStyle={mapContainerStyle}
+        zoom={11}
+        center={center}
+        options={options}
+      >
+        {cameras.map((camera) => (
+          <Marker
+            key={camera._id}
+            position={{ lat: camera.lat, lng: camera.lng }}
+            icon={{
+              url: cameraIcon,
+              // eslint-disable-next-line no-undef
+              scaledSize: new window.google.maps.Size(25, 25),
+              // eslint-disable-next-line no-undef
+              origin: new window.google.maps.Point(0, 0),
+              // eslint-disable-next-line no-undef
+              anchor: new window.google.maps.Point(12, 12),
+            }}
+            onClick={() => {
+              // setSelected(camera);
+              setCurrentCamera(camera);
+              navigate("/Chart");
+            }}
+          />
+        ))}
+        {/* {selected ? (
+          <InfoWindow
+            position={{ lat: selected.lat, lng: selected.lng }}
+            onCloseClick={() => {
+              setSelected(null);
+            }}
+          >
+            <div>
+              <p>{selected.name}</p>
+            </div>
+          </InfoWindow>
+        ) : null} */}
+      </GoogleMap>
+    </div>
+  );
+}
+
+export default Map;
+
+/**
+ * return !cameras.length ? (
     <CircularProgress />
   ) : (
     <div>
@@ -108,10 +156,8 @@ function Map({ currentCamera, setCurrentCamera }) {
               <p>{selected.name}</p>
             </div>
           </InfoWindow>
-        ) : null} */}
+        ) : null}
       </GoogleMap>
     </div>
   );
-}
-
-export default Map;
+ */
