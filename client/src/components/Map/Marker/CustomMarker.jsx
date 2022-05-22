@@ -8,18 +8,21 @@ import cameraIconBlack from "../Icons/camera_icon_green.png";
 import cameraIconOrange from "../Icons/camera_icon_orange.png";
 import cameraIconRed from "../Icons/camera_icon_red.png";
 
-// eslint-disable-next-line no-unused-vars
-function CustomMarker({ key, camera, setSelected }) {
+function CustomMarker({ key, camera, setCurrentCamera }) {
   /**
-   * key (str): the unique key for each camera marker on the map
-   * camera (obj): the camera object from the api call
-   * setSelected
+   * The custom marker used in the google map for displaying information
+   *
+   * @param {!key} str the unique key for each camera marker on the map
+   * @param {!camera} obj the camera information from the api call
+   * @param {!setCurrentCamera} func sets the current camera object from the list retrieved in the API call
+   *
+   * @returns {!customMarker} ReactObject the elements that make up a custom marker
    */
+
   // allows for navigation from current (map) page to the chart page
   const navigate = useNavigate();
 
   let iconColor;
-
   if (camera.status === "reduced") {
     iconColor = cameraIconOrange;
   } else if (camera.status === "heavy") {
@@ -42,13 +45,13 @@ function CustomMarker({ key, camera, setSelected }) {
         anchor: new window.google.maps.Point(12, 12),
       }}
       onMouseOver={() => {
-        setSelected(camera);
+        setCurrentCamera(camera);
       }}
       onMouseOut={() => {
-        setSelected(null);
+        setCurrentCamera(null);
       }}
       onClick={() => {
-        setSelected(camera);
+        setCurrentCamera(camera);
         // setCurrentCamera(camera);
         navigate("/Chart");
       }}

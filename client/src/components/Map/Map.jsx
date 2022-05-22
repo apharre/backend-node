@@ -1,11 +1,6 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
-import {
-  GoogleMap,
-  // MarkerClusterer,
-  useLoadScript,
-  // Marker,
-  // InfoWindow,
-} from "@react-google-maps/api";
+import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { useSelector, useDispatch } from "react-redux";
 
 import { CircularProgress } from "@material-ui/core";
@@ -13,7 +8,6 @@ import { CircularProgress } from "@material-ui/core";
 import mapStyles from "./mapStyles";
 import CustomMarker from "./Marker/CustomMarker";
 import InfoWindowDisplay from "./Marker/InfoWindowDisplay";
-// import { getAllCameras } from "../../actions";
 import { getAllCameras } from "../../actions";
 
 const libraries = ["places"];
@@ -32,21 +26,22 @@ const options = {
   zoomControl: true,
 };
 
-/**
- * The map element that is rendered on the map page
- * Calls the getAllCameras function to retrieve the camera info and display them
- */
-
-// eslint-disable-next-line react/prop-types, no-unused-vars
 function Map({ currentCamera, setCurrentCamera }) {
+  /**
+   * The map element that is rendered on the map page
+   * Calls the getAllCameras function to retrieve the camera info and display them
+   *
+   * @param {!currentCamera} obj the current camera that appears in the info box and the charts page
+   * @param {!setCurrentCamera} func a function that sets and resets the current camera object
+   *
+   * @return {!GoogleMap} ReactObject the elements that make up the maps page
+   */
   const cameras = useSelector((state) => state.cameras);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllCameras());
   }, [dispatch]);
-
-  // const [selected, setSelected] = React.useState(null);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: "AIzaSyAiRGEqlNf4ACBA6RfhVKdgkb5c_DUhbQY", // process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -70,13 +65,10 @@ function Map({ currentCamera, setCurrentCamera }) {
           <CustomMarker
             key={camera._id}
             camera={camera}
-            // this could be a PROBLEM
-            setSelected={setCurrentCamera}
+            setCurrentCamera={setCurrentCamera}
           />
         ))}
-        {/* this could be a PROBLEM */}
         {currentCamera ? (
-          // eslint-disable-next-line react/prop-types
           <InfoWindowDisplay key={currentCamera._id} selected={currentCamera} />
         ) : null}
       </GoogleMap>

@@ -4,6 +4,15 @@ import { InfoWindow } from "@react-google-maps/api";
 import { Table } from "@mantine/core";
 
 function InfoWindowDisplay({ key, selected }) {
+  /**
+   * The information window that is diplayed when a camera icon is hovered on the map page
+   *
+   * @param {!key} string the unique identifier for the different cameras on the map page
+   * @param {!selected} obj the information for the current camera
+   *
+   *@return {!InfoWindow} ReactObject the info window that is displayed for the current camera on the maps page
+   */
+
   /** TEMPORARY DIRECTION INFORMATION UNTIL BACKEND IS FIGURED OUT */
   // Flickering due to content being created as it is being loaded into infowindow
   let directionOne;
