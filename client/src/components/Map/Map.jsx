@@ -3,7 +3,7 @@ import {
   GoogleMap,
   // MarkerClusterer,
   useLoadScript,
-  Marker,
+  // Marker,
   // InfoWindow,
 } from "@react-google-maps/api";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,8 +11,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { CircularProgress } from "@material-ui/core";
 
 import mapStyles from "./mapStyles";
-import cameraIcon from "./Icons/camera_icon.png";
-
+import CustomMarker from "./InfoWindow/CustomMarker";
+import InfoWindowDisplay from "./InfoWindow/InfoWindowDisplay";
 // import { getAllCameras } from "../../actions";
 import { getAllCameras } from "../../actions";
 
@@ -66,37 +66,18 @@ function Map({ currentCamera, setCurrentCamera }) {
         options={options}
       >
         {cameras.map((camera) => (
-          <Marker
+          <CustomMarker
             key={camera._id}
-            position={{ lat: camera.lat, lng: camera.lng }}
-            icon={{
-              url: cameraIcon,
-              // eslint-disable-next-line no-undef
-              scaledSize: new window.google.maps.Size(25, 25),
-              // eslint-disable-next-line no-undef
-              origin: new window.google.maps.Point(0, 0),
-              // eslint-disable-next-line no-undef
-              anchor: new window.google.maps.Point(12, 12),
-            }}
-            onClick={() => {
-              // setSelected(camera);
-              setCurrentCamera(camera);
-              navigate("/Chart");
-            }}
+            camera={camera}
+            // this could be a PROBLEM
+            setSelected={setCurrentCamera}
           />
         ))}
-        {/* {selected ? (
-          <InfoWindow
-            position={{ lat: selected.lat, lng: selected.lng }}
-            onCloseClick={() => {
-              setSelected(null);
-            }}
-          >
-            <div>
-              <p>{selected.name}</p>
-            </div>
-          </InfoWindow>
-        ) : null} */}
+        {/* this could be a PROBLEM */}
+        {currentCamera ? (
+          // eslint-disable-next-line react/prop-types
+          <InfoWindowDisplay key={currentCamera._id} selected={currentCamera} />
+        ) : null}
       </GoogleMap>
     </div>
   );

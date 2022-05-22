@@ -3,13 +3,18 @@
 import React from "react";
 
 import { Marker } from "@react-google-maps/api";
+import { useNavigate } from "react-router-dom";
 import cameraIconBlack from "../Icons/camera_icon_green.png";
 import cameraIconOrange from "../Icons/camera_icon_orange.png";
 import cameraIconRed from "../Icons/camera_icon_red.png";
-import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line no-unused-vars
 function CustomMarker({ key, camera, setSelected }) {
+  /**
+   * key (str): the unique key for each camera marker on the map
+   * camera (obj): the camera object from the api call
+   * setSelected
+   */
   // allows for navigation from current (map) page to the chart page
   const navigate = useNavigate();
 
