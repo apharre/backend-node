@@ -11,8 +11,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { CircularProgress } from "@material-ui/core";
 
 import mapStyles from "./mapStyles";
-import CustomMarker from "./InfoWindow/CustomMarker";
-import InfoWindowDisplay from "./InfoWindow/InfoWindowDisplay";
+import CustomMarker from "./Marker/CustomMarker";
+import InfoWindowDisplay from "./Marker/InfoWindowDisplay";
 // import { getAllCameras } from "../../actions";
 import { getAllCameras } from "../../actions";
 
@@ -32,8 +32,9 @@ const options = {
   zoomControl: true,
 };
 
-/** The map element that is rendered on the map page
- * Calls the getAllCameras function to retrieve the cameras and display them
+/**
+ * The map element that is rendered on the map page
+ * Calls the getAllCameras function to retrieve the camera info and display them
  */
 
 // eslint-disable-next-line react/prop-types, no-unused-vars
@@ -84,61 +85,3 @@ function Map({ currentCamera, setCurrentCamera }) {
 }
 
 export default Map;
-
-/**
- * return !cameras.length ? (
-    <CircularProgress />
-  ) : (
-    <div>
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={11}
-        center={center}
-        options={options}
-        // onClick={(event) => {
-        //   setCameras((current) => [
-        //     ...current,
-        //     {
-        //       lat: event.latLng.lat(),
-        //       lng: event.latLng.lng(),
-        //       time: new Date(),
-        //     },
-        //   ]);
-        // }}
-      >
-        {cameras.map((camera) => (
-          <Marker
-            key={camera._id}
-            position={{ lat: camera.lat, lng: camera.lng }}
-            icon={{
-              url: cameraIcon,
-              // eslint-disable-next-line no-undef
-              scaledSize: new window.google.maps.Size(25, 25),
-              // eslint-disable-next-line no-undef
-              origin: new window.google.maps.Point(0, 0),
-              // eslint-disable-next-line no-undef
-              anchor: new window.google.maps.Point(12, 12),
-            }}
-            onClick={() => {
-              // setSelected(camera);
-              setCurrentCamera(camera);
-              navigate("/Chart");
-            }}
-          />
-        ))}
-        {/* {selected ? (
-          <InfoWindow
-            position={{ lat: selected.lat, lng: selected.lng }}
-            onCloseClick={() => {
-              setSelected(null);
-            }}
-          >
-            <div>
-              <p>{selected.name}</p>
-            </div>
-          </InfoWindow>
-        ) : null}
-      </GoogleMap>
-    </div>
-  );
- */
