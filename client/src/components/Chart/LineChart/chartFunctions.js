@@ -51,7 +51,7 @@ function convertUSTtoDateTime(USTArray) {
 //   return result;
 // }
 
-function chartFormattingOptions(speed) {
+function chartFormattingOptions(speed, cameraName) {
   const yMin = speed[0];
   const yMax = speed[speed.length - 1];
   // const xMin = time[0];
@@ -65,7 +65,7 @@ function chartFormattingOptions(speed) {
       },
       title: {
         display: true,
-        text: "Apharre Line Chart",
+        text: `${cameraName} Speed Over Time`,
       },
     },
     scales: {

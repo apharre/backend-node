@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 // import useStyles from "./style"; // "./styles";
 
-import gopherRipped from "../../images/gopherRipped.png"; // "./images/gopherRipped.png";
+// import gopherRipped from "../../images/gopherRipped.png"; // "./images/gopherRipped.png";
 
 const pages = ["Map", "Posts", "Chart", "Contact Us"];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -115,12 +115,12 @@ function ResponsiveAppBar() {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <img
+            {/* <img
               // className={classes.image}
               src={gopherRipped}
               alt="memories"
               height="60"
-            />
+            /> */}
           </Box>
           {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
