@@ -65,7 +65,7 @@ function ChartPage() {
     return () => cancel();
     // When chartFilters changes, call the API again
   }, [chartFilters, params]);
-  // console.log(vehicleData);
+  console.log(vehicleData);
 
   return (
     <Container>
