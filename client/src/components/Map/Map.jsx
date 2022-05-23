@@ -3,7 +3,8 @@ import React, { useEffect } from "react";
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { useSelector, useDispatch } from "react-redux";
 
-import { CircularProgress } from "@material-ui/core";
+// import { CircularProgress } from "@material-ui/core";
+import { Loader, Grid } from "@mantine/core";
 
 import CustomMarker from "./Marker/CustomMarker";
 import InfoWindowDisplay from "./Marker/InfoWindowDisplay";
@@ -52,27 +53,32 @@ function Map({ currentCamera, setCurrentCamera }) {
   if (!isLoaded) return "Loading Maps";
 
   return !cameras.length ? (
-    <CircularProgress />
+    <Loader />
   ) : (
-    <div>
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={11}
-        center={center}
-        options={options}
-      >
-        {cameras.map((camera) => (
-          <CustomMarker
-            key={camera._id}
-            camera={camera}
-            setCurrentCamera={setCurrentCamera}
-          />
-        ))}
-        {currentCamera ? (
-          <InfoWindowDisplay key={currentCamera._id} selected={currentCamera} />
-        ) : null}
-      </GoogleMap>
-    </div>
+    <Grid px={10}>
+      <Grid.Col lg={12}>
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={11}
+          center={center}
+          options={options}
+        >
+          {cameras.map((camera) => (
+            <CustomMarker
+              key={camera._id}
+              camera={camera}
+              setCurrentCamera={setCurrentCamera}
+            />
+          ))}
+          {currentCamera ? (
+            <InfoWindowDisplay
+              key={currentCamera._id}
+              selected={currentCamera}
+            />
+          ) : null}
+        </GoogleMap>
+      </Grid.Col>
+    </Grid>
   );
 }
 

@@ -1,18 +1,20 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 // import faker from "faker";
 import axios from "axios";
 
 import { Loader, Grid } from "@mantine/core";
-
 import { useNavigate, useLocation } from "react-router-dom";
+// import useStyles from "../../mantine/globalStyles";
+
 import ChartForm from "./chartForm/ChartForm";
 import { GET } from "../../constants/actionTypes";
 import LineChart from "./LineChart/LineChart";
 
-// eslint-disable-next-line react/prop-types, no-unused-vars
 function ChartPage({ currentCamera, setCurrentCamera }) {
   const navigate = useNavigate();
   const location = useLocation();
+  // const { classes } = useStyles();
 
   const params = location.search ? location.search : null;
 
@@ -23,15 +25,12 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
   const [vehicleData, setVehicleData] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [chartFilters, setChartFilters] = useState({
-    // [filters, setFilters]
     vehicleType: "All",
     lane: "All",
     speed: "All",
-    // count: "",
     temp: "All",
     date: "Past Hour",
   });
-  // eslint-disable-next-line no-unused-vars
   const [urlQuery, setUrlQuery] = useState("");
 
   // effects
@@ -66,9 +65,15 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
   // console.log(vehicleData);
 
   return (
-    <Grid justify="space-around" gutter="xs">
+    <Grid
+      justify="space-around"
+      gutter="xs"
+      px="10px"
+      py="10px"
+      size="max-width"
+    >
       {loading ? (
-        <Loader variant="bars" />
+        <Loader />
       ) : (
         <>
           <Grid.Col md={2} lg={2}>
@@ -97,3 +102,4 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
 }
 
 export default ChartPage;
+// https://yarnpkg.com/package/react-charts#readme
