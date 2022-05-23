@@ -8,8 +8,11 @@ import { Loader, Grid } from "@mantine/core";
 
 import CustomMarker from "./Marker/CustomMarker";
 import InfoWindowDisplay from "./Marker/InfoWindowDisplay";
+import SpeedChangeTable from "./SpeedChangeTable";
 import mapStyles from "./mapStyles";
 import { getAllCameras } from "../../actions";
+
+// import fakeSpeedTableData from "./fakeSpeedTableData";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -27,6 +30,9 @@ const options = {
   zoomControl: true,
 };
 
+// eslint-disable-next-line no-undef
+window.$tableData = [[]];
+
 function Map({ currentCamera, setCurrentCamera }) {
   /**
    * The map element that is rendered on the map page
@@ -39,6 +45,9 @@ function Map({ currentCamera, setCurrentCamera }) {
    */
   const cameras = useSelector((state) => state.cameras);
   const dispatch = useDispatch();
+
+  // DELETE THIS
+  // const tableData = fakeSpeedTableData(cameras);
 
   useEffect(() => {
     dispatch(getAllCameras());
@@ -55,8 +64,18 @@ function Map({ currentCamera, setCurrentCamera }) {
   return !cameras.length ? (
     <Loader />
   ) : (
-    <Grid px={10}>
-      <Grid.Col lg={12}>
+    <Grid
+      justify="space-around"
+      gutter="xs"
+      px="10px"
+      py="10px"
+      size="max-width"
+    >
+      <Grid.Col lg={2}>
+        <SpeedChangeTable sortedCameras={cameras} />
+      </Grid.Col>
+
+      <Grid.Col lg={10}>
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={11}
