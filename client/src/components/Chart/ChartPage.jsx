@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
 // import faker from "faker";
 import axios from "axios";
 
-import { CircularProgress, Container } from "@material-ui/core";
-// import useStyles from "./styles";
+import { Loader, Grid } from "@mantine/core";
+
 import { useNavigate, useLocation } from "react-router-dom";
 import ChartForm from "./chartForm/ChartForm";
 import { GET } from "../../constants/actionTypes";
@@ -67,38 +66,33 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
   // console.log(vehicleData);
 
   return (
-    <Container>
-      <Grid container alignItems="stretch">
-        {loading ? (
-          <div>
-            {" "}
-            <CircularProgress size="3rem" thickness={5} />{" "}
-          </div>
-        ) : (
-          <>
-            <Grid item xs={2} md={2}>
-              <ChartForm
-                chartFilters={chartFilters}
-                setChartFilters={setChartFilters}
-                loading={loading}
-                urlQuery={urlQuery}
-                setUrlQuery={setUrlQuery}
-                navigate={navigate}
-                currentCamera={currentCamera}
-                setCurrentCamera={setCurrentCamera}
-              />
-            </Grid>
-            <Grid item xs={9} md={9}>
-              <LineChart
-                vehicleData={vehicleData}
-                currentCamera={currentCamera}
-                chartFilters={chartFilters}
-              />
-            </Grid>
-          </>
-        )}
-      </Grid>
-    </Container>
+    <Grid justify="space-around" gutter="xs">
+      {loading ? (
+        <Loader variant="bars" />
+      ) : (
+        <>
+          <Grid.Col md={2} lg={2}>
+            <ChartForm
+              chartFilters={chartFilters}
+              setChartFilters={setChartFilters}
+              loading={loading}
+              urlQuery={urlQuery}
+              setUrlQuery={setUrlQuery}
+              navigate={navigate}
+              currentCamera={currentCamera}
+              setCurrentCamera={setCurrentCamera}
+            />
+          </Grid.Col>
+          <Grid.Col md={10} lg={10}>
+            <LineChart
+              vehicleData={vehicleData}
+              currentCamera={currentCamera}
+              chartFilters={chartFilters}
+            />
+          </Grid.Col>
+        </>
+      )}
+    </Grid>
   );
 }
 
