@@ -3,16 +3,17 @@ import React, { useEffect } from "react";
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { useSelector, useDispatch } from "react-redux";
 
-import { CircularProgress } from "@material-ui/core";
+import { Loader, Grid, Center, Container } from "@mantine/core";
 
 import CustomMarker from "./Marker/CustomMarker";
 import InfoWindowDisplay from "./Marker/InfoWindowDisplay";
+import SpeedChangeTable from "./SpeedChangeTable";
 import mapStyles from "./mapStyles";
 import { getAllCameras } from "../../actions";
 
 const libraries = ["places"];
 const mapContainerStyle = {
-  width: "100vw",
+  width: "100%",
   height: "90vh",
 };
 const center = {
@@ -26,7 +27,7 @@ const options = {
   zoomControl: true,
 };
 
-function Map({ currentCamera, setCurrentCamera }) {
+function MapPage({ currentCamera, setCurrentCamera }) {
   /**
    * The map element that is rendered on the map page
    * Calls the getAllCameras function to retrieve the camera info and display them
@@ -52,28 +53,46 @@ function Map({ currentCamera, setCurrentCamera }) {
   if (!isLoaded) return "Loading Maps";
 
   return !cameras.length ? (
-    <CircularProgress />
+    <Container>
+      <Center>
+        <Loader />
+      </Center>
+    </Container>
   ) : (
-    <div>
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={11}
-        center={center}
-        options={options}
-      >
-        {cameras.map((camera) => (
-          <CustomMarker
-            key={camera._id}
-            camera={camera}
-            setCurrentCamera={setCurrentCamera}
-          />
-        ))}
-        {currentCamera ? (
-          <InfoWindowDisplay key={currentCamera._id} selected={currentCamera} />
-        ) : null}
-      </GoogleMap>
-    </div>
+    <Grid
+      justify="space-around"
+      gutter="xs"
+      px="10px"
+      py="10px"
+      size="max-width"
+    >
+      <Grid.Col md={2} lg={2}>
+        <SpeedChangeTable sortedCameras={cameras} />
+      </Grid.Col>
+      <Grid.Col md={10} lg={10}>
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={11}
+          center={center}
+          options={options}
+        >
+          {cameras.map((camera) => (
+            <CustomMarker
+              key={camera._id}
+              camera={camera}
+              setCurrentCamera={setCurrentCamera}
+            />
+          ))}
+          {currentCamera ? (
+            <InfoWindowDisplay
+              key={currentCamera._id}
+              selected={currentCamera}
+            />
+          ) : null}
+        </GoogleMap>
+      </Grid.Col>
+    </Grid>
   );
 }
 
-export default Map;
+export default MapPage;

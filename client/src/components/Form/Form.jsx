@@ -159,3 +159,85 @@ Form.propTypes = {
 };
 
 export default Form;
+
+/**
+ * return (
+    <Paper className={classes.Paper}>
+      <form
+        autoComplete="off"
+        noValidate
+        className={`${classes.root}${classes.form}`}
+        onSubmit={handleSubmit}
+      >
+        { Change the title based on wether you're editing or not }
+        <Typography variant="h6">
+          {currentId ? "Edit" : "Create"} an Element
+        </Typography>
+        <TextField
+          name="creator"
+          variant="outlined"
+          label="Creator"
+          fullWidth
+          value={postData.creator}
+          onChange={(event) =>
+            // ... is the spread operator: it destructures the the post data
+            // (property spread notation) will only change "creator" while everything else persists
+            setPostData({ ...postData, creator: event.target.value })
+          }
+        />
+        <TextField
+          name="title"
+          variant="outlined"
+          label="Title"
+          fullWidth
+          value={postData.title}
+          onChange={(event) =>
+            setPostData({ ...postData, title: event.target.value })
+          }
+        />
+        <TextField
+          name="message"
+          variant="outlined"
+          label="Message"
+          fullWidth
+          value={postData.message}
+          onChange={(event) =>
+            setPostData({ ...postData, message: event.target.value })
+          }
+        />
+        <TextField
+          name="tags"
+          variant="outlined"
+          label="Tags"
+          fullWidth
+          value={postData.tags}
+          onChange={(event) =>
+            setPostData({ ...postData, tags: event.target.value.split(", ") })
+          }
+        />
+        <Button
+          className={classes.buttonSubmit}
+          variant="contained"
+          color="primary"
+          size="large"
+          type="submit"
+          fullWidth
+        >
+          Submit
+          {/* src/api/index.js is where the action is executed }
+          {/* src/actions/posts.js is where the action is created }
+        </Button>
+        <Button
+          className={classes.buttonSubmit}
+          variant="contained"
+          color="secondary"
+          size="small"
+          onClick={clear}
+          fullWidth
+        >
+          Clear
+        </Button>
+      </form>
+    </Paper>
+  );
+ */

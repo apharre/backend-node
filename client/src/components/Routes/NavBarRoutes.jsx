@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Map from "../Map/Map";
+import MapPage from "../Map/MapPage";
 import PostPage from "../PostPage/PostPage";
 import ChartPage from "../Chart/ChartPage";
 // import App from "../../App";
@@ -13,7 +13,7 @@ function NavBarRoutes() {
       <Route
         path="/map"
         element={
-          <Map
+          <MapPage
             currentCamera={currentCamera}
             setCurrentCamera={setCurrentCamera}
           />

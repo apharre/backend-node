@@ -1,16 +1,16 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
 // import faker from "faker";
 import axios from "axios";
 
-import { CircularProgress, Container } from "@material-ui/core";
-// import useStyles from "./styles";
+import { Loader, Grid, Center, Container } from "@mantine/core";
 import { useNavigate, useLocation } from "react-router-dom";
+// import useStyles from "../../mantine/globalStyles";
+
 import ChartForm from "./chartForm/ChartForm";
 import { GET } from "../../constants/actionTypes";
 import LineChart from "./LineChart/LineChart";
 
-// eslint-disable-next-line react/prop-types, no-unused-vars
 function ChartPage({ currentCamera, setCurrentCamera }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,15 +24,12 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
   const [vehicleData, setVehicleData] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [chartFilters, setChartFilters] = useState({
-    // [filters, setFilters]
     vehicleType: "All",
     lane: "All",
     speed: "All",
-    // count: "",
     temp: "All",
     date: "Past Hour",
   });
-  // eslint-disable-next-line no-unused-vars
   const [urlQuery, setUrlQuery] = useState("");
 
   // effects
@@ -64,42 +61,47 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
     return () => cancel();
     // When chartFilters changes, call the API again
   }, [chartFilters, params]);
-  // console.log(vehicleData);
 
   return (
-    <Container>
-      <Grid container alignItems="stretch">
-        {loading ? (
-          <div>
-            {" "}
-            <CircularProgress size="3rem" thickness={5} />{" "}
-          </div>
-        ) : (
-          <>
-            <Grid item xs={2} md={2}>
-              <ChartForm
-                chartFilters={chartFilters}
-                setChartFilters={setChartFilters}
-                loading={loading}
-                urlQuery={urlQuery}
-                setUrlQuery={setUrlQuery}
-                navigate={navigate}
-                currentCamera={currentCamera}
-                setCurrentCamera={setCurrentCamera}
-              />
-            </Grid>
-            <Grid item xs={9} md={9}>
-              <LineChart
-                vehicleData={vehicleData}
-                currentCamera={currentCamera}
-                chartFilters={chartFilters}
-              />
-            </Grid>
-          </>
-        )}
-      </Grid>
-    </Container>
+    <Grid
+      justify="space-around"
+      gutter="xs"
+      px="10px"
+      py="10px"
+      size="max-width"
+    >
+      {loading ? (
+        <Container>
+          <Center>
+            <Loader />
+          </Center>
+        </Container>
+      ) : (
+        <>
+          <Grid.Col md={2} lg={2}>
+            <ChartForm
+              chartFilters={chartFilters}
+              setChartFilters={setChartFilters}
+              loading={loading}
+              urlQuery={urlQuery}
+              setUrlQuery={setUrlQuery}
+              navigate={navigate}
+              currentCamera={currentCamera}
+              setCurrentCamera={setCurrentCamera}
+            />
+          </Grid.Col>
+          <Grid.Col md={10} lg={10}>
+            <LineChart
+              vehicleData={vehicleData}
+              currentCamera={currentCamera}
+              chartFilters={chartFilters}
+            />
+          </Grid.Col>
+        </>
+      )}
+    </Grid>
   );
 }
 
 export default ChartPage;
+// https://yarnpkg.com/package/react-charts#readme
