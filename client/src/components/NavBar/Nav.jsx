@@ -9,12 +9,7 @@ function NavBar() {
 
   return (
     <Container size="max-width" px={10}>
-      <Header
-        height={70}
-        p="md"
-        backgroundColor="##3394e8"
-        className={classes.navBarHeader}
-      >
+      <Header height={70} p="md" className={classes.navBarHeader}>
         <div style={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Image height={65} src={apharreA} />
           {/* <Title order={2} pl={20}> */}

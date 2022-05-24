@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 // import faker from "faker";
 import axios from "axios";
 
-import { Loader, Grid } from "@mantine/core";
+import { Loader, Grid, Center, Container } from "@mantine/core";
 import { useNavigate, useLocation } from "react-router-dom";
 // import useStyles from "../../mantine/globalStyles";
 
@@ -14,7 +14,6 @@ import LineChart from "./LineChart/LineChart";
 function ChartPage({ currentCamera, setCurrentCamera }) {
   const navigate = useNavigate();
   const location = useLocation();
-  // const { classes } = useStyles();
 
   const params = location.search ? location.search : null;
 
@@ -62,7 +61,6 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
     return () => cancel();
     // When chartFilters changes, call the API again
   }, [chartFilters, params]);
-  // console.log(vehicleData);
 
   return (
     <Grid
@@ -73,7 +71,11 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
       size="max-width"
     >
       {loading ? (
-        <Loader />
+        <Container>
+          <Center>
+            <Loader />
+          </Center>
+        </Container>
       ) : (
         <>
           <Grid.Col md={2} lg={2}>

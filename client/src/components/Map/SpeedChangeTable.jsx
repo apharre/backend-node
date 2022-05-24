@@ -32,7 +32,7 @@ function SpeedChangeTable({ sortedCameras }) {
             <Text align="center">Location</Text>
           </th>
           <th>
-            <Text align="center">Highest % Speed Change Last 10 Min</Text>
+            <Text align="center">% Speed Change Last 10 Min</Text>
           </th>
         </tr>
       </thead>

@@ -3,11 +3,10 @@ import { createStyles } from "@mantine/core";
 const useStyles = createStyles((theme) => ({
   navBarTitle: {
     padding: `0px 0px 0px 30px`,
-    order: 2,
     color: "#2b2a2a",
   },
   navBarHeader: {
-    backgroundColor: "##3394e8",
+    backgroundColor: "#f2ebf5",
   },
   container: {
     px: "10px",
@@ -16,6 +15,13 @@ const useStyles = createStyles((theme) => ({
   pageGrid: {
     px: `10`,
     size: `max-width`,
+  },
+  makeRelative: {
+    position: "relative",
+  },
+  mapStyles: {
+    width: "100%",
+    height: "400px",
   },
   child: {
     // assign ref to element
