@@ -2,8 +2,16 @@ import { createStyles } from "@mantine/core";
 
 const useStyles = createStyles((theme) => ({
   navBarTitle: {
-    padding: `0px 0px 0px 30px`,
+    padding: "0px 15px 0px 30p",
     color: "#2b2a2a",
+  },
+  navBarButton: {
+    color: "#2b2a2a",
+    // padding: "0px 30px 0px 30px",
+    px: "30px",
+    radius: "xs",
+    size: "lg",
+    textDecoration: "none",
   },
   navBarHeader: {
     backgroundColor: "#f2ebf5",

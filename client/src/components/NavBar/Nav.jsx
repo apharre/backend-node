@@ -1,8 +1,10 @@
 import React from "react";
-import { Header, Title, Image, Container } from "@mantine/core";
-import { Link } from "react-router-dom";
+import { Header, Image, Container, Title } from "@mantine/core";
+
 import apharreA from "../../images/apharreA.png";
 import useStyles from "../../mantine/globalStyles";
+import NavBarButton from "./NavButton";
+import BurgerMenu from "./BurgerMenu";
 
 function NavBar() {
   const { classes } = useStyles();
@@ -12,54 +14,20 @@ function NavBar() {
       <Header height={70} p="md" className={classes.navBarHeader}>
         <div style={{ display: "flex", alignItems: "center", height: "100%" }}>
           <Image height={65} src={apharreA} />
-          {/* <Title order={2} pl={20}> */}
-          <Title order={2} className={classes.navBarTitle}>
+          <Title
+            px="35px"
+            order={2}
+            weight={400}
+            className={classes.navBarTitle}
+          >
             Apharre
           </Title>
-          <Title
-            component={Link}
-            variant="link"
-            to="/map"
-            order={3}
-            className={classes.navBarTitle}
-          >
-            Map
-          </Title>
-          <Title
-            component={Link}
-            variant="link"
-            to="/chart"
-            order={3}
-            className={classes.navBarTitle}
-          >
-            Chart
-          </Title>
-          <Title
-            component={Link}
-            variant="link"
-            to="/contact"
-            order={3}
-            className={classes.navBarTitle}
-          >
-            Contact Us
-          </Title>
-          <Title
-            component={Link}
-            variant="link"
-            to="/posts"
-            order={3}
-            className={classes.navBarTitle}
-          >
-            Posts
-          </Title>
-        </div>
 
-        {/* <Routes>
-          <Route path="/map" element={<Map />} />
-          <Route path="/chart" element={<ChartPage />} />
-          <Route path="/contact" element={<Map />} />
-          <Route path="/posts" element={<PostPage />} />
-        </Routes> */}
+          <NavBarButton buttonLink="/map" buttonText="Map" />
+          <NavBarButton buttonLink="/chart" buttonText="Chart" />
+          <NavBarButton buttonLink="/posts" buttonText="Posts" />
+          <BurgerMenu />
+        </div>
       </Header>
     </Container>
   );
