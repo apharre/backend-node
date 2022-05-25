@@ -7,7 +7,7 @@ import { Loader, Grid, Center, Container } from "@mantine/core";
 
 import CustomMarker from "./Marker/CustomMarker";
 import InfoWindowDisplay from "./Marker/InfoWindowDisplay";
-import SpeedChangeTable from "./SpeedChangeTable";
+import SpeedChangeTable from "./SpeedChangeTable/SpeedChangeTable";
 import mapStyles from "./mapStyles";
 import { getAllCameras } from "../../actions";
 
