@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const cameraSchema = mongoose.Schema({
+const cameraSchema = new mongoose.Schema({
   name: String,
   lat: Number,
   lng: Number,

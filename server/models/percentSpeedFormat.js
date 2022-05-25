@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
 
-const percentSpeedSchema = mongoose.Schema({
+const percentSpeedSchema = new mongoose.Schema({
   name: String,
   nb_percent_speed_change: Number,
   sb_percent_speed_change: Number,
 });
 
-const PercentSpeedDocument = mongoose.model('percent-speed', percentSpeedSchema);
+// model name should be plural (percent-speed-table-datas)
+const PercentSpeedDocument = mongoose.model('percent-speed-table-data', percentSpeedSchema);
 
 export default PercentSpeedDocument;
