@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Loader, Grid, Center, Container } from "@mantine/core";
+import { Loader, Grid, Center, Container, ScrollArea } from "@mantine/core";
 
 import CustomMarker from "./Marker/CustomMarker";
 import InfoWindowDisplay from "./Marker/InfoWindowDisplay";
@@ -66,10 +66,12 @@ function MapPage({ currentCamera, setCurrentCamera }) {
       py="10px"
       size="max-width"
     >
-      <Grid.Col md={2} lg={2}>
-        <SpeedChangeTable />
+      <Grid.Col md={3} lg={3}>
+        <Container px="0" justify="space-around" component={ScrollArea}>
+          <SpeedChangeTable />
+        </Container>
       </Grid.Col>
-      <Grid.Col md={10} lg={10}>
+      <Grid.Col md={9} lg={9}>
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={11}

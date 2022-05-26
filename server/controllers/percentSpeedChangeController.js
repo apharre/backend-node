@@ -28,7 +28,13 @@ const getAllPercentages = asyncHandler(async (req, res, next) => {
       cameraSpeedChange.brokenDownElement()[0],
       cameraSpeedChange.brokenDownElement()[1]
     );
+    console.log(curatedData);
   });
+  curatedData.sort((a, b) =>
+    Math.abs(parseFloat(a.percent_speed_change)) < Math.abs(parseFloat(b.percent_speed_change))
+      ? 1
+      : -1
+  );
   res.status(200).json({
     success: true,
     data: curatedData,
