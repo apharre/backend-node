@@ -1,8 +1,8 @@
-const express = require('express');
-const cors = require('cors');
-const { ServerApiVersion } = require('mongodb');
-const { default: mongoose } = require('mongoose');
-const authRoutes = require('./routes/authRoutes');
+const express = require("express");
+const cors = require("cors");
+const { ServerApiVersion } = require("mongodb");
+const { default: mongoose } = require("mongoose");
+const authRoutes = require("./routes/authRoutes");
 // const routes = require('./app/routes');
 
 // Point towards the config file for mongodb. TODO: Can switch to ENV vars later
@@ -11,7 +11,7 @@ const authRoutes = require('./routes/authRoutes');
 const app = express();
 
 /* ********** Middleware ********** */
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 /* ********** View engine ********** */
 // app.set('view engine', 'ejs');
@@ -64,7 +64,7 @@ app.use(express.static('public'));
 //   });
 
 const uri =
-  'mongodb+srv://dankal11:t4dkLHzJT!SP2RCUqxwb@cluster0.flalt.mongodb.net/Cluster0?retryWrites=true&w=majority';
+  "mongodb+srv://dankal11:t4dkLHzJT!SP2RCUqxwb@cluster0.flalt.mongodb.net/Cluster0?retryWrites=true&w=majority";
 
 mongoose
   .connect(uri, {
@@ -79,4 +79,7 @@ mongoose
 // app.get('/', (req, res) => res.render('home'));
 // app.get('/smoothies', (req, res) => res.render('smoothies'));
 app.use(authRoutes);
-console.log('server started successfully! Listening on port 3001');
+console.log("server started successfully! Listening on port 3001");
+
+/* ********** Error Handler ********** */
+app.use(errorHandler);

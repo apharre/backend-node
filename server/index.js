@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 import postRoutes from './routes/posts.js';
 import vehicleRoutes from './routes/vehicleRoutes.js';
 import cameraRoutes from './routes/cameraRoutes.js';
+import percentChangeRoutes from './routes/percentSpeedChangeRoutes.js';
 import errorHandler from './middleware/errorHandler.js';
 
 const app = express();
@@ -23,6 +24,7 @@ app.use(cors());
 app.use('/posts', postRoutes);
 app.use('/vehicles', vehicleRoutes);
 app.use('/cameras', cameraRoutes);
+app.use('/metrics', percentChangeRoutes);
 
 /* *************** Error Handler *************** */
 app.use(errorHandler);

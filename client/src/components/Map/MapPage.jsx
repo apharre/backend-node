@@ -7,7 +7,7 @@ import { Loader, Grid, Center, Container } from "@mantine/core";
 
 import CustomMarker from "./Marker/CustomMarker";
 import InfoWindowDisplay from "./Marker/InfoWindowDisplay";
-import SpeedChangeTable from "./SpeedChangeTable";
+import SpeedChangeTable from "./SpeedChangeTable/SpeedChangeTable";
 import mapStyles from "./mapStyles";
 import { getAllCameras } from "../../actions";
 
@@ -37,6 +37,7 @@ function MapPage({ currentCamera, setCurrentCamera }) {
    *
    * @return {!GoogleMap} ReactObject the elements that make up the maps page
    */
+  // const theme = useMantineTheme();
   const cameras = useSelector((state) => state.cameras);
   const dispatch = useDispatch();
 
@@ -66,10 +67,10 @@ function MapPage({ currentCamera, setCurrentCamera }) {
       py="10px"
       size="max-width"
     >
-      <Grid.Col md={2} lg={2}>
-        <SpeedChangeTable sortedCameras={cameras} />
+      <Grid.Col md={3} lg={3} height="100%">
+        <SpeedChangeTable />
       </Grid.Col>
-      <Grid.Col md={10} lg={10}>
+      <Grid.Col md={9} lg={9}>
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={11}
