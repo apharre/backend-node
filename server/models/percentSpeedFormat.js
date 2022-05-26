@@ -2,8 +2,9 @@ import mongoose from 'mongoose';
 
 const percentSpeedSchema = new mongoose.Schema({
   name: String,
-  nb_percent_speed_change: Number,
-  sb_percent_speed_change: Number,
+  d1_percent_speed_change: Number,
+  d2_percent_speed_change: Number,
+  direction: Number,
 });
 
 // model name should be plural (percent-speed-table-datas)

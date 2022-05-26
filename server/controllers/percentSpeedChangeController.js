@@ -1,6 +1,7 @@
 import asyncHandler from '../middleware/asyncHandler.js';
 import PercentSpeedDocument from '../models/percentSpeedFormat.js';
 import ErrorResponse from '../utils/errorResponse.js';
+import PercentSpeedFunctions from './controllerFunctions/metricsFunctions.js';
 
 // eslint-disable-next-line no-unused-vars
 const getAllPercentages = asyncHandler(async (req, res, next) => {
@@ -12,10 +13,25 @@ const getAllPercentages = asyncHandler(async (req, res, next) => {
   // } catch (error) {
   //   res.status(404).json({ message: error.message });
   // }
+
   const percentageData = await PercentSpeedDocument.find();
+  const curatedData = [];
+  percentageData.forEach((camera) => {
+    const cameraSpeedChange = new PercentSpeedFunctions(
+      camera.direction,
+      camera.name,
+      camera.d1_percent_speed_change,
+      camera.d2_percent_speed_change
+    );
+
+    curatedData.push(
+      cameraSpeedChange.brokenDownElement()[0],
+      cameraSpeedChange.brokenDownElement()[1]
+    );
+  });
   res.status(200).json({
     success: true,
-    data: percentageData,
+    data: curatedData,
   });
 });
 
