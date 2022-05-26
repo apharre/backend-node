@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 class PercentSpeedFunctions {
   // constructor(newObject) {
   constructor(direction, name, d1PercentChange, d2PercentChange) {
@@ -13,22 +15,20 @@ class PercentSpeedFunctions {
     this.name = name;
     this.d1PercentChange = d1PercentChange;
     this.d2PercentChange = d2PercentChange;
-
-    // this.nsew = newObject.direction;
     this.direction1 = this.nsew === 0 ? 'North' : 'East';
     this.direction2 = this.nsew === 0 ? 'South' : 'West';
-    // this.d1VariableName = this.nsew === 0 ? 'nb_percent_speed_change' : 'eb_percent_speed_change';
-    // this.d2VariableName = this.nsew === 0 ? 'sb_percent_speed_change' : 'wb_percent_speed_change';
   }
 
   percentSpeedResult() {
     return [
       {
+        key: uuidv4(),
         name: `${this.name}`,
         nsew: `${this.direction1}`,
         percent_speed_change: `${this.d1PercentChange}`,
       },
       {
+        key: uuidv4(),
         name: `${this.name}`,
         nsew: `${this.direction2}`,
         percent_speed_change: `${this.d2PercentChange}`,

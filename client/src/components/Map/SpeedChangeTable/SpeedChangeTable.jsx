@@ -38,7 +38,7 @@ function SpeedChangeTable() {
   }, []);
 
   const rows = metricData.map((camera) => (
-    <tr key={camera[0]}>
+    <tr key={camera.key}>
       <td>{camera.name}</td>
       <td align="center">
         <Text align="center">{camera.nsew}</Text>
