@@ -4,15 +4,17 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import { Loader, Grid, Center, Container } from "@mantine/core";
-import { useNavigate, useLocation } from "react-router-dom";
+// import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 // import useStyles from "../../mantine/globalStyles";
 
 import ChartForm from "./chartForm/ChartForm";
 import { GET } from "../../constants/actionTypes";
 import LineChart from "./LineChart/LineChart";
 
+// eslint-disable-next-line no-unused-vars
 function ChartPage({ currentCamera, setCurrentCamera }) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const location = useLocation();
 
   const params = location.search ? location.search : null;
@@ -30,6 +32,8 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
     temp: "All",
     date: "Past Hour",
   });
+
+  // eslint-disable-next-line no-unused-vars
   const [urlQuery, setUrlQuery] = useState("");
 
   // effects
@@ -78,8 +82,9 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
         </Container>
       ) : (
         <>
-          <Grid.Col md={2} lg={2}>
-            <ChartForm
+          <Grid.Col md={2.5} lg={2.5}>
+            <ChartForm />
+            {/* <ChartForm
               chartFilters={chartFilters}
               setChartFilters={setChartFilters}
               loading={loading}
@@ -88,9 +93,9 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
               navigate={navigate}
               currentCamera={currentCamera}
               setCurrentCamera={setCurrentCamera}
-            />
+            /> */}
           </Grid.Col>
-          <Grid.Col md={10} lg={10}>
+          <Grid.Col md={9.5} lg={9.5}>
             <LineChart
               vehicleData={vehicleData}
               currentCamera={currentCamera}
