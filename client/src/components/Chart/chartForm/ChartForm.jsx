@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { TimeInput } from "@mantine/dates";
+
 import {
   MultiSelect,
   Paper,
@@ -12,6 +12,7 @@ import TrafficDatePicker from "./chartFormElements/dateRangePicker";
 import TimeInputSelector from "./chartFormElements/timeInput";
 
 const speedMarkers = [
+  { value: 0, label: "0" },
   { value: 25, label: "25" },
   { value: 50, label: "50" },
   { value: 75, label: "75" },
@@ -26,7 +27,6 @@ const tempMarkers = [
   { value: 100, label: "100" },
 ];
 
-// function ChartForm({ currentCamera }) {
 function ChartForm() {
   const [dateValue, setDateValue] = useState([
     new Date(Date.now() - 86400000), // number of milliseconds in 24 hours
@@ -46,16 +46,16 @@ function ChartForm() {
         },
       })}
     >
+      {/* TODO: <useForm /> from mantine */}
       <div>
         <TrafficDatePicker dateValue={dateValue} setDateValue={setDateValue} />
         <TimeInputSelector dateValue={dateValue} isFirstDate={0} />
         <TimeInputSelector dateValue={dateValue} isFirstDate={1} />
 
-        {/* switch for all or selected vehicle types */}
         <Switch
           color="teal"
           checked={allVehicles}
-          label="All Vehicle Types"
+          label={allVehicles ? "All Vehicle Types" : "Select Vehicle Type"}
           onLabel="All"
           offLabel="Select"
           onChange={(event) => setAllVehicles(event.currentTarget.checked)}
@@ -75,11 +75,10 @@ function ChartForm() {
           />
         </Collapse>
 
-        {/* Switch for all or selected speeds */}
         <Switch
           color="teal"
           checked={allSpeeds}
-          label="All Speeds"
+          label={allSpeeds ? "All Speeds" : "Select Speed Range"}
           onLabel="All"
           offLabel="Select"
           onChange={(event) => setAllSpeeds(event.currentTarget.checked)}
@@ -97,11 +96,10 @@ function ChartForm() {
           />
         </Collapse>
 
-        {/* switch for all or selected temperatures */}
         <Switch
           color="teal"
           checked={allTemps}
-          label="All Temperatures"
+          label={allTemps ? "All Temperatures" : "Select Temperature Range"}
           onLabel="All"
           offLabel="Select"
           onChange={(event) => {

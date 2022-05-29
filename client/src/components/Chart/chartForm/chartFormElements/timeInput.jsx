@@ -1,6 +1,5 @@
 import React from "react";
 import { TimeInput } from "@mantine/dates";
-// import { func } from "prop-types";
 
 const monthNames = [
   "January",
@@ -36,12 +35,18 @@ function ordinalSuffixes(i) {
 }
 
 function displayDate(dateValue, isFirstDate) {
+  /**
+   * Returns the text for the time input based on the individual dates' properties.
+   * @param {!dateValue} array[DateObj] The array of two dates which will be read into the inputs' title
+   * @param {!isFirstDate} number A number that indicates the position in the dateValue array
+   * @return {string} The month and date with an ordinal and an optional year if the years are different
+   */
   let sameYear = false;
   let year;
   let month;
   let date;
   let ordinal;
-  // console.log(dateValue);
+
   if (dateValue[1] !== null) {
     if (dateValue[0].getFullYear() === dateValue[1].getFullYear()) {
       sameYear = true;
@@ -74,7 +79,7 @@ function TimeInputSelector({ dateValue, isFirstDate }) {
     <TimeInput
       defaultValue={dateValue[isFirstDate]}
       label={`${dateForLabel} Time`}
-      variant="filled"
+      // variant="filled"
       radius="md"
       format="12"
       pt="1rem"
