@@ -18,7 +18,7 @@ const monthNames = [
 
 function ordinalSuffixes(i) {
   /**
-   * returns the suffix for numbers to be written (3"rd", 2"nd")
+   * Returns the suffix for numbers to be written (3"rd", 2"nd", 1"st")
    */
   const j = i % 10;
   const k = i % 100;
@@ -37,7 +37,7 @@ function ordinalSuffixes(i) {
 function displayDate(dateValue, isFirstDate) {
   /**
    * Returns the text for the time input based on the individual dates' properties.
-   * @param {!dateValue} array[DateObj] The array of two dates which will be read into the inputs' title
+   * @param {!dateValue} array[Date] The array of two dates which will be read into the inputs' title
    * @param {!isFirstDate} number A number that indicates the position in the dateValue array
    * @return {string} The month and date with an ordinal and an optional year if the years are different
    */
@@ -68,9 +68,9 @@ function displayDate(dateValue, isFirstDate) {
 function TimeInputSelector({ dateValue, isFirstDate }) {
   /**
    * Performs some of the calculations to display the correct date for the time input label
-   * @param {!defaultValue} DateObj The default value that is displayed above the time input box
    * @param {!dateValue} DateObj the array containing the two different dates for choosing the time to restrict the query by
    * @param {!isFirstDate} int A "0" or "1" used to determine the index of the dateValue list
+   * @return {ReactComponent} The time input component for the chart form on the charts page
    */
 
   const dateForLabel = displayDate(dateValue, isFirstDate);
