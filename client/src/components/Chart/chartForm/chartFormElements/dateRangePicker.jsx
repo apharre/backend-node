@@ -6,10 +6,12 @@ function TrafficDatePicker({ dateValue, setDateValue }) {
   console.log(dateValue);
   return (
     <DateRangePicker
-      label="Start and End Dates"
-      placeholder="Set date range"
+      label="Date Range"
+      // placeholder="Pick dates range"
       value={dateValue}
       onChange={setDateValue}
+      allowSingleDateInRange
+      clearable
     />
   );
 }

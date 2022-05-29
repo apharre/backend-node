@@ -31,16 +31,22 @@ function ChartForm() {
   // const [dateValue, setDateValue] = useState([
   //   [new Date(new Date().getTime() - 24 * 60 * 60 * 1000), new Date()],
   // ]);
-  const dateObj = new Date();
-  const month = dateObj.getUTCMonth(); // months from 1-12
-  const day = dateObj.getUTCDate();
-  const year = dateObj.getUTCFullYear();
-  console.log(month, day, year);
-  // const newdate = year + "/" + month + "/" + day;
+  const todayDateObj = new Date();
+  const yesterdayDateObj = new Date(Date.now() - 86400000);
 
   const [dateValue, setDateValue] = useState([
-    [new Date(2022, 5, 20), new Date(2022, 5, 28)],
+    new Date(
+      yesterdayDateObj.getFullYear(),
+      yesterdayDateObj.getMonth(),
+      yesterdayDateObj.getDate()
+    ),
+    new Date(
+      todayDateObj.getFullYear(),
+      todayDateObj.getMonth(),
+      todayDateObj.getDate()
+    ),
   ]);
+
   const [allVehicles, setAllVehicles] = useState(true);
   const [allSpeeds, setAllSpeeds] = useState(true);
   const [allTemps, setAllTemps] = useState(true);
