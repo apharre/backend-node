@@ -9,6 +9,8 @@ function TrafficDatePicker({ dateValue, setDateValue }) {
       value={dateValue}
       onChange={setDateValue}
       clearable
+      px="1rem"
+      pt="1rem"
     />
   );
 }

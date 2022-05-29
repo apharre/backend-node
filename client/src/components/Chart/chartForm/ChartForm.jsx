@@ -49,14 +49,6 @@ function ChartForm() {
       <div>
         <TrafficDatePicker dateValue={dateValue} setDateValue={setDateValue} />
         <TimeInputSelector dateValue={dateValue} isFirstDate={0} />
-        {/* <TimeInput
-          defaultValue={yesterdayDateObj}
-          label={`${dateValue[0]} Time`}
-          variant="filled"
-          radius="md"
-          format="12"
-          clearable
-        /> */}
         <TimeInputSelector dateValue={dateValue} isFirstDate={1} />
 
         {/* switch for all or selected vehicle types */}
@@ -67,15 +59,19 @@ function ChartForm() {
           onLabel="All"
           offLabel="Select"
           onChange={(event) => setAllVehicles(event.currentTarget.checked)}
+          pt="1rem"
+          px="1rem"
         />
         <Collapse in={!allVehicles}>
           <MultiSelect
             data={["Commuter", "Truck", "Bus", "Motorcycle"]}
             label="Vehicle Type"
-            placeholder="Pick all that you like"
+            placeholder="Vehicle Types to Include"
             defaultValue={["Commuter", "Truck", "Bus", "Motorcycle"]}
             clearButtonLabel="Clear selection"
             clearable
+            py="1rem"
+            px="1rem"
           />
         </Collapse>
 
@@ -87,6 +83,8 @@ function ChartForm() {
           onLabel="All"
           offLabel="Select"
           onChange={(event) => setAllSpeeds(event.currentTarget.checked)}
+          pt="1rem"
+          px="1rem"
         />
 
         <Collapse in={!allSpeeds}>
@@ -94,6 +92,8 @@ function ChartForm() {
             defaultValue={[25, 75]}
             marks={speedMarkers}
             label={(value) => `${value} mph`}
+            py="1rem"
+            px="1rem"
           />
         </Collapse>
 
@@ -107,6 +107,8 @@ function ChartForm() {
           onChange={(event) => {
             setAllTemps(event.currentTarget.checked);
           }}
+          py="1rem"
+          px="1rem"
         />
       </div>
       <Collapse in={!allTemps}>
@@ -116,6 +118,8 @@ function ChartForm() {
           defaultValue={[25, 75]}
           marks={tempMarkers}
           label={(value) => `${value} °F`}
+          pb="2rem"
+          px="1rem"
         />
       </Collapse>
     </Paper>

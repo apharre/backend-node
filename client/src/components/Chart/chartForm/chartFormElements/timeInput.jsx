@@ -77,7 +77,8 @@ function TimeInputSelector({ dateValue, isFirstDate }) {
       variant="filled"
       radius="md"
       format="12"
-      clearable
+      pt="1rem"
+      px="1rem"
     />
   );
 }
