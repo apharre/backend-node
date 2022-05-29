@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TimeInput } from "@mantine/dates";
+// import { TimeInput } from "@mantine/dates";
 import {
   MultiSelect,
   Paper,
@@ -9,6 +9,7 @@ import {
 } from "@mantine/core";
 
 import TrafficDatePicker from "./chartFormElements/dateRangePicker";
+import TimeInputSelector from "./chartFormElements/timeInput";
 
 const speedMarkers = [
   { value: 25, label: "25" },
@@ -27,24 +28,9 @@ const tempMarkers = [
 
 // function ChartForm({ currentCamera }) {
 function ChartForm() {
-  // Create a date value for the date range with the first being 24 hours ago and the second being the current time
-  // const [dateValue, setDateValue] = useState([
-  //   [new Date(new Date().getTime() - 24 * 60 * 60 * 1000), new Date()],
-  // ]);
-  const todayDateObj = new Date();
-  const yesterdayDateObj = new Date(Date.now() - 86400000);
-
   const [dateValue, setDateValue] = useState([
-    new Date(
-      yesterdayDateObj.getFullYear(),
-      yesterdayDateObj.getMonth(),
-      yesterdayDateObj.getDate()
-    ),
-    new Date(
-      todayDateObj.getFullYear(),
-      todayDateObj.getMonth(),
-      todayDateObj.getDate()
-    ),
+    new Date(Date.now() - 86400000), // number of milliseconds in 24 hours
+    new Date(),
   ]);
 
   const [allVehicles, setAllVehicles] = useState(true);
@@ -62,30 +48,17 @@ function ChartForm() {
     >
       <div>
         <TrafficDatePicker dateValue={dateValue} setDateValue={setDateValue} />
-        {/* <DateRangePicker
-          dateValue={dateValue}
-          setDateValue={setDateValue}
-          // label="Start and End Dates"
-          // placeholder="Set date range"
-          // value={dateValue}
-          // onChange={setDateValue}
+        <TimeInputSelector dateValue={dateValue} isFirstDate={0} />
+        {/* <TimeInput
+          defaultValue={yesterdayDateObj}
+          label={`${dateValue[0]} Time`}
+          variant="filled"
+          radius="md"
+          format="12"
+          clearable
         /> */}
-        <TimeInput
-          defaultValue={new Date()}
-          label="Time on Start Date"
-          variant="filled"
-          radius="md"
-          format="12"
-          clearable
-        />
-        <TimeInput
-          defaultValue={new Date()}
-          label="Time on End Date"
-          variant="filled"
-          radius="md"
-          format="12"
-          clearable
-        />
+        <TimeInputSelector dateValue={dateValue} isFirstDate={1} />
+
         {/* switch for all or selected vehicle types */}
         <Switch
           color="teal"
