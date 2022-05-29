@@ -7,21 +7,23 @@ function LineChart() {
       {
         label: "Series 1",
         data: [
-          [0, 1],
+          // [0, 1],
           [1, 2],
           [2, 4],
           [3, 2],
           [4, 7],
+          [5, 2],
         ],
       },
       {
         label: "Series 2",
         data: [
-          [0, 3],
+          // [0, 3],
           [1, 1],
           [2, 5],
           [3, 6],
           [4, 4],
+          [5, 9],
         ],
       },
     ],
@@ -39,8 +41,8 @@ function LineChart() {
   return (
     <div
       style={{
-        width: "400px",
-        height: "300px",
+        // width: "400px",
+        height: "90vh",
         backgroundColor: "white",
       }}
     >
