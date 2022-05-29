@@ -1,17 +1,14 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-import { DateRangePicker, TimeInput } from "@mantine/dates";
+import { TimeInput } from "@mantine/dates";
 import {
   MultiSelect,
   Paper,
   Switch,
   RangeSlider,
-  // Transition,
   Collapse,
 } from "@mantine/core";
-// import { useClickOutside } from "@mantine/hooks";
-// import { Switch } from "@material-ui/core";
+
+import TrafficDatePicker from "./chartFormElements/dateRangePicker";
 
 const speedMarkers = [
   { value: 25, label: "25" },
@@ -28,26 +25,26 @@ const tempMarkers = [
   { value: 100, label: "100" },
 ];
 
-const scaleY = {
-  in: { opacity: 1, transform: "scaleY(1)" },
-  out: { opacity: 0, transform: "scaleY(0)" },
-  common: { transformOrigin: "top" },
-  transitionProperty: "transform, opacity",
-};
-
 // function ChartForm({ currentCamera }) {
 function ChartForm() {
-  // Create a date valuue for the date range with the first being 24 hours ago and the second being the current time
+  // Create a date value for the date range with the first being 24 hours ago and the second being the current time
+  // const [dateValue, setDateValue] = useState([
+  //   [new Date(new Date().getTime() - 24 * 60 * 60 * 1000), new Date()],
+  // ]);
+  const dateObj = new Date();
+  const month = dateObj.getUTCMonth(); // months from 1-12
+  const day = dateObj.getUTCDate();
+  const year = dateObj.getUTCFullYear();
+  console.log(month, day, year);
+  // const newdate = year + "/" + month + "/" + day;
+
   const [dateValue, setDateValue] = useState([
-    [new Date(new Date().getTime() - 24 * 60 * 60 * 1000), new Date()],
+    [new Date(2022, 5, 20), new Date(2022, 5, 28)],
   ]);
   const [allVehicles, setAllVehicles] = useState(true);
   const [allSpeeds, setAllSpeeds] = useState(true);
   const [allTemps, setAllTemps] = useState(true);
-  // const [tempSliderVisible, setTempSliderVisible] = useState(false);
 
-  // const clickOutsideRef = useClickOutside(() => setTempSliderVisible(false));
-  // const dateValue = new Date(2022, 5);
   return (
     <Paper
       sx={(theme) => ({
@@ -58,12 +55,15 @@ function ChartForm() {
       })}
     >
       <div>
-        <DateRangePicker
-          label="Start and End Dates"
-          placeholder="Set date range"
-          value={dateValue}
-          onChange={setDateValue}
-        />
+        <TrafficDatePicker dateValue={dateValue} setDateValue={setDateValue} />
+        {/* <DateRangePicker
+          dateValue={dateValue}
+          setDateValue={setDateValue}
+          // label="Start and End Dates"
+          // placeholder="Set date range"
+          // value={dateValue}
+          // onChange={setDateValue}
+        /> */}
         <TimeInput
           defaultValue={new Date()}
           label="Time on Start Date"
@@ -118,16 +118,6 @@ function ChartForm() {
           />
         </Collapse>
 
-        {/* {allSpeeds ? (
-          <div />
-        ) : (
-          <RangeSlider
-            defaultValue={[25, 75]}
-            marks={speedMarkers}
-            label={(value) => `${value} mph`}
-          />
-        )} */}
-
         {/* switch for all or selected temperatures */}
         <Switch
           color="teal"
@@ -136,9 +126,7 @@ function ChartForm() {
           onLabel="All"
           offLabel="Select"
           onChange={(event) => {
-            // const inverseEventBool = !event.currentTarget.checked;
             setAllTemps(event.currentTarget.checked);
-            // setTempSliderVisible(inverseEventBool);
           }}
         />
       </div>
@@ -151,36 +139,6 @@ function ChartForm() {
           label={(value) => `${value} °F`}
         />
       </Collapse>
-      {/* <Transition
-        mounted={tempSliderVisible}
-        transition={scaleY}
-        duration={200}
-        timingFunction="ease"
-      > */}
-      {/* {(styles) => (
-          <Paper
-            shadow="md"
-            style={{
-              ...styles,
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              height: 120,
-            }}
-            ref={clickOutsideRef}
-          >
-            Dropdown
-          </Paper>
-        )} */}
-      {/* <RangeSlider
-          min={-20}
-          max={120}
-          defaultValue={[25, 75]}
-          marks={tempMarkers}
-          label={(value) => `${value} °F`}
-        /> */}
-      {/* </Transition> */}
     </Paper>
   );
 }
