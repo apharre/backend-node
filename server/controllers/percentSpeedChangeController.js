@@ -5,15 +5,10 @@ import PercentSpeedFunctions from './controllerFunctions/metricsFunctions.js';
 
 // eslint-disable-next-line no-unused-vars
 const getAllPercentages = asyncHandler(async (req, res, next) => {
-  // res.send('Get All Percentage Routes');
-  // try {
-  //   const percentSpeedDocuments = await PercentSpeedDocument.find();
-  //   console.log(percentSpeedDocuments);
-  //   res.status(200).json({ success: true, data: percentSpeedDocuments });
-  // } catch (error) {
-  //   res.status(404).json({ message: error.message });
-  // }
-
+  /**
+   * Retrieves all the percentage changes from the vehicledocuments collection in mongoDb
+   * @returns {!response} array[map{Name: String, Direction: String, PercentSpeedChange: Number}]
+   */
   const percentageData = await PercentSpeedDocument.find();
   const curatedData = [];
   percentageData.forEach((camera) => {
@@ -28,7 +23,6 @@ const getAllPercentages = asyncHandler(async (req, res, next) => {
       cameraSpeedChange.brokenDownElement()[0],
       cameraSpeedChange.brokenDownElement()[1]
     );
-    console.log(curatedData);
   });
   curatedData.sort((a, b) =>
     Math.abs(parseFloat(a.percent_speed_change)) < Math.abs(parseFloat(b.percent_speed_change))
