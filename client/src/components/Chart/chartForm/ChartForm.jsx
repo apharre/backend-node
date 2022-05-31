@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 
 import {
+  Button,
+  Collapse,
   MultiSelect,
   Paper,
-  Switch,
   RangeSlider,
-  Collapse,
+  Switch,
 } from "@mantine/core";
+import { useForm } from "@mantine/form";
 
 import TrafficDatePicker from "./chartFormElements/dateRangePicker";
 import TimeInputSelector from "./chartFormElements/timeInput";
@@ -32,11 +34,18 @@ function ChartForm() {
     new Date(Date.now() - 86400000), // number of milliseconds in 24 hours
     new Date(),
   ]);
-
   const [allVehicles, setAllVehicles] = useState(true);
   const [allSpeeds, setAllSpeeds] = useState(true);
   const [allTemps, setAllTemps] = useState(true);
 
+  const form = useForm({
+    initialValues: {
+      allVehicleFormBool: { allVehicles },
+      allSpeedFormBool: { allSpeeds },
+      allTempFormBool: { allTemps },
+    },
+  });
+  console.log(form.allVehicleFormBool);
   return (
     <Paper
       sx={(theme) => ({
@@ -48,78 +57,86 @@ function ChartForm() {
     >
       {/* TODO: <useForm /> from mantine */}
       <div>
-        <TrafficDatePicker dateValue={dateValue} setDateValue={setDateValue} />
-        <TimeInputSelector dateValue={dateValue} isFirstDate={0} />
-        <TimeInputSelector dateValue={dateValue} isFirstDate={1} />
+        <form onSubmit={form.onSubmit((values) => console.log(values))}>
+          <TrafficDatePicker
+            dateValue={dateValue}
+            setDateValue={setDateValue}
+          />
+          <TimeInputSelector dateValue={dateValue} isFirstDate={0} />
+          <TimeInputSelector dateValue={dateValue} isFirstDate={1} />
 
-        <Switch
-          color="teal"
-          checked={allVehicles}
-          label={allVehicles ? "All Vehicle Types" : "Select Vehicle Type"}
-          onLabel="All"
-          offLabel="Select"
-          onChange={(event) => setAllVehicles(event.currentTarget.checked)}
-          pt="1rem"
-          px="1rem"
-        />
-        <Collapse in={!allVehicles}>
-          <MultiSelect
-            data={["Commuter", "Truck", "Bus", "Motorcycle"]}
-            label="Vehicle Type"
-            placeholder="Vehicle Types to Include"
-            defaultValue={["Commuter", "Truck", "Bus", "Motorcycle"]}
-            clearButtonLabel="Clear selection"
-            clearable
+          <Switch
+            color="teal"
+            checked={allVehicles}
+            label={allVehicles ? "All Vehicle Types" : "Select Vehicle Type"}
+            onLabel="All"
+            offLabel="Select"
+            onChange={(event) => setAllVehicles(event.currentTarget.checked)}
+            pt="1rem"
+            px="1rem"
+          />
+          <Collapse in={!allVehicles}>
+            <MultiSelect
+              data={["Commuter", "Truck", "Bus", "Motorcycle"]}
+              label="Vehicle Type"
+              placeholder="Vehicle Types to Include"
+              defaultValue={["Commuter", "Truck", "Bus", "Motorcycle"]}
+              clearButtonLabel="Clear selection"
+              clearable
+              py="1rem"
+              px="1rem"
+            />
+          </Collapse>
+
+          <Switch
+            color="teal"
+            checked={allSpeeds}
+            label={allSpeeds ? "All Speeds" : "Select Speed Range"}
+            onLabel="All"
+            offLabel="Select"
+            onChange={(event) => setAllSpeeds(event.currentTarget.checked)}
+            pt="1rem"
+            px="1rem"
+          />
+
+          <Collapse in={!allSpeeds}>
+            <RangeSlider
+              defaultValue={[25, 75]}
+              marks={speedMarkers}
+              label={(value) => `${value} mph`}
+              py="1rem"
+              px="1rem"
+            />
+          </Collapse>
+
+          <Switch
+            color="teal"
+            checked={allTemps}
+            label={allTemps ? "All Temperatures" : "Select Temperature Range"}
+            onLabel="All"
+            offLabel="Select"
+            onChange={(event) => {
+              setAllTemps(event.currentTarget.checked);
+            }}
             py="1rem"
             px="1rem"
           />
-        </Collapse>
 
-        <Switch
-          color="teal"
-          checked={allSpeeds}
-          label={allSpeeds ? "All Speeds" : "Select Speed Range"}
-          onLabel="All"
-          offLabel="Select"
-          onChange={(event) => setAllSpeeds(event.currentTarget.checked)}
-          pt="1rem"
-          px="1rem"
-        />
+          <Collapse in={!allTemps}>
+            <RangeSlider
+              min={-20}
+              max={120}
+              defaultValue={[25, 75]}
+              marks={tempMarkers}
+              label={(value) => `${value} °F`}
+              pb="2rem"
+              px="1rem"
+            />
+          </Collapse>
 
-        <Collapse in={!allSpeeds}>
-          <RangeSlider
-            defaultValue={[25, 75]}
-            marks={speedMarkers}
-            label={(value) => `${value} mph`}
-            py="1rem"
-            px="1rem"
-          />
-        </Collapse>
-
-        <Switch
-          color="teal"
-          checked={allTemps}
-          label={allTemps ? "All Temperatures" : "Select Temperature Range"}
-          onLabel="All"
-          offLabel="Select"
-          onChange={(event) => {
-            setAllTemps(event.currentTarget.checked);
-          }}
-          py="1rem"
-          px="1rem"
-        />
+          <Button type="submit">Submit</Button>
+        </form>
       </div>
-      <Collapse in={!allTemps}>
-        <RangeSlider
-          min={-20}
-          max={120}
-          defaultValue={[25, 75]}
-          marks={tempMarkers}
-          label={(value) => `${value} °F`}
-          pb="2rem"
-          px="1rem"
-        />
-      </Collapse>
     </Paper>
   );
 }

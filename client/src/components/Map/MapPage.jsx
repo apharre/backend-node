@@ -67,7 +67,7 @@ function MapPage({ currentCamera, setCurrentCamera }) {
       py="10px"
       size="max-width"
     >
-      <Grid.Col md={3} lg={3} height="100%">
+      <Grid.Col md={3} lg={3} height="90vh">
         <SpeedChangeTable />
       </Grid.Col>
       <Grid.Col md={9} lg={9}>

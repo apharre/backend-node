@@ -41,7 +41,6 @@ function LineChart() {
   return (
     <div
       style={{
-        // width: "400px",
         height: "90vh",
         backgroundColor: "white",
       }}
