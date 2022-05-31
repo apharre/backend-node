@@ -29,7 +29,7 @@ const options = {
 
 function MapPage({ currentCamera, setCurrentCamera }) {
   /**
-   * The map element that is rendered on the map page
+   * The map element and auxiliaries that are rendered on the map page
    * Calls the getAllCameras function to retrieve the camera info and display them
    *
    * @param {!currentCamera} obj the current camera that appears in the info box and the charts page

@@ -16,6 +16,6 @@ export default makeStyles(() => ({
   //   marginLeft: "15px",
   // },
   navBar: {
-    background: "#6883ad",
+    background: "#fff",
   },
 }));

@@ -1,33 +1,12 @@
 import React, { useState } from "react";
-
-import {
-  Button,
-  Collapse,
-  MultiSelect,
-  Paper,
-  RangeSlider,
-  Switch,
-} from "@mantine/core";
+import { Button, Paper, Center } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
 import TrafficDatePicker from "./chartFormElements/dateRangePicker";
 import TimeInputSelector from "./chartFormElements/timeInput";
-
-const speedMarkers = [
-  { value: 0, label: "0" },
-  { value: 25, label: "25" },
-  { value: 50, label: "50" },
-  { value: 75, label: "75" },
-  { value: 100, label: "100+" },
-];
-
-const tempMarkers = [
-  { value: 0, label: "0" },
-  { value: 25, label: "25" },
-  { value: 50, label: "50" },
-  { value: 75, label: "75" },
-  { value: 100, label: "100" },
-];
+import ChartSwitchButton from "./chartFormElements/switchButton";
+import ChartRangeSlider from "./chartFormElements/rangeSlider";
+import ChartVehicleSelector from "./chartFormElements/vehicleSelector";
 
 function ChartForm() {
   const [dateValue, setDateValue] = useState([
@@ -37,6 +16,12 @@ function ChartForm() {
   const [allVehicles, setAllVehicles] = useState(true);
   const [allSpeeds, setAllSpeeds] = useState(true);
   const [allTemps, setAllTemps] = useState(true);
+  const [selectedVehicles, setSelectedVehicles] = useState([
+    "Commuter",
+    "Truck",
+    "Bus",
+    "Motorcycle",
+  ]);
 
   const form = useForm({
     initialValues: {
@@ -45,7 +30,7 @@ function ChartForm() {
       allTempFormBool: { allTemps },
     },
   });
-  console.log(form.allVehicleFormBool);
+
   return (
     <Paper
       sx={(theme) => ({
@@ -55,88 +40,47 @@ function ChartForm() {
         },
       })}
     >
-      {/* TODO: <useForm /> from mantine */}
-      <div>
-        <form onSubmit={form.onSubmit((values) => console.log(values))}>
-          <TrafficDatePicker
-            dateValue={dateValue}
-            setDateValue={setDateValue}
-          />
-          <TimeInputSelector dateValue={dateValue} isFirstDate={0} />
-          <TimeInputSelector dateValue={dateValue} isFirstDate={1} />
+      <form
+        onSubmit={form.onSubmit((values) =>
+          console.log(values, selectedVehicles)
+        )}
+      >
+        <TrafficDatePicker dateValue={dateValue} setDateValue={setDateValue} />
+        <TimeInputSelector dateValue={dateValue} isFirstDate={0} />
+        <TimeInputSelector dateValue={dateValue} isFirstDate={1} />
 
-          <Switch
-            color="teal"
-            checked={allVehicles}
-            label={allVehicles ? "All Vehicle Types" : "Select Vehicle Type"}
-            onLabel="All"
-            offLabel="Select"
-            onChange={(event) => setAllVehicles(event.currentTarget.checked)}
-            pt="1rem"
-            px="1rem"
-          />
-          <Collapse in={!allVehicles}>
-            <MultiSelect
-              data={["Commuter", "Truck", "Bus", "Motorcycle"]}
-              label="Vehicle Type"
-              placeholder="Vehicle Types to Include"
-              defaultValue={["Commuter", "Truck", "Bus", "Motorcycle"]}
-              clearButtonLabel="Clear selection"
-              clearable
-              py="1rem"
-              px="1rem"
-            />
-          </Collapse>
+        <ChartSwitchButton
+          allStateObject={allVehicles}
+          setAllStateObject={setAllVehicles}
+          trueMessage="All Vehicle Types"
+          falseMessage="Select Vehicle Type"
+        />
+        <ChartVehicleSelector
+          allVehicles={allVehicles}
+          selectedVehicles={selectedVehicles}
+          setSelectedVehicles={setSelectedVehicles}
+        />
 
-          <Switch
-            color="teal"
-            checked={allSpeeds}
-            label={allSpeeds ? "All Speeds" : "Select Speed Range"}
-            onLabel="All"
-            offLabel="Select"
-            onChange={(event) => setAllSpeeds(event.currentTarget.checked)}
-            pt="1rem"
-            px="1rem"
-          />
+        <ChartSwitchButton
+          allStateObject={allSpeeds}
+          setAllStateObject={setAllSpeeds}
+          trueMessage="All Speeds"
+          falseMessage="Select Speed Range"
+        />
 
-          <Collapse in={!allSpeeds}>
-            <RangeSlider
-              defaultValue={[25, 75]}
-              marks={speedMarkers}
-              label={(value) => `${value} mph`}
-              py="1rem"
-              px="1rem"
-            />
-          </Collapse>
+        <ChartRangeSlider allStateObject={allSpeeds} markerType="speed" />
 
-          <Switch
-            color="teal"
-            checked={allTemps}
-            label={allTemps ? "All Temperatures" : "Select Temperature Range"}
-            onLabel="All"
-            offLabel="Select"
-            onChange={(event) => {
-              setAllTemps(event.currentTarget.checked);
-            }}
-            py="1rem"
-            px="1rem"
-          />
-
-          <Collapse in={!allTemps}>
-            <RangeSlider
-              min={-20}
-              max={120}
-              defaultValue={[25, 75]}
-              marks={tempMarkers}
-              label={(value) => `${value} °F`}
-              pb="2rem"
-              px="1rem"
-            />
-          </Collapse>
-
+        <ChartSwitchButton
+          allStateObject={allTemps}
+          setAllStateObject={setAllTemps}
+          trueMessage="All Temperatures"
+          falseMessage="Select Temperature Range"
+        />
+        <ChartRangeSlider allStateObject={allTemps} markerType="temp" />
+        <Center py="1rem">
           <Button type="submit">Submit</Button>
-        </form>
-      </div>
+        </Center>
+      </form>
     </Paper>
   );
 }
