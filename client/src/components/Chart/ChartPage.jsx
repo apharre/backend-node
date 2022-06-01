@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-// import { Loader, Grid, Center, Container } from "@mantine/core";
 import { Grid } from "@mantine/core";
 import { useLocation } from "react-router-dom";
 
@@ -13,6 +12,7 @@ import { GET } from "../../constants/actionTypes";
 // eslint-disable-next-line no-unused-vars
 function ChartPage({ currentCamera, setCurrentCamera }) {
   const location = useLocation();
+  // const history = useHistory();
 
   const params = location.search ? location.search : null;
 
