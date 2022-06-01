@@ -9,15 +9,21 @@ import ChartRangeSlider from "./chartFormElements/rangeSlider";
 import ChartVehicleSelector from "./chartFormElements/vehicleSelector";
 import ChartLaneSelector from "./chartFormElements/laneSelector";
 
+const oneDayAgo = new Date(Date.now() - 86400000);
+const todayNow = new Date();
+
 function ChartForm() {
   const [dateValue, setDateValue] = useState([
-    new Date(Date.now() - 86400000), // number of milliseconds in 24 hours
-    new Date(),
+    oneDayAgo, // number of milliseconds in 24 hours
+    todayNow,
   ]);
-  const [allVehicles, setAllVehicles] = useState(true);
-  const [allSpeeds, setAllSpeeds] = useState(true);
-  const [allTemps, setAllTemps] = useState(true);
-  const [allLanes, setAllLanes] = useState(true);
+  const [firstDayTime, setFirstDayTime] = useState(oneDayAgo);
+  // https://stackoverflow.com/questions/16597853/combine-date-and-time-string-into-single-date-with-javascript
+  const [secondDayTime, setSecondDayTime] = useState(todayNow);
+  const [speedRange, setSpeedRange] = useState([25, 75]);
+  const [tempRange, setTempRange] = useState([0, 100]);
+  // eslint-disable-next-line no-unused-vars
+  const [defaultLaneNumbers, setDefaultLaneNumbers] = useState([1, 2, 3, 4]);
   const [laneNumbers, setLaneNumbers] = useState([1, 2, 3, 4]);
   const [selectedVehicles, setSelectedVehicles] = useState([
     "Commuter",
@@ -25,6 +31,11 @@ function ChartForm() {
     "Bus",
     "Motorcycle",
   ]);
+
+  const [allVehicles, setAllVehicles] = useState(true);
+  const [allSpeeds, setAllSpeeds] = useState(true);
+  const [allTemps, setAllTemps] = useState(true);
+  const [allLanes, setAllLanes] = useState(true);
 
   const form = useForm({
     initialValues: {
@@ -45,12 +56,32 @@ function ChartForm() {
     >
       <form
         onSubmit={form.onSubmit((values) =>
-          console.log(values, selectedVehicles)
+          console.log(
+            values,
+            selectedVehicles,
+            "|||",
+            dateValue,
+            firstDayTime, // combine it with dateValue[1 and 2] to block off time. see line 22 comment
+            secondDayTime,
+            speedRange,
+            tempRange,
+            laneNumbers
+          )
         )}
       >
         <TrafficDatePicker dateValue={dateValue} setDateValue={setDateValue} />
-        <TimeInputSelector dateValue={dateValue} isFirstDate={0} />
-        <TimeInputSelector dateValue={dateValue} isFirstDate={1} />
+        <TimeInputSelector
+          yearComparison={dateValue}
+          dateValue={firstDayTime}
+          setDateValue={setFirstDayTime}
+          isFirstDate={0}
+        />
+        <TimeInputSelector
+          yearComparison={dateValue}
+          dateValue={secondDayTime}
+          setDateValue={setSecondDayTime}
+          isFirstDate={1}
+        />
 
         <ChartSwitchButton
           allStateObject={allVehicles}
@@ -70,7 +101,12 @@ function ChartForm() {
           trueMessage="All Speeds"
           falseMessage="Select Speed Range"
         />
-        <ChartRangeSlider allStateObject={allSpeeds} markerType="speed" />
+        <ChartRangeSlider
+          allStateObject={allSpeeds}
+          sliderValue={speedRange}
+          setSliderValue={setSpeedRange}
+          markerType="speed"
+        />
 
         <ChartSwitchButton
           allStateObject={allTemps}
@@ -78,7 +114,12 @@ function ChartForm() {
           trueMessage="All Temperatures"
           falseMessage="Select Temperature Range"
         />
-        <ChartRangeSlider allStateObject={allTemps} markerType="temp" />
+        <ChartRangeSlider
+          allStateObject={allTemps}
+          sliderValue={tempRange}
+          setSliderValue={setTempRange}
+          markerType="temp"
+        />
 
         <ChartSwitchButton
           allStateObject={allLanes}
@@ -88,6 +129,7 @@ function ChartForm() {
         />
         <ChartLaneSelector
           allStateObject={allLanes}
+          defaultLaneNumbers={defaultLaneNumbers}
           laneNumbers={laneNumbers}
           setLaneNumbers={setLaneNumbers}
         />

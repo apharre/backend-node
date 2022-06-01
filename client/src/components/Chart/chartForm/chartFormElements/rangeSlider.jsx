@@ -27,22 +27,23 @@ class SliderType {
     this.markers = this.markerType === "speed" ? speedMarkers : tempMarkers;
     this.minValue = this.markerType === "speed" ? 0 : -20;
     this.maxValue = this.markerType === "speed" ? 100 : 120;
-    this.defaultMinValue = this.markerType === "speed" ? 25 : 0;
-    this.defaultMaxValue = this.markerType === "speed" ? 75 : 100;
     this.bottomPadding = this.markerType === "speed" ? "1rem" : "2rem";
   }
 }
 
-function ChartRangeSlider({ allStateObject, markerType }) {
+function ChartRangeSlider({
+  allStateObject,
+  sliderValue,
+  setSliderValue,
+  markerType,
+}) {
   const typeOfSlider = new SliderType(markerType);
 
   return (
     <Collapse in={!allStateObject}>
       <RangeSlider
-        defaultValue={[
-          typeOfSlider.defaultMinValue,
-          typeOfSlider.defaultMaxValue,
-        ]}
+        defaultValue={sliderValue}
+        onChange={setSliderValue}
         min={typeOfSlider.minValue}
         max={typeOfSlider.maxValue}
         marks={typeOfSlider.markers}

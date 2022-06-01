@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { TimeInput } from "@mantine/dates";
 
@@ -34,7 +35,7 @@ function ordinalSuffixes(i) {
   return "th";
 }
 
-function displayDate(dateValue, isFirstDate) {
+function displayDate(yearComparison, isFirstDate) {
   /**
    * Returns the text for the time input based on the individual dates' properties.
    * @param {!dateValue} array[Date] The array of two dates which will be read into the inputs' title
@@ -47,14 +48,14 @@ function displayDate(dateValue, isFirstDate) {
   let date;
   let ordinal;
 
-  if (dateValue[1] !== null) {
-    if (dateValue[0].getFullYear() === dateValue[1].getFullYear()) {
+  if (yearComparison[1] && yearComparison[0]) {
+    if (yearComparison[0].getFullYear() === yearComparison[1].getFullYear()) {
       sameYear = true;
     }
 
-    year = dateValue[isFirstDate].getFullYear();
-    month = monthNames[dateValue[isFirstDate].getMonth()];
-    date = dateValue[isFirstDate].getDate();
+    year = yearComparison[isFirstDate].getFullYear();
+    month = monthNames[yearComparison[isFirstDate].getMonth()];
+    date = yearComparison[isFirstDate].getDate();
 
     ordinal = ordinalSuffixes(date);
   }
@@ -65,7 +66,12 @@ function displayDate(dateValue, isFirstDate) {
 }
 
 // eslint-disable-next-line react/prop-types
-function TimeInputSelector({ dateValue, isFirstDate }) {
+function TimeInputSelector({
+  yearComparison,
+  dateValue,
+  setDateValue,
+  isFirstDate,
+}) {
   /**
    * Performs some of the calculations to display the correct date for the time input label
    * @param {!dateValue} DateObj the array containing the two different dates for choosing the time to restrict the query by
@@ -73,13 +79,13 @@ function TimeInputSelector({ dateValue, isFirstDate }) {
    * @return {ReactComponent} The time input component for the chart form on the charts page
    */
 
-  const dateForLabel = displayDate(dateValue, isFirstDate);
+  const dateForLabel = displayDate(yearComparison, isFirstDate);
 
   return (
     <TimeInput
-      defaultValue={dateValue[isFirstDate]}
+      defaultValue={dateValue}
       label={`${dateForLabel} Time`}
-      // variant="filled"
+      onChange={setDateValue}
       radius="md"
       format="12"
       pt="1rem"
