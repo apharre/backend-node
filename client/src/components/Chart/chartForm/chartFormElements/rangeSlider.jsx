@@ -1,4 +1,3 @@
-/* eslint-disable no-lone-blocks */
 /* eslint-disable react/prop-types */
 import React from "react";
 import { RangeSlider, Collapse } from "@mantine/core";

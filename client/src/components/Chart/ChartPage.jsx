@@ -1,20 +1,17 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
-// import faker from "faker";
 import axios from "axios";
 
-import { Loader, Grid, Center, Container } from "@mantine/core";
-// import { useNavigate, useLocation } from "react-router-dom";
+// import { Loader, Grid, Center, Container } from "@mantine/core";
+import { Grid } from "@mantine/core";
 import { useLocation } from "react-router-dom";
-// import useStyles from "../../mantine/globalStyles";
 
 import ChartForm from "./chartForm/ChartForm";
-import { GET } from "../../constants/actionTypes";
 import LineChart from "./LineChart/LineChart";
+import { GET } from "../../constants/actionTypes";
 
 // eslint-disable-next-line no-unused-vars
 function ChartPage({ currentCamera, setCurrentCamera }) {
-  // const navigate = useNavigate();
   const location = useLocation();
 
   const params = location.search ? location.search : null;
@@ -36,7 +33,7 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
   // eslint-disable-next-line no-unused-vars
   const [urlQuery, setUrlQuery] = useState("");
 
-  // effects
+  // effects for when the API is called
   useEffect(() => {
     let cancel;
     setLoading(true);
@@ -74,17 +71,9 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
       py="10px"
       size="max-width"
     >
-      {loading ? (
-        <Container>
-          <Center>
-            <Loader />
-          </Center>
-        </Container>
-      ) : (
-        <>
-          <Grid.Col md={2.5} lg={2.5}>
-            <ChartForm />
-            {/* <ChartForm
+      <Grid.Col md={2.5} lg={2.5}>
+        <ChartForm />
+        {/* <ChartForm
               chartFilters={chartFilters}
               setChartFilters={setChartFilters}
               loading={loading}
@@ -94,16 +83,15 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
               currentCamera={currentCamera}
               setCurrentCamera={setCurrentCamera}
             /> */}
-          </Grid.Col>
-          <Grid.Col md={9.5} lg={9.5}>
-            <LineChart
-              vehicleData={vehicleData}
-              currentCamera={currentCamera}
-              chartFilters={chartFilters}
-            />
-          </Grid.Col>
-        </>
-      )}
+      </Grid.Col>
+      <Grid.Col md={9.5} lg={9.5}>
+        <LineChart
+          // vehicleData={vehicleData}
+          // currentCamera={currentCamera}
+          // chartFilters={chartFilters}
+          isLoading={loading}
+        />
+      </Grid.Col>
     </Grid>
   );
 }

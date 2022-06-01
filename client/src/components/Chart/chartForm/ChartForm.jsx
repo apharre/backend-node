@@ -7,6 +7,7 @@ import TimeInputSelector from "./chartFormElements/timeInput";
 import ChartSwitchButton from "./chartFormElements/switchButton";
 import ChartRangeSlider from "./chartFormElements/rangeSlider";
 import ChartVehicleSelector from "./chartFormElements/vehicleSelector";
+import ChartLaneSelector from "./chartFormElements/laneSelector";
 
 function ChartForm() {
   const [dateValue, setDateValue] = useState([
@@ -16,6 +17,8 @@ function ChartForm() {
   const [allVehicles, setAllVehicles] = useState(true);
   const [allSpeeds, setAllSpeeds] = useState(true);
   const [allTemps, setAllTemps] = useState(true);
+  const [allLanes, setAllLanes] = useState(true);
+  const [laneNumbers, setLaneNumbers] = useState([1, 2, 3, 4]);
   const [selectedVehicles, setSelectedVehicles] = useState([
     "Commuter",
     "Truck",
@@ -25,9 +28,9 @@ function ChartForm() {
 
   const form = useForm({
     initialValues: {
-      allVehicleFormBool: { allVehicles },
-      allSpeedFormBool: { allSpeeds },
-      allTempFormBool: { allTemps },
+      allVehicles,
+      allSpeeds,
+      allTemps,
     },
   });
 
@@ -67,7 +70,6 @@ function ChartForm() {
           trueMessage="All Speeds"
           falseMessage="Select Speed Range"
         />
-
         <ChartRangeSlider allStateObject={allSpeeds} markerType="speed" />
 
         <ChartSwitchButton
@@ -77,6 +79,19 @@ function ChartForm() {
           falseMessage="Select Temperature Range"
         />
         <ChartRangeSlider allStateObject={allTemps} markerType="temp" />
+
+        <ChartSwitchButton
+          allStateObject={allLanes}
+          setAllStateObject={setAllLanes}
+          trueMessage="All Lanes"
+          falseMessage="Select Lanes"
+        />
+        <ChartLaneSelector
+          allStateObject={allLanes}
+          laneNumbers={laneNumbers}
+          setLaneNumbers={setLaneNumbers}
+        />
+
         <Center py="1rem">
           <Button type="submit">Submit</Button>
         </Center>

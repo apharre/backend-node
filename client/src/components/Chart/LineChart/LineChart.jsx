@@ -1,7 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { Chart } from "react-charts";
+import { Center, Loader } from "@mantine/core";
 
-function LineChart() {
+// function LineChart({ vehicleData, currentCamera, chartFilters, loading }) {
+function LineChart({ isLoading }) {
   const data = React.useMemo(
     () => [
       {
@@ -9,7 +12,7 @@ function LineChart() {
         data: [
           // [0, 1],
           [1, 2],
-          [2, 4],
+          [2.5, 4],
           [3, 2],
           [4, 7],
           [5, 2],
@@ -20,9 +23,9 @@ function LineChart() {
         data: [
           // [0, 3],
           [1, 1],
-          [2, 5],
+          [2.3, 5],
           [3, 6],
-          [4, 4],
+          [4.68, 4],
           [5, 9],
         ],
       },
@@ -39,13 +42,21 @@ function LineChart() {
   );
 
   return (
-    <div
-      style={{
-        height: "90vh",
-        backgroundColor: "white",
-      }}
-    >
-      <Chart data={data} axes={axes} />
+    <div>
+      {isLoading ? (
+        <Center style={{ height: "90px" }}>
+          <Loader />
+        </Center>
+      ) : (
+        <div
+          style={{
+            height: "90vh",
+            backgroundColor: "white",
+          }}
+        >
+          <Chart data={data} axes={axes} />
+        </div>
+      )}
     </div>
   );
 }

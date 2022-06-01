@@ -4,7 +4,6 @@ import { Routes, Route } from "react-router-dom";
 import MapPage from "../Map/MapPage";
 import PostPage from "../PostPage/PostPage";
 import ChartPage from "../Chart/ChartPage";
-// import App from "../../App";
 
 function NavBarRoutes() {
   const [currentCamera, setCurrentCamera] = useState("");
