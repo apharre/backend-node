@@ -2,28 +2,27 @@ import React, { useState } from "react";
 import { Button, Paper, Center } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
-import TrafficDatePicker from "./chartFormElements/dateRangePicker";
-import TimeInputSelector from "./chartFormElements/timeInput";
-import ChartSwitchButton from "./chartFormElements/switchButton";
-import ChartRangeSlider from "./chartFormElements/rangeSlider";
-import ChartVehicleSelector from "./chartFormElements/vehicleSelector";
 import ChartLaneSelector from "./chartFormElements/laneSelector";
+import ChartRangeSlider from "./chartFormElements/rangeSlider";
+import ChartSwitchButton from "./chartFormElements/switchButton";
+import ChartVehicleSelector from "./chartFormElements/vehicleSelector";
+import TimeInputSelector from "./chartFormElements/timeInput";
+import TrafficDatePicker from "./chartFormElements/dateRangePicker";
 
-const oneDayAgo = new Date(Date.now() - 86400000);
+import combineDateAndTimes from "./chartFormFunctions/chartFormFunctions";
+
+const oneDayAgo = new Date(Date.now() - 86400000); // number of miliseconds in 24 hours
 const todayNow = new Date();
 
 function ChartForm() {
-  const [dateValue, setDateValue] = useState([
-    oneDayAgo, // number of milliseconds in 24 hours
-    todayNow,
-  ]);
+  /* ____________________ Hook Instantiation ____________________ */
+  const [dateValue, setDateValue] = useState([oneDayAgo, todayNow]);
   const [firstDayTime, setFirstDayTime] = useState(oneDayAgo);
-  // https://stackoverflow.com/questions/16597853/combine-date-and-time-string-into-single-date-with-javascript
   const [secondDayTime, setSecondDayTime] = useState(todayNow);
   const [speedRange, setSpeedRange] = useState([25, 75]);
   const [tempRange, setTempRange] = useState([0, 100]);
   // eslint-disable-next-line no-unused-vars
-  const [defaultLaneNumbers, setDefaultLaneNumbers] = useState([1, 2, 3, 4]);
+  const [defaultLaneNumbers, setDefaultLaneNumbers] = useState([1, 2, 3, 4]); // use this later to pull info from database
   const [laneNumbers, setLaneNumbers] = useState([1, 2, 3, 4]);
   const [selectedVehicles, setSelectedVehicles] = useState([
     "Commuter",
@@ -37,14 +36,9 @@ function ChartForm() {
   const [allTemps, setAllTemps] = useState(true);
   const [allLanes, setAllLanes] = useState(true);
 
-  const form = useForm({
-    initialValues: {
-      allVehicles,
-      allSpeeds,
-      allTemps,
-    },
-  });
+  const form = useForm({});
 
+  /* ____________________ Page Element ____________________ */
   return (
     <Paper
       sx={(theme) => ({
@@ -55,18 +49,25 @@ function ChartForm() {
       })}
     >
       <form
-        onSubmit={form.onSubmit((values) =>
-          console.log(
-            values,
-            selectedVehicles,
-            "|||",
-            dateValue,
-            firstDayTime, // combine it with dateValue[1 and 2] to block off time. see line 22 comment
-            secondDayTime,
-            speedRange,
-            tempRange,
-            laneNumbers
-          )
+        onSubmit={form.onSubmit(
+          // eslint-disable-next-line no-unused-vars
+          (values) =>
+            form.setValues({
+              combinedDates: combineDateAndTimes(
+                dateValue,
+                firstDayTime,
+                secondDayTime
+              ),
+              boolAllSpeeds: allSpeeds,
+              querySpeedRange: speedRange,
+              boolAllTemps: allTemps,
+              queryTempRange: tempRange,
+              boolAllLanes: allLanes,
+              queryLaneNumbers: laneNumbers,
+              boolAllVehicles: allVehicles,
+              querySelectedVehicles: selectedVehicles,
+            }),
+          console.log(form.values)
         )}
       >
         <TrafficDatePicker dateValue={dateValue} setDateValue={setDateValue} />

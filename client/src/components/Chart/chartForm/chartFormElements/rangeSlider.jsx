@@ -43,7 +43,7 @@ function ChartRangeSlider({
     <Collapse in={!allStateObject}>
       <RangeSlider
         defaultValue={sliderValue}
-        onChange={setSliderValue}
+        onChangeEnd={setSliderValue}
         min={typeOfSlider.minValue}
         max={typeOfSlider.maxValue}
         marks={typeOfSlider.markers}
