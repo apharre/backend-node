@@ -38,22 +38,21 @@ function ChartForm({ setChartFilters }) {
   const [allLanes, setAllLanes] = useState(true);
 
   const form = useForm({
-    initialValues: {
-      combinedDates: dateValue,
-      boolAllSpeeds: allSpeeds,
-      querySpeedRange: speedRange,
-      boolAllTemps: allTemps,
-      queryTempRange: tempRange,
-      boolAllLanes: allLanes,
-      queryLaneNumbers: laneNumbers,
-      boolAllVehicles: allVehicles,
-      querySelectedVehicles: selectedVehicles,
-    },
+    // initialValues: {
+    //   combinedDates: dateValue,
+    //   boolAllSpeeds: allSpeeds,
+    //   querySpeedRange: speedRange,
+    //   boolAllTemps: allTemps,
+    //   queryTempRange: tempRange,
+    //   boolAllLanes: allLanes,
+    //   queryLaneNumbers: laneNumbers,
+    //   boolAllVehicles: allVehicles,
+    //   querySelectedVehicles: selectedVehicles,
+    // },
   });
 
-  // DELETE ME
   function handleSubmit() {
-    form.setValues({
+    setChartFilters({
       combinedDates: combineDateAndTimes(
         dateValue,
         firstDayTime,
@@ -68,8 +67,8 @@ function ChartForm({ setChartFilters }) {
       boolAllVehicles: allVehicles,
       querySelectedVehicles: selectedVehicles,
     });
-    setChartFilters(form.values);
-    console.log("chartFILTERS", form.values);
+    // setChartFilters(form.values);
+    // console.log("chartFILTERS", chartFilters);
   }
 
   // run handle submit when page loads to ensure the chart is populated when first loading

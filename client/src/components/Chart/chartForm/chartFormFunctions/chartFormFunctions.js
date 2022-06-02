@@ -1,4 +1,4 @@
-/* ______________________ Date and Time Functions ______________________ */
+/* ____________________ Date and Time Functions ____________________ */
 function extractDate(date) {
   /**
    * Takes a single date value and returns the date as a string
@@ -29,7 +29,7 @@ function combineDateAndTimes(dateValue, firstDayTime, secondDayTime) {
   ];
 }
 
-/* ______________________ Speed Functions ______________________ */
+/* ____________________ Speed Functions ____________________ */
 // function allSpeedSubmittal(allSpeeds, speedRange) {}
 
 export default combineDateAndTimes;

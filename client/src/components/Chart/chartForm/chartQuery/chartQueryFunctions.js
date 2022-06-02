@@ -1,78 +1,94 @@
-// class ChartQueryCreator {
-//   constructor({ ...chartFilters }) {
-//     this.dates = chartFilters.combinedDates;
-//     this.
-//   }
-// }
+/**
+ * Creates the query for the chart page by taking the inputs from the chart form on the left and converting it into a Mongo-readable query
+ */
+class ChartQuery {
+  /**
+   * @param {*object} chartFilters the object passed when the submit button is clicked
+   * @param chartFilters
+   */
+  constructor({ ...chartFilters }) {
+    // this.chartFilters = chartFilters;
+    this.combinedDates = chartFilters.combinedDates;
 
-function speedQuery(boolAllSpeeds) {
-  // }, querySpeedRange) {
-  if (boolAllSpeeds) {
-    return "";
+    this.boolAllVehicles = chartFilters.boolAllVehicles;
+    this.boolAllSpeeds = chartFilters.boolAllSpeeds;
+    this.boolAllTemps = chartFilters.boolAllTemps;
+    this.boolAllLanes = chartFilters.boolAllLanes;
+
+    this.querySpeedRange = chartFilters.querySpeedRange;
+    this.queryTempRange = chartFilters.tempRange;
+    this.queryLaneNumbers = chartFilters.queryLaneNumbers;
+    this.querySelectedVehicles = chartFilters.querySelectedVehicles;
   }
-  // const lowSpeedQuery = `speed[gte]=${querySpeedRange[0]}`;
-  // const highSpeed = querySpeedRange[1];
 
-  // let highSpeedQuery = `&speed[lte]=${highSpeed}`;
-  // if (highSpeed === 100) {
-  //   highSpeedQuery = "";
-  // }
-  return "lowSpeedQuery"; // `${lowSpeedQuery}${highSpeedQuery}`;
+  test() {
+    console.log(
+      "Object Chart Filters",
+      this.chartFilters,
+      this.boolAllVehicles
+    );
+  }
+
+  dateQuery() {
+    return `date{gte]=${this.combinedDates[0]}&date[lte]=${this.combinedDates[1]}`;
+  }
+
+  vehicleTypeQuery() {
+    if (this.boolAllVehicles) {
+      return "";
+    }
+    console.log("inside vehicle", this.querySelectedVehicles);
+    const result = `type[eq]=[${this.querySelectedVehicles}]`;
+    return result;
+  }
+
+  speedQuery() {
+    if (this.boolAllSpeeds) {
+      return "";
+    }
+    const lowSpeedQuery = `speed[gte]=${this.querySpeedRange[0]}`;
+    const highSpeed = this.querySpeedRange[1];
+
+    let highSpeedQuery = `&speed[lte]=${highSpeed}`;
+    if (highSpeed === 100) {
+      highSpeedQuery = "";
+    }
+    const result = `${lowSpeedQuery}${highSpeedQuery}`;
+    return result;
+  }
+
+  temperatureQuery() {
+    if (this.boolAllTemps) {
+      return "";
+    }
+    const lowTempQuery = `temp[gte]=${this.queryTempRange[0]}`;
+    let highTempQuery = `&temp[lte]=${this.queryTempRange[1]}`;
+    if (this.queryTempRange[1] === 120) {
+      highTempQuery = "";
+    }
+    const result = `${lowTempQuery}${highTempQuery}`;
+    return result;
+  }
+
+  laneQuery() {
+    if (this.boolAllLanes) {
+      return "";
+    }
+    const result = `lane[eq]=[${this.querySelectedVehicles}]`;
+    return result;
+  }
+
+  static addAmpersand(nextFunction) {
+    if (nextFunction !== "") {
+      return `&${nextFunction}`;
+    }
+    return nextFunction;
+  }
+
+  // TODO: combine the queries
+  newQuery() {
+    return `${this.dateQuery()}`;
+  }
 }
 
-function chartQueryCreator(chartFilters) {
-  const ex = { ...chartFilters }; // expanded
-
-  // const dates = ex.combinedDates;
-  // const
-
-  console.log("CHART QUERY FUNCTION", ex, ex.combinedDates);
-
-  console.log("DID IT WORK", ex.combinedDates[0]);
-
-  // const firstDate = Math.floor(chartFilters.combinedDates.getTime() / 1000);
-  // console.log(firstDate);
-
-  /**
-   * combinedDates: dateValue,
-      boolAllSpeeds: allSpeeds,
-      querySpeedRange: speedRange,
-      boolAllTemps: allTemps,
-      queryTempRange: tempRange,
-      boolAllLanes: allLanes,
-      queryLaneNumbers: laneNumbers,
-      boolAllVehicles: allVehicles,
-      querySelectedVehicles: selectedVehicles,
-   */
-
-  /**
-   *   const [dateValue, setDateValue] = useState([oneDayAgo, todayNow]);
-  const [firstDayTime, setFirstDayTime] = useState(oneDayAgo);
-  const [laneNumbers, setLaneNumbers] = useState([1, 2, 3, 4]);
-  const [secondDayTime, setSecondDayTime] = useState(todayNow);
-  const [selectedVehicles, setSelectedVehicles] = useState([
-    "Commuter",
-    "Truck",
-    "Bus",
-    "Motorcycle",
-  ]);
-  const [speedRange, setSpeedRange] = useState([25, 75]);
-  const [tempRange, setTempRange] = useState([0, 100]);
-
-  const [allVehicles, setAllVehicles] = useState(true);
-  const [allSpeeds, setAllSpeeds] = useState(true);
-  const [allTemps, setAllTemps] = useState(true);
-  const [allLanes, setAllLanes] = useState(true);
-   */
-  console.log(
-    ex.boolAllSpeeds,
-    ex.querySpeedRange,
-    ex.querySpeedRange[0],
-    ex.querySpeedRange[1]
-  );
-  const speedQueryText = speedQuery(ex.boolAllSpeeds, ex.querySpeedRange);
-  console.log("SPEED QUERY", speedQueryText);
-  return speedQueryText;
-}
-
-export default chartQueryCreator;
+export default ChartQuery;

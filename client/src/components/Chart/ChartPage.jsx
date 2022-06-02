@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 import ChartForm from "./chartForm/ChartForm";
 import LineChart from "./LineChart/LineChart";
 import { GET } from "../../constants/actionTypes";
-import chartQueryCreator from "./chartForm/chartQuery/chartQueryFunctions";
+import ChartQuery from "./chartForm/chartQuery/chartQueryFunctions";
 
 // eslint-disable-next-line no-unused-vars
 function ChartPage({ currentCamera, setCurrentCamera }) {
@@ -36,8 +36,10 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
 
     setLoading(true);
     const fetchData = async () => {
-      setUrlQuery(chartQueryCreator(chartFilters));
+      // setUrlQuery(chartQueryCreator(chartFilters));
       console.log("FROM CHART PAGE", chartFilters);
+      const chartQuery2 = new ChartQuery(chartFilters);
+      console.log("NEW QUERY", chartQuery2.newQuery());
       try {
         let query;
         if (params && !urlQuery) {
