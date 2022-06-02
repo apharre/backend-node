@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from "react";
 import { Button, Paper, Center } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
@@ -14,29 +15,70 @@ import combineDateAndTimes from "./chartFormFunctions/chartFormFunctions";
 const oneDayAgo = new Date(Date.now() - 86400000); // number of miliseconds in 24 hours
 const todayNow = new Date();
 
-function ChartForm() {
+function ChartForm({ setChartFilters }) {
   /* ____________________ Hook Instantiation ____________________ */
+  // const [firstLoading, setFirstLoading] = useState(true);
+
   const [dateValue, setDateValue] = useState([oneDayAgo, todayNow]);
   const [firstDayTime, setFirstDayTime] = useState(oneDayAgo);
-  const [secondDayTime, setSecondDayTime] = useState(todayNow);
-  const [speedRange, setSpeedRange] = useState([25, 75]);
-  const [tempRange, setTempRange] = useState([0, 100]);
-  // eslint-disable-next-line no-unused-vars
-  const [defaultLaneNumbers, setDefaultLaneNumbers] = useState([1, 2, 3, 4]); // use this later to pull info from database
   const [laneNumbers, setLaneNumbers] = useState([1, 2, 3, 4]);
+  const [secondDayTime, setSecondDayTime] = useState(todayNow);
   const [selectedVehicles, setSelectedVehicles] = useState([
     "Commuter",
     "Truck",
     "Bus",
     "Motorcycle",
   ]);
+  const [speedRange, setSpeedRange] = useState([25, 75]);
+  const [tempRange, setTempRange] = useState([0, 100]);
 
   const [allVehicles, setAllVehicles] = useState(true);
   const [allSpeeds, setAllSpeeds] = useState(true);
   const [allTemps, setAllTemps] = useState(true);
   const [allLanes, setAllLanes] = useState(true);
 
-  const form = useForm({});
+  const form = useForm({
+    initialValues: {
+      combinedDates: dateValue,
+      boolAllSpeeds: allSpeeds,
+      querySpeedRange: speedRange,
+      boolAllTemps: allTemps,
+      queryTempRange: tempRange,
+      boolAllLanes: allLanes,
+      queryLaneNumbers: laneNumbers,
+      boolAllVehicles: allVehicles,
+      querySelectedVehicles: selectedVehicles,
+    },
+  });
+
+  // DELETE ME
+  function handleSubmit() {
+    form.setValues({
+      combinedDates: combineDateAndTimes(
+        dateValue,
+        firstDayTime,
+        secondDayTime
+      ),
+      boolAllSpeeds: allSpeeds,
+      querySpeedRange: speedRange,
+      boolAllTemps: allTemps,
+      queryTempRange: tempRange,
+      boolAllLanes: allLanes,
+      queryLaneNumbers: laneNumbers,
+      boolAllVehicles: allVehicles,
+      querySelectedVehicles: selectedVehicles,
+    });
+    setChartFilters(form.values);
+    console.log("chartFILTERS", form.values);
+  }
+
+  // run handle submit when page loads to ensure the chart is populated when first loading
+  useEffect(() => {
+    handleSubmit();
+  }, []);
+
+  // eslint-disable-next-line no-unused-vars
+  const [defaultLaneNumbers, setDefaultLaneNumbers] = useState([1, 2, 3, 4]); // use this later to pull info from database
 
   /* ____________________ Page Element ____________________ */
   return (
@@ -48,28 +90,7 @@ function ChartForm() {
         },
       })}
     >
-      <form
-        onSubmit={form.onSubmit(
-          // eslint-disable-next-line no-unused-vars
-          (values) =>
-            form.setValues({
-              combinedDates: combineDateAndTimes(
-                dateValue,
-                firstDayTime,
-                secondDayTime
-              ),
-              boolAllSpeeds: allSpeeds,
-              querySpeedRange: speedRange,
-              boolAllTemps: allTemps,
-              queryTempRange: tempRange,
-              boolAllLanes: allLanes,
-              queryLaneNumbers: laneNumbers,
-              boolAllVehicles: allVehicles,
-              querySelectedVehicles: selectedVehicles,
-            }),
-          console.log(form.values)
-        )}
-      >
+      <form onSubmit={form.onSubmit(handleSubmit)}>
         <TrafficDatePicker dateValue={dateValue} setDateValue={setDateValue} />
         <TimeInputSelector
           yearComparison={dateValue}

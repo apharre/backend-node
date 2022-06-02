@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import ChartForm from "./chartForm/ChartForm";
 import LineChart from "./LineChart/LineChart";
 import { GET } from "../../constants/actionTypes";
+import chartQueryCreator from "./chartForm/chartQuery/chartQueryFunctions";
 
 // eslint-disable-next-line no-unused-vars
 function ChartPage({ currentCamera, setCurrentCamera }) {
@@ -22,22 +23,21 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
   // eslint-disable-next-line no-unused-vars
   const [vehicleData, setVehicleData] = useState([]);
   // eslint-disable-next-line no-unused-vars
-  const [chartFilters, setChartFilters] = useState({
-    vehicleType: "All",
-    lane: "All",
-    speed: "All",
-    temp: "All",
-    date: "Past Hour",
-  });
+  const [chartFilters, setChartFilters] = useState({});
 
   // eslint-disable-next-line no-unused-vars
   const [urlQuery, setUrlQuery] = useState("");
 
   // effects for when the API is called
   useEffect(() => {
-    let cancel;
+    // https://hmos.dev/en/how-to-cancel-at-axios
+    const cancelToken = axios.CancelToken;
+    const source = cancelToken.source();
+
     setLoading(true);
     const fetchData = async () => {
+      setUrlQuery(chartQueryCreator(chartFilters));
+      console.log("FROM CHART PAGE", chartFilters);
       try {
         let query;
         if (params && !urlQuery) {
@@ -48,18 +48,22 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
         const { data } = await axios({
           method: GET,
           url: `/vehicles${query}`,
-          // eslint-disable-next-line no-undef, no-return-assign
-          cancelToken: new axios.CancelToken((c) => (cancel = c)),
+          cancelToken: source.token,
+          // cancelToken: new axios.CancelToken((c) => (cancel = c)),
         });
         setVehicleData(data.data);
+        console.log();
         setLoading(false);
       } catch (error) {
-        console.log(error.response.data);
+        if (axios.isCancel(error)) {
+          console.log(error, "error");
+        }
+        console.log(error);
       }
     };
     fetchData();
 
-    return () => cancel();
+    // return () => cancel();
     // When chartFilters changes, call the API again
   }, [chartFilters, params]);
 
@@ -72,7 +76,7 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
       size="max-width"
     >
       <Grid.Col md={2.5} lg={2.5}>
-        <ChartForm />
+        <ChartForm setChartFilters={setChartFilters} />
         {/* <ChartForm
               chartFilters={chartFilters}
               setChartFilters={setChartFilters}
