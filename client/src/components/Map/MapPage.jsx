@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { useSelector, useDispatch } from "react-redux";
-
 import { Loader, Grid, Center, Container } from "@mantine/core";
 
 import CustomMarker from "./Marker/CustomMarker";
@@ -29,15 +28,12 @@ const options = {
 
 function MapPage({ currentCamera, setCurrentCamera }) {
   /**
-   * The map element that is rendered on the map page
+   * The map element and auxiliaries that are rendered on the map page
    * Calls the getAllCameras function to retrieve the camera info and display them
-   *
-   * @param {!currentCamera} obj the current camera that appears in the info box and the charts page
-   * @param {!setCurrentCamera} func a function that sets and resets the current camera object
-   *
-   * @return {!GoogleMap} ReactObject the elements that make up the maps page
+   * @param {!currentCamera} obj The current camera that appears in the info box and the charts page
+   * @param {!setCurrentCamera} hook A function hook that sets and resets the current camera object
+   * @return {ReactObject} The elements that make up the maps page
    */
-  // const theme = useMantineTheme();
   const cameras = useSelector((state) => state.cameras);
   const dispatch = useDispatch();
 
@@ -67,7 +63,7 @@ function MapPage({ currentCamera, setCurrentCamera }) {
       py="10px"
       size="max-width"
     >
-      <Grid.Col md={3} lg={3} height="100%">
+      <Grid.Col md={3} lg={3} height="90vh">
         <SpeedChangeTable />
       </Grid.Col>
       <Grid.Col md={9} lg={9}>

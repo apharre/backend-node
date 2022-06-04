@@ -1,205 +1,143 @@
 /* eslint-disable react/prop-types */
-// import React from "react";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-import {
-  // TextField,
-  Button,
-  Typography,
-  Paper,
-  Select,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  // InputBase,
-} from "@material-ui/core";
-import useStyles from "./styles";
+import { Button, Paper, Center } from "@mantine/core";
+import { useForm } from "@mantine/form";
 
-import {
-  timeOptions,
-  vehicleOptions,
-  laneOptions,
-  speedOptions,
-  tempOptions,
-} from "./chartVariables";
-import chartQueryBuilder from "./chartQueryBuilder";
+import ChartLaneSelector from "./chartFormInputElements/laneSelector";
+import ChartRangeSlider from "./chartFormInputElements/rangeSlider";
+import ChartSwitchButton from "./chartFormInputElements/switchButton";
+import ChartVehicleSelector from "./chartFormInputElements/vehicleSelector";
+import TimeInputSelector from "./chartFormInputElements/timeInput";
+import TrafficDatePicker from "./chartFormInputElements/dateRangePicker";
 
-// class FormComponent extends Component {
-//   constructor() {
-//     super();
+import combineDateAndTimes from "./chartFormFunctions/chartFormFunctions";
 
-//     this.state = { selection: 1 };
-//     this.handleChange = this.handleChange.bind(this);
-//   }
-// }
+const oneDayAgo = new Date(Date.now() - 86400000); // number of miliseconds in 24 hours
+const todayNow = new Date();
 
-// eslint-disable-next-line react/prop-types, no-unused-vars
-function ChartForm({
+function ChartForm({ setChartFilters }) {
+  /* ____________________ Hook Instantiation ____________________ */
+  const [dateValue, setDateValue] = useState([oneDayAgo, todayNow]);
+  const [firstDayTime, setFirstDayTime] = useState(oneDayAgo);
+  const [laneNumbers, setLaneNumbers] = useState([1, 2, 3, 4]);
+  const [secondDayTime, setSecondDayTime] = useState(todayNow);
+  const [selectedVehicles, setSelectedVehicles] = useState([
+    "Commuter",
+    "Truck",
+    "Bus",
+    "Motorcycle",
+  ]);
+  const [speedRange, setSpeedRange] = useState([25, 75]);
+  const [tempRange, setTempRange] = useState([0, 100]);
+
+  const [allVehicles, setAllVehicles] = useState(true);
+  const [allSpeeds, setAllSpeeds] = useState(true);
+  const [allTemps, setAllTemps] = useState(true);
+  const [allLanes, setAllLanes] = useState(true);
+
+  const form = useForm({});
+
+  function handleSubmit() {
+    setChartFilters({
+      combinedDates: combineDateAndTimes(
+        dateValue,
+        firstDayTime,
+        secondDayTime
+      ),
+      boolAllSpeeds: allSpeeds,
+      querySpeedRange: speedRange,
+      boolAllTemps: allTemps,
+      queryTempRange: tempRange,
+      boolAllLanes: allLanes,
+      queryLaneNumbers: laneNumbers,
+      boolAllVehicles: allVehicles,
+      querySelectedVehicles: selectedVehicles,
+    });
+  }
+
   // eslint-disable-next-line no-unused-vars
-  chartFilters,
-  // eslint-disable-next-line no-unused-vars
-  setChartFilters,
-  loading,
-  // eslint-disable-next-line no-unused-vars
-  urlQuery,
-  setUrlQuery,
-  // eslint-disable-next-line no-unused-vars
-  currentCamera,
-}) {
-  const classes = useStyles();
-  const navigate = useNavigate();
+  const [defaultLaneNumbers, setDefaultLaneNumbers] = useState([1, 2, 3, 4]); // use this later to pull info from database
 
-  // Might not need this
-  const [date, setDate] = useState("Past Hour");
-  const [vehicleType, setVehicleType] = useState("All");
-  const [lane, setLane] = useState("All");
-  const [speed, setSpeed] = useState("All");
-  const [temp, setTemp] = useState("All");
-
-  // when the submit button is clicked, make the API call again in ChartPage.jsx
-  // const handleSubmit = (event, date, vehicleType, lane, speed, temp) => {
-  //   buildParamFilter(date, vehicleType, lane, speed, temp)
-  // };
-
-  // // eslint-disable-next-line no-shadow, no-unused-vars
-  // const handleSubmit = (event) => {
-  //   const urlFilter = chartQueryBuilder(date, vehicleType, lane, speed, temp);
-  //   console.log(urlFilter);
-  //   setUrlQuery(urlFilter);
-  //   navigate(urlFilter);
-  // };
-
-  // TODO: HARDCODING THE CAMERAS, SO CHANGE THIS LATER
-  // eslint-disable-next-line no-shadow, no-unused-vars
-  const handleSubmit = (event) => {
-    const urlFilter = chartQueryBuilder(
-      currentCamera.vehicle_collection,
-      date,
-      vehicleType,
-      lane,
-      speed,
-      temp
-    );
-    console.log(urlFilter);
-    setUrlQuery(urlFilter);
-    navigate(urlFilter);
-  };
-
+  /* ____________________ Page Element ____________________ */
   return (
-    <Paper className={classes.paper}>
-      <form onSubmit={handleSubmit}>
-        <FormControl
-          autoComplete="off"
-          noValidate
-          // onSubmit={(event, newValue) => handleSubmit(newValue)}
-          className={classes.formControl}
-        >
-          {/* <form autoComplete="off" noValidate onSubmit={handleSubmit}> */}
-          <Typography className={classes.menuTitle} variant="h6">
-            {/* TODO: get camera name here */}
-            {currentCamera.name}
-          </Typography>
-          <InputLabel className={classes.inputLabel}>Timeframe</InputLabel>
-          <Select
-            id="date-select"
-            value={date}
-            className={classes.dropdownMenu}
-            disabled={loading}
-            onChange={(event) => {
-              setDate(event.target.value);
-            }}
-          >
-            {timeOptions.map((timeOption) => (
-              <MenuItem value={timeOption} key={timeOption}>
-                {timeOption}
-              </MenuItem>
-            ))}
-          </Select>
+    <Paper
+      sx={(theme) => ({
+        backgroundColor: theme.colors.gray[0],
+        "&:hover": {
+          backgroundColor: theme.colors.gray[1],
+        },
+      })}
+    >
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <TrafficDatePicker dateValue={dateValue} setDateValue={setDateValue} />
+        <TimeInputSelector
+          yearComparison={dateValue}
+          dateValue={firstDayTime}
+          setDateValue={setFirstDayTime}
+          isFirstDate={0}
+        />
+        <TimeInputSelector
+          yearComparison={dateValue}
+          dateValue={secondDayTime}
+          setDateValue={setSecondDayTime}
+          isFirstDate={1}
+        />
 
-          <InputLabel className={classes.inputLabel}>Vehicle Type</InputLabel>
-          <Select
-            id="vechicle-select"
-            value={vehicleType}
-            className={classes.dropdownMenu}
-            disabled={loading}
-            onChange={(event) => {
-              setVehicleType(event.target.value);
-            }}
-          >
-            {vehicleOptions.map((vehicleOption) => (
-              <MenuItem value={vehicleOption} key={vehicleOption}>
-                {vehicleOption}
-              </MenuItem>
-            ))}
-          </Select>
+        <ChartSwitchButton
+          allStateObject={allVehicles}
+          setAllStateObject={setAllVehicles}
+          trueMessage="All Vehicle Types"
+          falseMessage="Select Vehicle Type"
+        />
+        <ChartVehicleSelector
+          allVehicles={allVehicles}
+          selectedVehicles={selectedVehicles}
+          setSelectedVehicles={setSelectedVehicles}
+        />
 
-          <InputLabel className={classes.inputLabel}>Lane</InputLabel>
-          <Select
-            id="lane-select"
-            value={lane}
-            className={classes.dropdownMenu}
-            disabled={loading}
-            onChange={(event) => {
-              setLane(event.target.value);
-            }}
-          >
-            {laneOptions.map((laneOption) => (
-              <MenuItem value={laneOption} key={laneOption}>
-                {laneOption}
-              </MenuItem>
-            ))}
-          </Select>
+        <ChartSwitchButton
+          allStateObject={allSpeeds}
+          setAllStateObject={setAllSpeeds}
+          trueMessage="All Speeds"
+          falseMessage="Select Speed Range"
+        />
+        <ChartRangeSlider
+          allStateObject={allSpeeds}
+          sliderValue={speedRange}
+          setSliderValue={setSpeedRange}
+          markerType="speed"
+        />
 
-          <InputLabel className={classes.inputLabel}>Speed</InputLabel>
-          <Select
-            id="speed-select"
-            value={speed}
-            className={classes.dropdownMenu}
-            disabled={loading}
-            onChange={(event) => {
-              setSpeed(event.target.value);
-            }}
-          >
-            {speedOptions.map((speedOption) => (
-              <MenuItem value={speedOption} key={speedOption}>
-                {speedOption}
-              </MenuItem>
-            ))}
-          </Select>
+        <ChartSwitchButton
+          allStateObject={allTemps}
+          setAllStateObject={setAllTemps}
+          trueMessage="All Temperatures"
+          falseMessage="Select Temperature Range"
+        />
+        <ChartRangeSlider
+          allStateObject={allTemps}
+          sliderValue={tempRange}
+          setSliderValue={setTempRange}
+          markerType="temp"
+        />
 
-          <InputLabel className={classes.inputLabel}>Temperature</InputLabel>
-          <Select
-            id="temp-select"
-            value={temp}
-            className={classes.dropdownMenu}
-            disabled={loading}
-            onChange={(event) => {
-              setTemp(event.target.value);
-            }}
-          >
-            {tempOptions.map((tempOption) => (
-              <MenuItem value={tempOption} key={tempOption}>
-                {tempOption}
-              </MenuItem>
-            ))}
-          </Select>
+        <ChartSwitchButton
+          allStateObject={allLanes}
+          setAllStateObject={setAllLanes}
+          trueMessage="All Lanes"
+          falseMessage="Select Lanes"
+        />
+        <ChartLaneSelector
+          allStateObject={allLanes}
+          defaultLaneNumbers={defaultLaneNumbers}
+          laneNumbers={laneNumbers}
+          setLaneNumbers={setLaneNumbers}
+        />
 
-          <Button
-            className={classes.buttonSubmit}
-            variant="contained"
-            color="primary"
-            size="medium"
-            type="submit"
-            // onClick={(event, newValue) => handleSubmit(newValue)}
-          >
-            Submit
-            {/* the URL tutorial is 1:57:00 */}
-            {/* src/api/index.js is where the action is executed */}
-            {/* src/actions/posts.js is where the action is created */}
-          </Button>
-          {/* </form> */}
-        </FormControl>
+        <Center py="1rem">
+          <Button type="submit">Submit</Button>
+        </Center>
       </form>
     </Paper>
   );
