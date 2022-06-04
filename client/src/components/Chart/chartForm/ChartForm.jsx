@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+
 import { Button, Paper, Center } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
-import ChartLaneSelector from "./chartFormElements/laneSelector";
-import ChartRangeSlider from "./chartFormElements/rangeSlider";
-import ChartSwitchButton from "./chartFormElements/switchButton";
-import ChartVehicleSelector from "./chartFormElements/vehicleSelector";
-import TimeInputSelector from "./chartFormElements/timeInput";
-import TrafficDatePicker from "./chartFormElements/dateRangePicker";
+import ChartLaneSelector from "./chartFormInputElements/laneSelector";
+import ChartRangeSlider from "./chartFormInputElements/rangeSlider";
+import ChartSwitchButton from "./chartFormInputElements/switchButton";
+import ChartVehicleSelector from "./chartFormInputElements/vehicleSelector";
+import TimeInputSelector from "./chartFormInputElements/timeInput";
+import TrafficDatePicker from "./chartFormInputElements/dateRangePicker";
 
 import combineDateAndTimes from "./chartFormFunctions/chartFormFunctions";
 
@@ -17,8 +19,6 @@ const todayNow = new Date();
 
 function ChartForm({ setChartFilters }) {
   /* ____________________ Hook Instantiation ____________________ */
-  // const [firstLoading, setFirstLoading] = useState(true);
-
   const [dateValue, setDateValue] = useState([oneDayAgo, todayNow]);
   const [firstDayTime, setFirstDayTime] = useState(oneDayAgo);
   const [laneNumbers, setLaneNumbers] = useState([1, 2, 3, 4]);
@@ -37,19 +37,7 @@ function ChartForm({ setChartFilters }) {
   const [allTemps, setAllTemps] = useState(true);
   const [allLanes, setAllLanes] = useState(true);
 
-  const form = useForm({
-    // initialValues: {
-    //   combinedDates: dateValue,
-    //   boolAllSpeeds: allSpeeds,
-    //   querySpeedRange: speedRange,
-    //   boolAllTemps: allTemps,
-    //   queryTempRange: tempRange,
-    //   boolAllLanes: allLanes,
-    //   queryLaneNumbers: laneNumbers,
-    //   boolAllVehicles: allVehicles,
-    //   querySelectedVehicles: selectedVehicles,
-    // },
-  });
+  const form = useForm({});
 
   function handleSubmit() {
     setChartFilters({
@@ -67,17 +55,10 @@ function ChartForm({ setChartFilters }) {
       boolAllVehicles: allVehicles,
       querySelectedVehicles: selectedVehicles,
     });
-    // setChartFilters(form.values);
-    // console.log("chartFILTERS", chartFilters);
   }
 
   // eslint-disable-next-line no-unused-vars
   const [defaultLaneNumbers, setDefaultLaneNumbers] = useState([1, 2, 3, 4]); // use this later to pull info from database
-
-  // run handle submit when page loads to ensure the chart is populated when first loading
-  useEffect(() => {
-    handleSubmit();
-  }, []);
 
   /* ____________________ Page Element ____________________ */
   return (

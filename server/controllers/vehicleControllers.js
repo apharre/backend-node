@@ -32,10 +32,8 @@ const getAllVehicles = asyncHandler(async (req, res, next) => {
   const removeFields = ['sort'];
   removeFields.forEach((val) => delete reqQuery[val]);
   let queryStr = JSON.stringify(reqQuery); // turn the request query object to a string
-  console.log('vehicle Controller', queryStr);
   queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in|eq|or)\b/g, (match) => `$${match}`); // add "$" in front of the mongo sorting commands
-  // queryStr = JSON.parse(queryStr);
-  console.log('Un-stringified', queryStr);
+  console.log('Vehicle Controller', queryStr);
   /**
    * date, type, speed, temp, lane, direction
    */
@@ -45,17 +43,11 @@ const getAllVehicles = asyncHandler(async (req, res, next) => {
     const sortByArr = req.query.sort.split(',');
     const sortByStr = sortByArr.join(' ');
     query = query.sort(sortByStr);
-    console.log('if');
   }
-  // } else {
-  //   console.log('else');
-  //   query = query.sort('date');
-  // }
 
   const vehicleData = await query;
 
   console.log(reqQuery, '|||', queryStr, '|||');
-  // const vehicleDocuments = await VehicleDocument.find({ speed: { $gte: 60 } });
 
   res.status(200).json({
     success: true,
@@ -63,5 +55,4 @@ const getAllVehicles = asyncHandler(async (req, res, next) => {
   });
 });
 
-// // export { getAllVehicles };
 export default getAllVehicles;

@@ -1,119 +1,114 @@
-/**
- * Creates the query for the chart page by taking the inputs from the chart form on the left and converting it into a Mongo-readable query
- */
-class ChartQuery {
+function dateQuery(combinedDates) {
   /**
-   * @param {*object} chartFilters the object passed when the submit button is clicked
-   * @param chartFilters
+   * Returns the query used to narrow down the date for the chart page
+   * @param {combinedDates} Arr[Date] two dates in unix time, the earlier date is first, the later is second
+   * @returns {dateQuery} str A Mongoose/MongoDB readable query for the dates
    */
-  constructor({ ...chartFilters }) {
-    this.chartFilters = chartFilters;
-    this.combinedDates = this.chartFilters.combinedDates;
-
-    this.boolAllVehicles = chartFilters.boolAllVehicles;
-    this.boolAllSpeeds = chartFilters.boolAllSpeeds;
-    this.boolAllTemps = chartFilters.boolAllTemps;
-    this.boolAllLanes = chartFilters.boolAllLanes;
-
-    this.querySpeedRange = chartFilters.querySpeedRange;
-    this.queryTempRange = chartFilters.tempRange;
-    this.queryLaneNumbers = chartFilters.queryLaneNumbers;
-    this.querySelectedVehicles = chartFilters.querySelectedVehicles;
-  }
-
-  test() {
-    console.log(
-      "Object Chart Filters",
-      this.chartFilters,
-      this.boolAllVehicles
-    );
-  }
-
-  dateQuery() {
-    return `date[gte]=${this.combinedDates[0]}&date[lte]=${this.combinedDates[1]}`;
-  }
-
-  vehicleTypeQuery() {
-    if (this.boolAllVehicles) {
-      return "";
-    }
-    console.log("inside vehicle", this.querySelectedVehicles);
-    const result = `type[eq]=[${this.querySelectedVehicles}]`;
-    return result;
-  }
-
-  speedQuery() {
-    if (this.boolAllSpeeds) {
-      return "";
-    }
-    const lowSpeedQuery = `speed[gte]=${this.querySpeedRange[0]}`;
-    const highSpeed = this.querySpeedRange[1];
-
-    let highSpeedQuery = `&speed[lte]=${highSpeed}`;
-    if (highSpeed === 100) {
-      highSpeedQuery = "";
-    }
-    const result = `${lowSpeedQuery}${highSpeedQuery}`;
-    return result;
-  }
-
-  temperatureQuery() {
-    if (this.boolAllTemps) {
-      return "";
-    }
-    const lowTempQuery = `temp[gte]=${this.queryTempRange[0]}`;
-    let highTempQuery = `&temp[lte]=${this.queryTempRange[1]}`;
-    if (this.queryTempRange[1] === 120) {
-      highTempQuery = "";
-    }
-    const result = `${lowTempQuery}${highTempQuery}`;
-    return result;
-  }
-
-  laneQuery() {
-    if (this.boolAllLanes) {
-      return "";
-    }
-    const result = `lane[eq]=[${this.querySelectedVehicles}]`;
-    return result;
-  }
-
-  static addAmpersand(nextFunction) {
-    if (nextFunction !== "") {
-      return `&${nextFunction}`;
-    }
-    return nextFunction;
-  }
-
-  // TODO: combine the queries
-  newQuery() {
-    const newDQ = this.dateQuery();
-    const newVQ = this.vehicleTypeQuery();
-    const newSQ = this.speedQuery();
-    const newTQ = this.temperatureQuery();
-    const newLQ = this.laneQuery();
-    const newQueries = [
-      // this.dateQuery(),
-      // this.vehicleTypeQuery(),
-      // this.speedQuery(),
-      // this.temperatureQuery(),
-      // this.laneQuery(),
-      newDQ,
-      newVQ,
-      newSQ,
-      newTQ,
-      newLQ,
-    ];
-    console.log(newDQ, newVQ, newSQ, newTQ, newLQ);
-    const result = "";
-    newQueries.forEach((query) => {
-      result.concat("", query);
-      if (!result.endsWith("$")) {
-        result.concat("", "$");
-      }
-    });
-    return result; // `${this.dateQuery()}`;
-  }
+  return `date[gte]=${combinedDates[0]}&date[lte]=${combinedDates[1]}`;
 }
 
-export default ChartQuery;
+function vehicleTypeQuery(boolAllVehicles, querySelectedVehicles) {
+  /**
+   * Returns the query used to select vehicle types for the chart page
+   * @param {boolAllVehicles} bool Wether all vehicles will be included in the query
+   * @param {querySelectedVehicles} Arr[str] The types of vehicles included in the query
+   * @returns {vehicleTypeQuery} str A Mongoose/MongoDB readable query for the vehicle types
+   */
+  if (boolAllVehicles) {
+    return "";
+  }
+  const lowerCase = querySelectedVehicles.map((type) => {
+    return type.toLowerCase();
+  });
+  let result = "";
+  for (let i = 0; i < lowerCase.length; i += 1) {
+    result += `&type[in]=${lowerCase[i]}`;
+  }
+  return result;
+}
+
+function speedQuery(boolAllSpeeds, querySpeedRange) {
+  /**
+   * Returns the query used to select the speed range for the chart page
+   * @param {boolAllSpeeds} bool Wether all speeds will be included in the query
+   * @param {querySpeedRange} Arr[Number] The high and low speeds to be included in the query
+   * @returns {speedQuery} str A Mongoose/MongoDB readable query for the backend
+   */
+  if (boolAllSpeeds) {
+    return "";
+  }
+  const lowSpeedQuery = `speed[gte]=${querySpeedRange[0]}`;
+  const highSpeed = querySpeedRange[1];
+
+  let highSpeedQuery = `&speed[lte]=${highSpeed}`;
+  if (highSpeed === 100) {
+    highSpeedQuery = "";
+  }
+  const result = `&${lowSpeedQuery}${highSpeedQuery}`;
+  return result;
+}
+
+function temperatureQuery(boolAllTemps, queryTempRange) {
+  /**
+   * Returns the query used to select the temperature range for the chart page
+   * @param {boolAllTemps} bool Wether all temperatures will be included in the query
+   * @param {queryTempRange} Arr[Number] The types of vehicles to be included in the query
+   * @returns {temperatureQuery} str A Mongoose/MongoDB readable query for the input temperatures
+   */
+  if (boolAllTemps) {
+    return "";
+  }
+  const lowTempQuery = `temp[gte]=${queryTempRange[0]}`;
+  let highTempQuery = `&temp[lte]=${queryTempRange[1]}`;
+
+  if (queryTempRange[1] === 120) {
+    highTempQuery = "";
+  }
+  const result = `&${lowTempQuery}${highTempQuery}`;
+  return result;
+}
+
+function laneQuery(boolAllLanes, queryLaneNumbers) {
+  /**
+   * Returns the query used to select the lanes for the chart page
+   * @param {boolAllLanes} bool Wether all lanes will be included in the query
+   * @param {queryLaneNumbers} Arr[Number] The lanes to be included in the query
+   * @returns {laneQuery} str A Mongoose/MongoDB readable query for the input lanes
+   */
+  if (boolAllLanes) {
+    return "";
+  }
+  let result = "";
+  for (let i = 0; i < queryLaneNumbers.length; i += 1) {
+    result += `&lane[in]=${queryLaneNumbers[i]}`;
+  }
+  return result;
+}
+
+function newQuery(chartFilters) {
+  /**
+   * Combines the different queries in the above functions into a single string for the backend to read
+   * @param {chartFilters} Object{ Array[str] | Array[Number] | Number | bool} The ChartFilters object that contains the parameters from the chart page form
+   * @returns {newQuery} str A Mongoose/MongoDB readable query for the backend
+   */
+  const newDQ = dateQuery(chartFilters.combinedDates);
+  const newVQ = vehicleTypeQuery(
+    chartFilters.boolAllVehicles,
+    chartFilters.querySelectedVehicles
+  );
+  const newSQ = speedQuery(
+    chartFilters.boolAllSpeeds,
+    chartFilters.querySpeedRange
+  );
+  const newTQ = temperatureQuery(
+    chartFilters.boolAllTemps,
+    chartFilters.queryTempRange
+  );
+  const newLQ = laneQuery(
+    chartFilters.boolAllLanes,
+    chartFilters.queryLaneNumbers
+  );
+  return `${newDQ}${newVQ}${newSQ}${newTQ}${newLQ}`;
+}
+
+export default newQuery;

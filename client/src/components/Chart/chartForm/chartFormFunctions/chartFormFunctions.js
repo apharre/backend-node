@@ -17,7 +17,6 @@ function combineDateAndTimes(dateValue, firstDayTime, secondDayTime) {
    * @return {Arr[int]} an array containig two date objects that have been combined and now are in Unix time for the
    * API query. The "/ 1000" is to convert to seconds from miliseconds
    */
-
   const firstTime = `${firstDayTime.getHours()}:${firstDayTime.getMinutes()}:00`;
   const secondTime = `${secondDayTime.getHours()}:${secondDayTime.getMinutes()}:00`;
   const firstDate = extractDate(dateValue[0]);
@@ -31,5 +30,8 @@ function combineDateAndTimes(dateValue, firstDayTime, secondDayTime) {
 
 /* ____________________ Speed Functions ____________________ */
 // function allSpeedSubmittal(allSpeeds, speedRange) {}
+
+/* ____________________ Direction Functions ____________________ */
+// Add Direction logic here later on (North/South)
 
 export default combineDateAndTimes;
