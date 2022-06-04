@@ -31,13 +31,10 @@ function MapPage({ currentCamera, setCurrentCamera }) {
   /**
    * The map element and auxiliaries that are rendered on the map page
    * Calls the getAllCameras function to retrieve the camera info and display them
-   *
    * @param {!currentCamera} obj the current camera that appears in the info box and the charts page
    * @param {!setCurrentCamera} func a function that sets and resets the current camera object
-   *
    * @return {!GoogleMap} ReactObject the elements that make up the maps page
    */
-  // const theme = useMantineTheme();
   const cameras = useSelector((state) => state.cameras);
   const dispatch = useDispatch();
 

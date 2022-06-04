@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import MapPage from "../Map/MapPage";
-import PostPage from "../PostPage/PostPage";
+// import PostPage from "../PostPage/PostPage";
 import ChartPage from "../Chart/ChartPage";
 
 function NavBarRoutes() {
@@ -18,7 +18,7 @@ function NavBarRoutes() {
           />
         }
       />
-      <Route path="/posts" element={<PostPage />} />
+      <Route path="/posts" element={<ChartPage />} />
       <Route
         path="/chart"
         element={

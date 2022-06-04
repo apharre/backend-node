@@ -11,14 +11,11 @@ import cameraIconRed from "../Icons/camera_icon_red.png";
 function CustomMarker({ key, camera, setCurrentCamera }) {
   /**
    * The custom marker used in the google map for displaying information
-   *
-   * @param {!key} str the unique key for each camera marker on the map
-   * @param {!camera} obj the camera information from the api call
-   * @param {!setCurrentCamera} func sets the current camera object from the list retrieved in the API call
-   *
-   * @returns {!customMarker} ReactObject the elements that make up a custom marker
+   * @param {!key} str The unique key for each camera marker on the map
+   * @param {!camera} obj The camera information from the api call
+   * @param {!setCurrentCamera} func Sets the current camera object from the list retrieved in the API call
+   * @returns {ReactObject} The elements that make up a custom marker
    */
-
   // allows for navigation from current (map) page to the chart page
   const navigate = useNavigate();
 
@@ -30,7 +27,6 @@ function CustomMarker({ key, camera, setCurrentCamera }) {
   } else {
     iconColor = cameraIconBlack;
   }
-
   return (
     <Marker
       key={key}
@@ -52,8 +48,7 @@ function CustomMarker({ key, camera, setCurrentCamera }) {
       }}
       onClick={() => {
         setCurrentCamera(camera);
-        // setCurrentCamera(camera);
-        navigate("/Chart");
+        navigate("/chart");
       }}
     />
   );
