@@ -13,7 +13,7 @@ function NavBar() {
     <Container size="max-width" px={10}>
       <Header height={70} p="md" className={classes.navBar}>
         <div style={{ display: "flex", alignItems: "center", height: "100%" }}>
-          <Image height={65} src={apharreA} />
+          <Image height={65} src={apharreA} alt="Apharre A" />
           <Title
             px="35px"
             order={2}

@@ -44,7 +44,7 @@ function LineChart({ isLoading }) {
   return (
     <div>
       {isLoading ? (
-        <Center style={{ height: "90px" }}>
+        <Center style={{ height: "80vh" }}>
           <Loader />
         </Center>
       ) : (
