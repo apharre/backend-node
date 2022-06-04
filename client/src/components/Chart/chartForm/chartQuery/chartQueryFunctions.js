@@ -32,7 +32,7 @@ function speedQuery(boolAllSpeeds, querySpeedRange) {
    * Returns the query used to select the speed range for the chart page
    * @param {boolAllSpeeds} bool Wether all speeds will be included in the query
    * @param {querySpeedRange} Arr[Number] The high and low speeds to be included in the query
-   * @returns {speedQuery} str A Mongoose/MongoDB readable query for the backend
+   * @returns {speedQuery} str A Mongoose/MongoDB readable query for the speed range
    */
   if (boolAllSpeeds) {
     return "";
