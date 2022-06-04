@@ -7,7 +7,7 @@ import PercentSpeedFunctions from './controllerFunctions/metricsFunctions.js';
 const getAllPercentages = asyncHandler(async (req, res, next) => {
   /**
    * Retrieves all the percentage changes from the vehicledocuments collection in mongoDb
-   * @returns {!response} array[map{Name: String, Direction: String, PercentSpeedChange: Number}]
+   * @return {!response} array[map{Name: String, Direction: String, PercentSpeedChange: Number}]
    */
   const percentageData = await PercentSpeedDocument.find();
   const curatedData = [];

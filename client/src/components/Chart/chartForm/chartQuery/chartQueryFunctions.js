@@ -1,8 +1,8 @@
 function dateQuery(combinedDates) {
   /**
    * Returns the query used to narrow down the date for the chart page
-   * @param {combinedDates} Arr[Date] two dates in unix time, the earlier date is first, the later is second
-   * @returns {dateQuery} str A Mongoose/MongoDB readable query for the dates
+   * @param {!combinedDates} Arr[Date] Two dates in unix time, the earlier date is first, the later is second
+   * @return {String} A Mongoose/MongoDB readable query for the dates
    */
   return `date[gte]=${combinedDates[0]}&date[lte]=${combinedDates[1]}`;
 }
@@ -10,9 +10,9 @@ function dateQuery(combinedDates) {
 function vehicleTypeQuery(boolAllVehicles, querySelectedVehicles) {
   /**
    * Returns the query used to select vehicle types for the chart page
-   * @param {boolAllVehicles} bool Wether all vehicles will be included in the query
-   * @param {querySelectedVehicles} Arr[str] The types of vehicles included in the query
-   * @returns {vehicleTypeQuery} str A Mongoose/MongoDB readable query for the vehicle types
+   * @param {!boolAllVehicles} bool Wether all vehicles will be included in the query
+   * @param {!querySelectedVehicles} Arr[str] The types of vehicles included in the query
+   * @return {String} A Mongoose/MongoDB readable query for the vehicle types
    */
   if (boolAllVehicles) {
     return "";
@@ -30,9 +30,9 @@ function vehicleTypeQuery(boolAllVehicles, querySelectedVehicles) {
 function speedQuery(boolAllSpeeds, querySpeedRange) {
   /**
    * Returns the query used to select the speed range for the chart page
-   * @param {boolAllSpeeds} bool Wether all speeds will be included in the query
-   * @param {querySpeedRange} Arr[Number] The high and low speeds to be included in the query
-   * @returns {speedQuery} str A Mongoose/MongoDB readable query for the speed range
+   * @param {!boolAllSpeeds} bool Wether all speeds will be included in the query
+   * @param {!querySpeedRange} Arr[Number] The high and low speeds to be included in the query
+   * @return {String} A Mongoose/MongoDB readable query for the speed range
    */
   if (boolAllSpeeds) {
     return "";
@@ -51,9 +51,9 @@ function speedQuery(boolAllSpeeds, querySpeedRange) {
 function temperatureQuery(boolAllTemps, queryTempRange) {
   /**
    * Returns the query used to select the temperature range for the chart page
-   * @param {boolAllTemps} bool Wether all temperatures will be included in the query
-   * @param {queryTempRange} Arr[Number] The types of vehicles to be included in the query
-   * @returns {temperatureQuery} str A Mongoose/MongoDB readable query for the input temperatures
+   * @param {!boolAllTemps} bool Wether all temperatures will be included in the query
+   * @param {!queryTempRange} Arr[Number] The types of vehicles to be included in the query
+   * @return {String} A Mongoose/MongoDB readable query for the input temperatures
    */
   if (boolAllTemps) {
     return "";
@@ -71,9 +71,9 @@ function temperatureQuery(boolAllTemps, queryTempRange) {
 function laneQuery(boolAllLanes, queryLaneNumbers) {
   /**
    * Returns the query used to select the lanes for the chart page
-   * @param {boolAllLanes} bool Wether all lanes will be included in the query
-   * @param {queryLaneNumbers} Arr[Number] The lanes to be included in the query
-   * @returns {laneQuery} str A Mongoose/MongoDB readable query for the input lanes
+   * @param {!boolAllLanes} bool Wether all lanes will be included in the query
+   * @param {!queryLaneNumbers} Arr[Number] The lanes to be included in the query
+   * @return {String} A Mongoose/MongoDB readable query for the input lanes
    */
   if (boolAllLanes) {
     return "";
@@ -88,8 +88,8 @@ function laneQuery(boolAllLanes, queryLaneNumbers) {
 function newQuery(chartFilters) {
   /**
    * Combines the different queries in the above functions into a single string for the backend to read
-   * @param {chartFilters} Object{ Array[str] | Array[Number] | Number | bool} The ChartFilters object that contains the parameters from the chart page form
-   * @returns {newQuery} str A Mongoose/MongoDB readable query for the backend
+   * @param {!chartFilters} Object{ Array[str] | Array[Number] | Number | bool} The ChartFilters object that contains the parameters from the chart page form
+   * @return {String} A Mongoose/MongoDB readable query for the backend
    */
   const newDQ = dateQuery(chartFilters.combinedDates);
   const newVQ = vehicleTypeQuery(

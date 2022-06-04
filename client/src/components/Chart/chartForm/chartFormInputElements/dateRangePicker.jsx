@@ -1,7 +1,7 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { DateRangePicker } from "@mantine/dates";
 
-// eslint-disable-next-line react/prop-types
 function TrafficDatePicker({ dateValue, setDateValue }) {
   return (
     <DateRangePicker

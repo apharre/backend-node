@@ -7,7 +7,6 @@ function ChartSwitchButton({
   setAllStateObject,
   trueMessage,
   falseMessage,
-  // vehicleSwitch=false,
 }) {
   return (
     <Switch

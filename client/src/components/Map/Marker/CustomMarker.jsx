@@ -14,7 +14,7 @@ function CustomMarker({ key, camera, setCurrentCamera }) {
    * @param {!key} str The unique key for each camera marker on the map
    * @param {!camera} obj The camera information from the api call
    * @param {!setCurrentCamera} func Sets the current camera object from the list retrieved in the API call
-   * @returns {ReactObject} The elements that make up a custom marker
+   * @return {ReactObject} The elements that make up a custom marker
    */
   // allows for navigation from current (map) page to the chart page
   const navigate = useNavigate();

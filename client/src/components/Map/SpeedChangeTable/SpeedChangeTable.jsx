@@ -9,14 +9,12 @@ import { GET } from "../../../constants/actionTypes";
 function SpeedChangeTable() {
   /**
    * Creates the speed change data table for the maps page
-   *
-   * @param {!sortedCameras}
+   * @return {ReactObject} The Table on the Map page that will be used to display information about all the cameras
    */
 
   const [metricData, setMetricData] = useState([]);
 
   useEffect(() => {
-    // eslint-disable-next-line no-unused-vars
     let cancel;
 
     const fetchMetricData = async () => {

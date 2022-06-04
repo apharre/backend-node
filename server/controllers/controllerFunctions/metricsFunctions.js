@@ -1,15 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 
 class PercentSpeedFunctions {
-  // constructor(newObject) {
   constructor(direction, name, d1PercentChange, d2PercentChange) {
     /**
-     * breaks down the items from the database into indivudual objects to be read into the table on the maps page
-     *
+     * Breaks down the items from the database into indivudual objects to be read into the table on the maps page
      * @param {!direction} int If 0, the road runs North/South. If 1, the road runs East/West
-     * @param {!name} str the name to be displayed in the table
-     * @param {!d1PercentChange} float the percent change in speed for that direction over the past 10 minutes (North or East)
-     * @param {!d2PercentChange} the percent change in speed for that direction over the past 10 minutes (South or West)
+     * @param {!name} String The name to be displayed in the table
+     * @param {!d1PercentChange} Number The percent change in speed for that direction over the past 10 minutes (North or East)
+     * @param {!d2PercentChange} Number The percent change in speed for that direction over the past 10 minutes (South or West)
      */
     this.nsew = direction;
     this.name = name;

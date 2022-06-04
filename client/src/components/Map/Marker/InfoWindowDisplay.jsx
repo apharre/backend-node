@@ -7,10 +7,10 @@ function InfoWindowDisplay({ key, selected }) {
   /**
    * The information window that is diplayed when a camera icon is hovered on the map page
    *
-   * @param {!key} string the unique identifier for the different cameras on the map page
-   * @param {!selected} obj the information for the current camera
+   * @param {!key} string The unique identifier for the different cameras on the map page
+   * @param {!selected} obj The information for the current camera
    *
-   *@return {!InfoWindow} ReactObject the info window that is displayed for the current camera on the maps page
+   *@return {ReactObject} The info window that is displayed for the current camera on the maps page
    */
 
   /** TEMPORARY DIRECTION INFORMATION UNTIL BACKEND IS FIGURED OUT */

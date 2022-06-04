@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-// import React, { useEffect, useState } from "react";
 import React, { useState } from "react";
 
 import { Button, Paper, Center } from "@mantine/core";

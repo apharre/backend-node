@@ -17,7 +17,6 @@ function ChartVehicleSelector({
           clearButtonLabel="Clear selection"
           onChange={setSelectedVehicles}
           error="Select at least one item"
-          // error=""
           clearable
           py="1rem"
           px="1rem"

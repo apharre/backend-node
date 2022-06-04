@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { useSelector, useDispatch } from "react-redux";
-
 import { Loader, Grid, Center, Container } from "@mantine/core";
 
 import CustomMarker from "./Marker/CustomMarker";
@@ -31,9 +30,9 @@ function MapPage({ currentCamera, setCurrentCamera }) {
   /**
    * The map element and auxiliaries that are rendered on the map page
    * Calls the getAllCameras function to retrieve the camera info and display them
-   * @param {!currentCamera} obj the current camera that appears in the info box and the charts page
-   * @param {!setCurrentCamera} func a function that sets and resets the current camera object
-   * @return {!GoogleMap} ReactObject the elements that make up the maps page
+   * @param {!currentCamera} obj The current camera that appears in the info box and the charts page
+   * @param {!setCurrentCamera} hook A function hook that sets and resets the current camera object
+   * @return {ReactObject} The elements that make up the maps page
    */
   const cameras = useSelector((state) => state.cameras);
   const dispatch = useDispatch();
