@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 import ChartForm from "./chartForm/ChartForm";
 import LineChart from "./LineChart/LineChart";
 import { GET } from "../../constants/actionTypes";
-import ChartQuery from "./chartForm/chartQuery/chartQueryFunctions";
+import newQuery from "./chartForm/chartQuery/chartQueryClass";
 
 // eslint-disable-next-line no-unused-vars
 function ChartPage({ currentCamera, setCurrentCamera }) {
@@ -28,6 +28,9 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
   // eslint-disable-next-line no-unused-vars
   const [urlQuery, setUrlQuery] = useState("");
 
+  // create an effect for updating the urlQuery object when the ChartFilters object changes
+  // useEffect()
+
   // effects for when the API is called
   useEffect(() => {
     // https://hmos.dev/en/how-to-cancel-at-axios
@@ -38,8 +41,11 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
     const fetchData = async () => {
       // setUrlQuery(chartQueryCreator(chartFilters));
       console.log("FROM CHART PAGE", chartFilters);
-      const chartQuery2 = new ChartQuery(chartFilters);
-      console.log("NEW QUERY", chartQuery2.newQuery());
+      // const chartQuery2 = new ChartQuery(chartFilters);
+      // console.log("NEW QUERY", chartQuery2.newQuery());
+      const newQString = newQuery(chartFilters);
+      setUrlQuery(newQString);
+      console.log("new Query", urlQuery);
       try {
         let query;
         if (params && !urlQuery) {
@@ -49,12 +55,12 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
         }
         const { data } = await axios({
           method: GET,
-          url: `/vehicles${query}`,
+          url: `/vehicles?${query}`,
           cancelToken: source.token,
           // cancelToken: new axios.CancelToken((c) => (cancel = c)),
         });
         setVehicleData(data.data);
-        console.log();
+        console.log(urlQuery);
         setLoading(false);
       } catch (error) {
         if (axios.isCancel(error)) {

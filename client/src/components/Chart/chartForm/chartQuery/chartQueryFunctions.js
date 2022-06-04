@@ -7,8 +7,8 @@ class ChartQuery {
    * @param chartFilters
    */
   constructor({ ...chartFilters }) {
-    // this.chartFilters = chartFilters;
-    this.combinedDates = chartFilters.combinedDates;
+    this.chartFilters = chartFilters;
+    this.combinedDates = this.chartFilters.combinedDates;
 
     this.boolAllVehicles = chartFilters.boolAllVehicles;
     this.boolAllSpeeds = chartFilters.boolAllSpeeds;
@@ -30,7 +30,7 @@ class ChartQuery {
   }
 
   dateQuery() {
-    return `date{gte]=${this.combinedDates[0]}&date[lte]=${this.combinedDates[1]}`;
+    return `date[gte]=${this.combinedDates[0]}&date[lte]=${this.combinedDates[1]}`;
   }
 
   vehicleTypeQuery() {
@@ -87,7 +87,32 @@ class ChartQuery {
 
   // TODO: combine the queries
   newQuery() {
-    return `${this.dateQuery()}`;
+    const newDQ = this.dateQuery();
+    const newVQ = this.vehicleTypeQuery();
+    const newSQ = this.speedQuery();
+    const newTQ = this.temperatureQuery();
+    const newLQ = this.laneQuery();
+    const newQueries = [
+      // this.dateQuery(),
+      // this.vehicleTypeQuery(),
+      // this.speedQuery(),
+      // this.temperatureQuery(),
+      // this.laneQuery(),
+      newDQ,
+      newVQ,
+      newSQ,
+      newTQ,
+      newLQ,
+    ];
+    console.log(newDQ, newVQ, newSQ, newTQ, newLQ);
+    const result = "";
+    newQueries.forEach((query) => {
+      result.concat("", query);
+      if (!result.endsWith("$")) {
+        result.concat("", "$");
+      }
+    });
+    return result; // `${this.dateQuery()}`;
   }
 }
 

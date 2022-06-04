@@ -71,13 +71,13 @@ function ChartForm({ setChartFilters }) {
     // console.log("chartFILTERS", chartFilters);
   }
 
+  // eslint-disable-next-line no-unused-vars
+  const [defaultLaneNumbers, setDefaultLaneNumbers] = useState([1, 2, 3, 4]); // use this later to pull info from database
+
   // run handle submit when page loads to ensure the chart is populated when first loading
   useEffect(() => {
     handleSubmit();
   }, []);
-
-  // eslint-disable-next-line no-unused-vars
-  const [defaultLaneNumbers, setDefaultLaneNumbers] = useState([1, 2, 3, 4]); // use this later to pull info from database
 
   /* ____________________ Page Element ____________________ */
   return (

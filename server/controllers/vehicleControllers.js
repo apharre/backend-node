@@ -29,23 +29,32 @@ const getAllVehicles = asyncHandler(async (req, res, next) => {
    */
   let query;
   const reqQuery = { ...req.query }; // split out request query into attributes
-
+  const removeFields = ['sort'];
+  removeFields.forEach((val) => delete reqQuery[val]);
   let queryStr = JSON.stringify(reqQuery); // turn the request query object to a string
-  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, (match) => `$${match}`); // add "$" in front of the mongo sorting commands
+  console.log('vehicle Controller', queryStr);
+  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in|eq|or)\b/g, (match) => `$${match}`); // add "$" in front of the mongo sorting commands
+  // queryStr = JSON.parse(queryStr);
+  console.log('Un-stringified', queryStr);
+  /**
+   * date, type, speed, temp, lane, direction
+   */
 
   query = VehicleDocument.find(JSON.parse(queryStr)); // add json object to query string
   if (req.query.sort) {
     const sortByArr = req.query.sort.split(',');
     const sortByStr = sortByArr.join(' ');
     query = query.sort(sortByStr);
-  } else {
-    query = query.sort('-price');
+    console.log('if');
   }
+  // } else {
+  //   console.log('else');
+  //   query = query.sort('date');
+  // }
 
   const vehicleData = await query;
 
-  // console.log(reqQuery, '|||', queryStr, '|||', query);
-
+  console.log(reqQuery, '|||', queryStr, '|||');
   // const vehicleDocuments = await VehicleDocument.find({ speed: { $gte: 60 } });
 
   res.status(200).json({
