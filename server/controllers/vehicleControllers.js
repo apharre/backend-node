@@ -34,16 +34,25 @@ const getAllVehicles = asyncHandler(async (req, res, next) => {
   removeFields.forEach((val) => delete reqQuery[val]);
   // turn the request query object to a string
   let queryStr = JSON.stringify(reqQuery);
+
+  console.log('Req Query', queryStr);
+
   // add "$" in front of the mongo sorting commands
   queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in|eq|or)\b/g, (match) => `$${match}`);
+  // eslint-disable-next-line dot-notation
+
+  // queryStr = queryStr.replace(/"(-{0,1}[0-9]+\.{0,1}[0-9]*)"/g, '$1');
+  console.log('parsed', JSON.parse(queryStr));
+  console.log('Query String', queryStr);
   // add json object to query string
   query = VehicleDocument.find(JSON.parse(queryStr));
-  if (req.query.sort) {
-    const sortByArr = req.query.sort.split(',');
-    const sortByStr = sortByArr.join(' ');
-    query = query.sort(sortByStr);
-  }
+  // if (req.query.sort) {
+  //   const sortByArr = req.query.sort.split(',');
+  //   const sortByStr = sortByArr.join(' ');
+  query = query.sort('date');
+  // }
   const vehicleData = await query;
+  // console.log(vehicleData);
 
   res.status(200).json({
     success: true,

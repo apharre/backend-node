@@ -3,7 +3,6 @@ import React from "react";
 import { Chart } from "react-charts";
 import { Center, Loader } from "@mantine/core";
 
-// function LineChart({ vehicleData, currentCamera, chartFilters, loading }) {
 function LineChart({ isLoading }) {
   const data = React.useMemo(
     () => [
