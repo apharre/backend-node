@@ -10,6 +10,7 @@ import ChartSwitchButton from "./chartFormInputElements/switchButton";
 import ChartVehicleSelector from "./chartFormInputElements/vehicleSelector";
 import TimeInputSelector from "./chartFormInputElements/timeInput";
 import TrafficDatePicker from "./chartFormInputElements/dateRangePicker";
+import DirectionSelection from "./chartFormInputElements/directionSelection";
 
 import combineDateAndTimes from "./chartFormFunctions/chartFormFunctions";
 
@@ -83,6 +84,8 @@ function ChartForm({ setChartFilters }) {
           setDateValue={setSecondDayTime}
           isFirstDate={1}
         />
+
+        <DirectionSelection />
 
         <ChartSwitchButton
           allStateObject={allVehicles}
