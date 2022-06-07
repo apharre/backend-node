@@ -25,7 +25,7 @@ import {
   convertUSTtoDateTime,
 } from "./chartFunctions";
 
-import useStyles from "../styles";
+// import useStyles from "../styles";
 
 ChartJS.register(
   CategoryScale,
@@ -40,7 +40,7 @@ ChartJS.register(
 
 // eslint-disable-next-line no-unused-vars, react/prop-types
 function LineChart({ vehicleData, currentCamera, chartFilters }) {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   // all Commuter vehicle types
   const vehicledatatype = [];
@@ -121,9 +121,7 @@ function LineChart({ vehicleData, currentCamera, chartFilters }) {
   };
   const options = chartFormattingOptions(vehicleSpeed, currentCamera.name);
 
-  return (
-    <Line className={classes.lineChart} options={options} data={chartData} />
-  );
+  return <Line options={options} data={chartData} />;
 }
 
 export default LineChart;
