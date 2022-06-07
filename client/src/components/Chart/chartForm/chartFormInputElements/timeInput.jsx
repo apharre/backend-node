@@ -60,11 +60,13 @@ function displayDate(yearComparison, isFirstDate) {
     date = yearComparison[isFirstDate].getDate();
 
     ordinal = ordinalSuffixes(date);
+
+    if (sameYear === true) {
+      return `${month} ${date}${ordinal}`;
+    }
+    return `${month} ${date}${ordinal}, ${year}`;
   }
-  if (sameYear === true) {
-    return `${month} ${date}${ordinal}`;
-  }
-  return `${month} ${date}${ordinal}, ${year}`;
+  return "";
 }
 
 function TimeInputSelector({

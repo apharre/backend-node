@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-import { Grid } from "@mantine/core";
+import { Grid, Container, Paper } from "@mantine/core";
 import { useLocation } from "react-router-dom";
 
 import ChartForm from "./chartForm/ChartForm";
@@ -22,6 +22,10 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
   const [chartFilters, setChartFilters] = useState({});
   const [urlQuery, setUrlQuery] = useState("");
 
+  // useEffect(() => {
+  //   localStorage.setItem("currentCamera", JSON.stringify(currentCamera));
+  // }, [currentCamera]);
+
   useEffect(() => {
     /**
      * Sets the UrlQuery when the chartFilters object changes, which only changes when the "submit" button on the charts page is clicked
@@ -31,6 +35,8 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
       chartFilters.combinedDates !== undefined &&
       chartFilters.querySelectedVehicles != null &&
       chartFilters.querySelectedVehicles !== undefined
+      // chartFilters.combinedDates &&
+      // chartFilters.querySelectedVehicles
     ) {
       setUrlQuery(newQuery(chartFilters));
     }
@@ -46,7 +52,7 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
 
     setLoading(true);
     const fetchData = async () => {
-      console.log("new Query", urlQuery);
+      console.log("new Query", currentCamera, urlQuery);
       try {
         let query;
         if (params && !urlQuery) {
@@ -72,25 +78,33 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
   }, [urlQuery]);
 
   return (
-    <Grid
-      justify="space-around"
-      gutter="xs"
-      px="10px"
-      py="10px"
-      size="max-width"
-    >
-      <Grid.Col md={2.5} lg={2.5}>
-        <ChartForm setChartFilters={setChartFilters} />
-      </Grid.Col>
-      <Grid.Col md={9.5} lg={9.5}>
-        <LineChart
-          // vehicleData={vehicleData}
-          // currentCamera={currentCamera}
-          // chartFilters={chartFilters}
-          isLoading={loading}
-        />
-      </Grid.Col>
-    </Grid>
+    <div>
+      <Container>
+        <Paper>{currentCamera.name}</Paper>
+      </Container>
+      <Grid
+        justify="space-around"
+        gutter="xs"
+        px="10px"
+        py="10px"
+        size="max-width"
+      >
+        <Grid.Col md={2.5} lg={2.5}>
+          <ChartForm
+            currentCamera={currentCamera}
+            setChartFilters={setChartFilters}
+          />
+        </Grid.Col>
+        <Grid.Col md={9.5} lg={9.5}>
+          <LineChart
+            // vehicleData={vehicleData}
+            // currentCamera={currentCamera}
+            // chartFilters={chartFilters}
+            isLoading={loading}
+          />
+        </Grid.Col>
+      </Grid>
+    </div>
   );
 }
 

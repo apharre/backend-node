@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import MapPage from "../Map/MapPage";
 import ChartPage from "../Chart/ChartPage";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 function NavBarRoutes() {
-  const [currentCamera, setCurrentCamera] = useState("");
+  const [currentCamera, setCurrentCamera] = useLocalStorage("currentCamera");
   return (
     <Routes>
       <Route

@@ -17,7 +17,14 @@ import combineDateAndTimes from "./chartFormFunctions/chartFormFunctions";
 const oneDayAgo = new Date(Date.now() - 86400000); // number of miliseconds in 24 hours
 const todayNow = new Date();
 
-function ChartForm({ setChartFilters }) {
+function ChartForm({ currentCamera, setChartFilters }) {
+  /**
+   * The input form for the chart Page
+   * @param {!currentCamera} Object The current camera whose data the chart is pulling data.
+   * This is set on the Map.jsx page when the icon is clicked and declared in the Nav Page because it is a parent to both pages
+   * @param {!setChartFilters} Function used to set the filter parameters for the api call when the state of the hooks on the chart page change
+   * @return {ReactObj} the Form to set data on the chart page
+   */
   /* ____________________ Hook Instantiation ____________________ */
   const [dateValue, setDateValue] = useState([oneDayAgo, todayNow]);
   const [firstDayTime, setFirstDayTime] = useState(oneDayAgo);
@@ -31,6 +38,7 @@ function ChartForm({ setChartFilters }) {
   ]);
   const [speedRange, setSpeedRange] = useState([25, 75]);
   const [tempRange, setTempRange] = useState([0, 100]);
+  const [directionSelector, setDirectionSelector] = useState(); // 0 is North/East, 1 is South/West
 
   const [allVehicles, setAllVehicles] = useState(true);
   const [allSpeeds, setAllSpeeds] = useState(true);
@@ -54,6 +62,7 @@ function ChartForm({ setChartFilters }) {
       queryLaneNumbers: laneNumbers,
       boolAllVehicles: allVehicles,
       querySelectedVehicles: selectedVehicles,
+      queryDirectionSelector: directionSelector,
     });
   }
 
@@ -85,7 +94,10 @@ function ChartForm({ setChartFilters }) {
           isFirstDate={1}
         />
 
-        <DirectionSelection />
+        <DirectionSelection
+          currentCamera={currentCamera}
+          setDirectionSelector={setDirectionSelector}
+        />
 
         <ChartSwitchButton
           allStateObject={allVehicles}

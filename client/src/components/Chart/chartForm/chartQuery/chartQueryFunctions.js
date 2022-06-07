@@ -7,6 +7,18 @@ function dateQuery(combinedDates) {
   return `date[gte]=${combinedDates[0]}&date[lte]=${combinedDates[1]}`;
 }
 
+function directionQuery(queryDirectionSelector) {
+  /**
+   * Returns the query used to narrow down the direction for the chart page
+   * @param {!queryDirectionSelector} Arr[Number] Two numbers indicating the selected direction for the road.
+   * @return {String} A Mongoose/MongoDB readable query for the directions
+   */
+  if (queryDirectionSelector.length >= 2 || !queryDirectionSelector.length) {
+    return "";
+  }
+  return `&direction[eq]=${queryDirectionSelector[0]}`;
+}
+
 function vehicleTypeQuery(boolAllVehicles, querySelectedVehicles) {
   /**
    * Returns the query used to select vehicle types for the chart page
@@ -92,6 +104,7 @@ function newQuery(chartFilters) {
    * @return {String} A Mongoose/MongoDB readable query for the backend
    */
   const newDQ = dateQuery(chartFilters.combinedDates);
+  const newDirectQ = directionQuery(chartFilters.queryDirectionSelector);
   const newVQ = vehicleTypeQuery(
     chartFilters.boolAllVehicles,
     chartFilters.querySelectedVehicles
@@ -108,7 +121,7 @@ function newQuery(chartFilters) {
     chartFilters.boolAllLanes,
     chartFilters.queryLaneNumbers
   );
-  return `${newDQ}${newVQ}${newSQ}${newTQ}${newLQ}`;
+  return `${newDQ}${newVQ}${newSQ}${newTQ}${newLQ}${newDirectQ}`;
 }
 
 export default newQuery;

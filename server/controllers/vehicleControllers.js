@@ -50,9 +50,8 @@ const getAllVehicles = asyncHandler(async (req, res, next) => {
   //   const sortByArr = req.query.sort.split(',');
   //   const sortByStr = sortByArr.join(' ');
   query = query.sort('date');
-  // }
   const vehicleData = await query;
-  // console.log(vehicleData);
+  console.log(vehicleData);
 
   res.status(200).json({
     success: true,

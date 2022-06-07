@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { useSelector, useDispatch } from "react-redux";
 import { Loader, Grid, Center, Container } from "@mantine/core";
@@ -26,6 +26,7 @@ const options = {
   zoomControl: true,
 };
 
+// eslint-disable-next-line no-unused-vars
 function MapPage({ currentCamera, setCurrentCamera }) {
   /**
    * The map element and auxiliaries that are rendered on the map page
@@ -36,6 +37,8 @@ function MapPage({ currentCamera, setCurrentCamera }) {
    */
   const cameras = useSelector((state) => state.cameras);
   const dispatch = useDispatch();
+
+  const [hoverCamera, setHoverCamera] = useState();
 
   useEffect(() => {
     dispatch(getAllCameras());
@@ -77,14 +80,12 @@ function MapPage({ currentCamera, setCurrentCamera }) {
             <CustomMarker
               key={camera._id}
               camera={camera}
+              setHoverCamera={setHoverCamera}
               setCurrentCamera={setCurrentCamera}
             />
           ))}
-          {currentCamera ? (
-            <InfoWindowDisplay
-              key={currentCamera._id}
-              selected={currentCamera}
-            />
+          {hoverCamera ? (
+            <InfoWindowDisplay key={hoverCamera._id} selected={hoverCamera} />
           ) : null}
         </GoogleMap>
       </Grid.Col>
