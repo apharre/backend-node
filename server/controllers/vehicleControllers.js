@@ -1,6 +1,7 @@
 import asyncHandler from '../middleware/asyncHandler.js';
 import VehicleDocument from '../models/vehicleFormat.js';
-import CreateLineDataSpeed from '../utils/chartCurating/speedCuration.js';
+// import CreateLineDataSpeed from '../utils/chartDataCurating/speedCuration.js';
+import CreateLineDataSpeed from '../utils/chartDataCurating/speedCuration.js';
 
 // eslint-disable-next-line no-unused-vars
 const getAllVehicles = asyncHandler(async (req, res, next) => {
@@ -23,11 +24,13 @@ const getAllVehicles = asyncHandler(async (req, res, next) => {
   //   const sortByStr = sortByArr.join(' ');
   query = query.sort('date');
   const vehicleData = await query;
-  console.log(vehicleData);
+  // console.log(vehicleData);
 
-  // CREATE THE RETURN DATA FROM THE API CALLS
+  // CREATE THE RETURN DATA FROM THE API CALLS - This should be a Function/Class that includes Factory Methods
   const lineData = new CreateLineDataSpeed(vehicleData, reqQuery);
-  lineData.generateSeries();
+  // console.log('lineData', lineData);
+  const vehicleData2 = lineData.groupByLane();
+  console.log('Line data 2', vehicleData2);
 
   res.status(200).json({
     success: true,
