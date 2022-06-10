@@ -97,7 +97,7 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
         </Grid.Col>
         <Grid.Col md={9.5} lg={9.5}>
           <LineChart
-            // vehicleData={vehicleData}
+            vehicleData={vehicleData}
             // currentCamera={currentCamera}
             // chartFilters={chartFilters}
             isLoading={loading}
