@@ -46,11 +46,6 @@ class DataSeriesLaneDirectionClass {
     this.setLabel(newLabel);
   }
 
-  checkSeriesInfo() {
-    // TODO: Right now, only care about lane and direction
-    return { lane: this.lane, direction: this.direction };
-  }
-
   // could have one for each lane, in each direction
 
   // datapoint: x = date, y = speed

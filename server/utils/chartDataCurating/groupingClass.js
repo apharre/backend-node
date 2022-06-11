@@ -1,4 +1,5 @@
 import groupArray from 'group-array';
+// import DataSeriesLaneDirectionClass from './dataSeriesClass';
 
 class GroupVehiclesTogether {
   /**
@@ -7,12 +8,12 @@ class GroupVehiclesTogether {
   constructor(rawData, queryRaw) {
     this.rawData = rawData;
     this.queryRaw = queryRaw;
-    this.plotCategories = ['direction', 'type', 'lane'];
+    this.plotCategories = ['type']; // 'direction 'lane'
     this.groupedNestedObject = this.createObjectGroup();
 
     this.firstLevelKeys = this.getFirstLevelKeys();
-    this.secondLevelKeys = this.getSecondLevelKeys();
-    this.thirdLevelkeys = this.getThirdLevelkeys();
+    // this.secondLevelKeys = this.getSecondLevelKeys();
+    // this.thirdLevelkeys = this.getThirdLevelkeys();
     this.groupedArray = [];
   }
 
@@ -38,14 +39,29 @@ class GroupVehiclesTogether {
   }
 
   getThirdLevelkeys() {
-    console.log('L3', this.groupedNestedObject[0].commuter);
-    console.log('L3', this.groupedNestedObject[0].bus);
-    console.log('L3', this.groupedNestedObject[0].truck);
-    console.log('L3', this.groupedNestedObject[0].motorcycle);
-    console.log('L3', this.groupedNestedObject[1].commuter);
-    console.log('L3', this.groupedNestedObject[1].bus);
-    console.log('L3', this.groupedNestedObject[1].truck);
-    console.log('L3', this.groupedNestedObject[1].motorcycle);
+    // console.log('L3', this.groupedNestedObject[0].commuter);
+    // console.log('L3', this.groupedNestedObject[0].bus);
+    // console.log('L3', this.groupedNestedObject[0].truck);
+    // console.log('L3', this.groupedNestedObject[0].motorcycle);
+    // console.log('L3', this.groupedNestedObject[1].commuter);
+    // console.log('L3', this.groupedNestedObject[1].bus);
+    // console.log('L3', this.groupedNestedObject[1].truck);
+    // console.log('L3', this.groupedNestedObject[1].motorcycle);
+    const result = [];
+    this.firstLevelKeys.forEach((key1) => {
+      this.secondLevelKeys.forEach((key2) => {
+        const temp = [];
+        key2.forEach((key22) => {
+          // console.log('L3 keys', key1, key2, key22);
+          // console.log('L3 values', Object.keys(this.groupedNestedObject[key1][key22]));
+          temp.push(Object.keys(this.groupedNestedObject[key1][key22]));
+          // console.log('temp', temp);
+        });
+        result.push(temp);
+        // console.log('L3.5 values', Object.keys(this.groupedNestedObject[key1]));
+      });
+    });
+    return result;
   }
 
   // getLabelCategories() {
