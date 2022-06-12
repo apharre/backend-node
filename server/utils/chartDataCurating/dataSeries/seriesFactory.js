@@ -7,15 +7,6 @@ function DataSeriesFactory(lane, direction) {
    * @param {!options} Object Contains two main parameters, lane and direction for creating the new data series for the chart
    */
 
-  // constructor(lane, direction) {
-  //   this.lane = lane;
-  //   this.direction = direction;
-  // }
-
-  // create() {
-  // const { lane } = this.options;
-  // const { direction } = this.options;
-
   const dataSeries = new DataSeriesLaneDirectionClass(lane, direction);
   // dataSeries.makeLabel();
 

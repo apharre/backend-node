@@ -40,7 +40,6 @@ const getAllVehicles = asyncHandler(async (req, res, next) => {
   console.log('level1', result.firstLevelKeys, '\n');
   console.log('level2', result.secondLevelKeys);
   console.log('level3', result.thirdLevelkeys);
-  // console.log('level3', result.thirdLevelkeys);
 
   // pass in your object structure as array elements
   // const getNestedObject = (nestedObj, pathArr) =>
