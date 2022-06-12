@@ -1,20 +1,25 @@
 import groupArray from 'group-array';
 // import DataSeriesLaneDirectionClass from './dataSeriesClass';
 
+/**
+ *
+ */
 class GroupVehiclesTogether {
   /**
-   *
+   * @param {!Array<Object>} rawData The data that is returned from the mongoDB query. It is an array of Objects sorted by date
+   * @param {Object} queryRaw The query that is passed to mongoDB. Always contains the dates.
    */
   constructor(rawData, queryRaw) {
     this.rawData = rawData;
     this.queryRaw = queryRaw;
-    this.plotCategories = ['type']; // 'direction 'lane'
+    this.plotCategories = ['type', 'direction', 'lane'];
     this.groupedNestedObject = this.createObjectGroup();
 
     this.firstLevelKeys = this.getFirstLevelKeys();
-    // this.secondLevelKeys = this.getSecondLevelKeys();
-    // this.thirdLevelkeys = this.getThirdLevelkeys();
+    this.secondLevelKeys = this.getSecondLevelKeys(); // undefined if plotCategories < 2
+    this.thirdLevelkeys = this.getThirdLevelkeys(); // undefined if plotCategories < 3
     this.groupedArray = [];
+    this.labelTest = this.labelTestCreation();
   }
 
   getFirstLevelKeys() {
@@ -32,10 +37,13 @@ class GroupVehiclesTogether {
 
   getSecondLevelKeys() {
     const result = [];
-    this.firstLevelKeys.forEach((key) => {
-      result.push(Object.keys(this.groupedNestedObject[key]));
-    });
-    return result;
+    if (this.plotCategories.length >= 2) {
+      this.firstLevelKeys.forEach((key) => {
+        result.push(Object.keys(this.groupedNestedObject[key]));
+      });
+      return result;
+    }
+    return undefined;
   }
 
   getThirdLevelkeys() {
@@ -48,20 +56,20 @@ class GroupVehiclesTogether {
     // console.log('L3', this.groupedNestedObject[1].truck);
     // console.log('L3', this.groupedNestedObject[1].motorcycle);
     const result = [];
-    this.firstLevelKeys.forEach((key1) => {
-      this.secondLevelKeys.forEach((key2) => {
-        const temp = [];
-        key2.forEach((key22) => {
-          // console.log('L3 keys', key1, key2, key22);
-          // console.log('L3 values', Object.keys(this.groupedNestedObject[key1][key22]));
-          temp.push(Object.keys(this.groupedNestedObject[key1][key22]));
-          // console.log('temp', temp);
+    if (this.plotCategories.length >= 3) {
+      this.firstLevelKeys.forEach((key1) => {
+        this.secondLevelKeys.forEach((key2) => {
+          const temp = [];
+          key2.forEach((key22) => {
+            temp.push(Object.keys(this.groupedNestedObject[key1][key22]));
+          });
+          result.push(temp);
+          // console.log('L3.5 values', Object.keys(this.groupedNestedObject[key1]));
         });
-        result.push(temp);
-        // console.log('L3.5 values', Object.keys(this.groupedNestedObject[key1]));
       });
-    });
-    return result;
+      return result;
+    }
+    return undefined;
   }
 
   // getLabelCategories() {
@@ -87,6 +95,12 @@ class GroupVehiclesTogether {
    * }
 
    */
+
+  // labelTestCreation() {
+  //   this.plotCategories.forEach((category) => {
+  //     if (category)
+  //   })
+  // }
 }
 
 export default GroupVehiclesTogether;
