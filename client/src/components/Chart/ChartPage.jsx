@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 import ChartForm from "./chartForm/ChartForm";
 import LineChart from "./LineChart/LineChart";
 import { GET } from "../../constants/actionTypes";
-import newQuery from "./chartForm/chartQuery/chartQueryFunctions";
+import chartQueryFactory from "./chartForm/chartQuery/chartQueryFactory";
 
 // eslint-disable-next-line no-unused-vars
 function ChartPage({ currentCamera, setCurrentCamera }) {
@@ -31,14 +31,12 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
      * Sets the UrlQuery when the chartFilters object changes, which only changes when the "submit" button on the charts page is clicked
      */
     if (
-      chartFilters.combinedDates != null &&
+      chartFilters.combinedDates !== null &&
       chartFilters.combinedDates !== undefined &&
-      chartFilters.querySelectedVehicles != null &&
+      chartFilters.querySelectedVehicles !== null &&
       chartFilters.querySelectedVehicles !== undefined
-      // chartFilters.combinedDates &&
-      // chartFilters.querySelectedVehicles
     ) {
-      setUrlQuery(newQuery(chartFilters));
+      setUrlQuery(chartQueryFactory(chartFilters));
     }
   }, [chartFilters]);
 

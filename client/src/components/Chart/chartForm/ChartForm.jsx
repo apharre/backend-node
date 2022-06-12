@@ -38,7 +38,7 @@ function ChartForm({ currentCamera, setChartFilters }) {
   ]);
   const [speedRange, setSpeedRange] = useState([25, 75]);
   const [tempRange, setTempRange] = useState([0, 100]);
-  const [directionSelector, setDirectionSelector] = useState(); // 0 is North/East, 1 is South/West
+  const [directionSelector, setDirectionSelector] = useState([0, 1]); // 0 is North/East, 1 is South/West
 
   const [allVehicles, setAllVehicles] = useState(true);
   const [allSpeeds, setAllSpeeds] = useState(true);

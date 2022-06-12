@@ -19,7 +19,7 @@ class GroupVehiclesTogether {
     this.secondLevelKeys = this.getSecondLevelKeys(); // undefined if plotCategories < 2
     this.thirdLevelkeys = this.getThirdLevelkeys(); // undefined if plotCategories < 3
     this.groupedArray = [];
-    this.labelTest = this.labelTestCreation();
+    // this.labelTest = this.labelTestCreation();
   }
 
   getFirstLevelKeys() {
