@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-import { Grid } from "@mantine/core";
+import { Grid, Container, Paper } from "@mantine/core";
 import { useLocation } from "react-router-dom";
 
 import ChartForm from "./chartForm/ChartForm";
 import LineChart from "./LineChart/LineChart";
 import { GET } from "../../constants/actionTypes";
-import newQuery from "./chartForm/chartQuery/chartQueryFunctions";
+import chartQueryFactory from "./chartForm/chartQuery/chartQueryFactory";
 
 // eslint-disable-next-line no-unused-vars
 function ChartPage({ currentCamera, setCurrentCamera }) {
@@ -17,7 +17,6 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
 
   /* ____________________ Component State ____________________ */
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [vehicleData, setVehicleData] = useState([]);
   const [chartFilters, setChartFilters] = useState({});
   const [urlQuery, setUrlQuery] = useState("");
@@ -27,12 +26,12 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
      * Sets the UrlQuery when the chartFilters object changes, which only changes when the "submit" button on the charts page is clicked
      */
     if (
-      chartFilters.combinedDates != null &&
+      chartFilters.combinedDates !== null &&
       chartFilters.combinedDates !== undefined &&
-      chartFilters.querySelectedVehicles != null &&
+      chartFilters.querySelectedVehicles !== null &&
       chartFilters.querySelectedVehicles !== undefined
     ) {
-      setUrlQuery(newQuery(chartFilters));
+      setUrlQuery(chartQueryFactory(chartFilters));
     }
   }, [chartFilters]);
 
@@ -46,7 +45,7 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
 
     setLoading(true);
     const fetchData = async () => {
-      console.log("new Query", urlQuery);
+      console.log("new Query", currentCamera, urlQuery);
       try {
         let query;
         if (params && !urlQuery) {
@@ -72,25 +71,33 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
   }, [urlQuery]);
 
   return (
-    <Grid
-      justify="space-around"
-      gutter="xs"
-      px="10px"
-      py="10px"
-      size="max-width"
-    >
-      <Grid.Col md={2.5} lg={2.5}>
-        <ChartForm setChartFilters={setChartFilters} />
-      </Grid.Col>
-      <Grid.Col md={9.5} lg={9.5}>
-        <LineChart
-          // vehicleData={vehicleData}
-          // currentCamera={currentCamera}
-          // chartFilters={chartFilters}
-          isLoading={loading}
-        />
-      </Grid.Col>
-    </Grid>
+    <div>
+      <Container>
+        <Paper>{currentCamera.name}</Paper>
+      </Container>
+      <Grid
+        justify="space-around"
+        gutter="xs"
+        px="10px"
+        py="10px"
+        size="max-width"
+      >
+        <Grid.Col md={2.5} lg={2.5}>
+          <ChartForm
+            currentCamera={currentCamera}
+            setChartFilters={setChartFilters}
+          />
+        </Grid.Col>
+        <Grid.Col md={9.5} lg={9.5}>
+          <LineChart
+            vehicleData={vehicleData}
+            // currentCamera={currentCamera}
+            // chartFilters={chartFilters}
+            isLoading={loading}
+          />
+        </Grid.Col>
+      </Grid>
+    </div>
   );
 }
 

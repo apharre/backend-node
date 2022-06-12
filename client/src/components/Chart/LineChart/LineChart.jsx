@@ -3,8 +3,8 @@ import React from "react";
 import { Chart } from "react-charts";
 import { Center, Loader } from "@mantine/core";
 
-// function LineChart({ vehicleData, currentCamera, chartFilters, loading }) {
-function LineChart({ isLoading }) {
+// eslint-disable-next-line no-unused-vars
+function LineChart({ vehicleData, isLoading }) {
   const data = React.useMemo(
     () => [
       {
@@ -32,6 +32,8 @@ function LineChart({ isLoading }) {
     ],
     []
   );
+  // console.log(vehicleData);
+  // const data = vehicleData;
 
   const axes = React.useMemo(
     () => [

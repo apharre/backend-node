@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const vehicleSchema = mongoose.Schema({
   type: String,
+  direction: Number,
   lane: Number,
   speed: Number,
   count: Number,
