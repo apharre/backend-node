@@ -73,7 +73,7 @@ class GroupVehiclesTogether {
   }
 
   // getLabelCategories() {
-  //
+  // // import the data series class and instantiate it here
   // }
 
   /**

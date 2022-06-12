@@ -17,14 +17,9 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
 
   /* ____________________ Component State ____________________ */
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [vehicleData, setVehicleData] = useState([]);
   const [chartFilters, setChartFilters] = useState({});
   const [urlQuery, setUrlQuery] = useState("");
-
-  // useEffect(() => {
-  //   localStorage.setItem("currentCamera", JSON.stringify(currentCamera));
-  // }, [currentCamera]);
 
   useEffect(() => {
     /**
