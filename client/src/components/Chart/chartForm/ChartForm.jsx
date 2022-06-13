@@ -44,6 +44,7 @@ function ChartForm({ currentCamera, setChartFilters }) {
   const [allSpeeds, setAllSpeeds] = useState(true);
   const [allTemps, setAllTemps] = useState(true);
   const [allLanes, setAllLanes] = useState(true);
+  const [allDirections, setaAllDirections] = useState(true);
 
   const form = useForm({});
 
@@ -63,6 +64,7 @@ function ChartForm({ currentCamera, setChartFilters }) {
       boolAllVehicles: allVehicles,
       querySelectedVehicles: selectedVehicles,
       queryDirectionSelector: directionSelector,
+      boolAllDirections: allDirections,
     });
   }
 
@@ -94,9 +96,16 @@ function ChartForm({ currentCamera, setChartFilters }) {
           isFirstDate={1}
         />
 
+        <ChartSwitchButton
+          allStateObject={allDirections}
+          setAllStateObject={setaAllDirections}
+          trueMessage="All Directions"
+          falseMessage="Select Directions"
+        />
         <DirectionSelection
           currentCamera={currentCamera}
           setDirectionSelector={setDirectionSelector}
+          allStateObject={allDirections}
         />
 
         <ChartSwitchButton

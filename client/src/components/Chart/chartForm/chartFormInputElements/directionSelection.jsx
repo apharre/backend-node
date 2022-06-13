@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import { createStyles, Center, Chips, Chip } from "@mantine/core";
+import { createStyles, Center, Chips, Chip, Collapse } from "@mantine/core";
 
 // This is also used exactly in the Lane selection page.
 // TODO: create a global style object for later
@@ -18,7 +18,11 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   },
 }));
 
-function DirectionSelection({ currentCamera, setDirectionSelector }) {
+function DirectionSelection({
+  currentCamera,
+  setDirectionSelector,
+  allStateObject,
+}) {
   const { classes } = useStyles();
   const trafficButtonText = "bound Traffic";
   let direction1 = "North";
@@ -32,29 +36,36 @@ function DirectionSelection({ currentCamera, setDirectionSelector }) {
     direction2 = "West";
   }
 
+  // allStateObject = { allDirections };
+  // setAllStateObject = { setaAllDirections };
+  // trueMessage = "All Directions";
+  // falseMessage = "Select Directions";
+
   return (
-    <Center>
-      <Chips
-        multiple
-        classNames={classes}
-        spacing="s"
-        size="sm"
-        radius="md"
-        py="1rem"
-        px="1rem"
-        defaultValue={[0, 1]}
-        onChange={setDirectionSelector}
-      >
-        <Chip value={0}>
-          {direction1}
-          {trafficButtonText}
-        </Chip>
-        <Chip value={1}>
-          {direction2}
-          {trafficButtonText}
-        </Chip>
-      </Chips>
-    </Center>
+    <Collapse in={!allStateObject}>
+      <Center>
+        <Chips
+          multiple
+          classNames={classes}
+          spacing="s"
+          size="sm"
+          radius="md"
+          py="1rem"
+          px="1rem"
+          defaultValue={[0, 1]}
+          onChange={setDirectionSelector}
+        >
+          <Chip value={0}>
+            {direction1}
+            {trafficButtonText}
+          </Chip>
+          <Chip value={1}>
+            {direction2}
+            {trafficButtonText}
+          </Chip>
+        </Chips>
+      </Center>
+    </Collapse>
   );
 }
 
