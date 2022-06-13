@@ -1,9 +1,6 @@
 import groupArray from 'group-array';
-// import DataSeriesLaneDirectionClass from './dataSeriesClass';
+import DataSeriesLaneDirectionClass from './dataSeries/dataSeriesClass.js';
 
-/**
- *
- */
 class GroupVehiclesTogether {
   /**
    * @param {!Array<Object>} rawData The data that is returned from the mongoDB query. It is an array of Objects sorted by date
@@ -19,11 +16,6 @@ class GroupVehiclesTogether {
     this.secondLevelKeys = this.getSecondLevelKeys(); // undefined if plotCategories < 2
     this.thirdLevelkeys = this.getThirdLevelkeys(); // undefined if plotCategories < 3
     this.groupedArray = [];
-    // this.labelTest = this.labelTestCreation();
-  }
-
-  getFirstLevelKeys() {
-    return Object.keys(this.groupedNestedObject);
   }
 
   createObjectGroup() {
@@ -33,6 +25,10 @@ class GroupVehiclesTogether {
   destructureObjectGroup() {
     const keys = Object.keys(this.groupedNestedObject);
     console.log('keys', keys);
+  }
+
+  getFirstLevelKeys() {
+    return Object.keys(this.groupedNestedObject);
   }
 
   getSecondLevelKeys() {
@@ -47,34 +43,45 @@ class GroupVehiclesTogether {
   }
 
   getThirdLevelkeys() {
-    // console.log('L3', this.groupedNestedObject[0].commuter);
-    // console.log('L3', this.groupedNestedObject[0].bus);
-    // console.log('L3', this.groupedNestedObject[0].truck);
-    // console.log('L3', this.groupedNestedObject[0].motorcycle);
-    // console.log('L3', this.groupedNestedObject[1].commuter);
-    // console.log('L3', this.groupedNestedObject[1].bus);
-    // console.log('L3', this.groupedNestedObject[1].truck);
-    // console.log('L3', this.groupedNestedObject[1].motorcycle);
-    const result = [];
     if (this.plotCategories.length >= 3) {
-      this.firstLevelKeys.forEach((key1) => {
-        this.secondLevelKeys.forEach((key2) => {
-          const temp = [];
-          key2.forEach((key22) => {
-            temp.push(Object.keys(this.groupedNestedObject[key1][key22]));
-          });
-          result.push(temp);
-          // console.log('L3.5 values', Object.keys(this.groupedNestedObject[key1]));
+      const result = [];
+      for (let i = 0; i < this.firstLevelKeys.length; i += 1) {
+        const temp = [];
+        this.secondLevelKeys[i].forEach((key2) => {
+          temp.push(Object.keys(this.groupedNestedObject[this.firstLevelKeys[i]][key2]));
         });
-      });
+        result.push(temp);
+      }
       return result;
     }
     return undefined;
   }
 
-  // getLabelCategories() {
-  // // import the data series class and instantiate it here
-  // }
+  getLabelCategories() {
+    // if level3, if level 2, if level 1
+    // Data Series creation
+    const result = [];
+    if (this.thirdLevelkeys) {
+      for (let i = 0; i < this.firstLevelKeys.length; i += 1) {
+        // 'commuter',                              this.firstLevelKeys[i]
+        // [ '0', '1' ]                             this.secondLevelKeys[i];
+        // [ [ '1', '2', '3' ], [ '1', '3' ] ]      this.thirdLevelKeys[i];
+        for (let j = 0; j < this.secondLevelKeys[j].length; j += 1) {
+          for (let k = 0; k < this.thirdLevelkeys[k].length; k += 1) {
+            console.log(
+              'testing3',
+              `${this.firstLevelKeys[i]} direction ${this.secondLevelKeys[i][j]} Lane ${this.thirdLevelkeys[i][j][k]}`
+              // need a factory method
+            );
+          }
+        }
+      }
+      // this.secondLevelKeys[i].forEach((key2) => {
+      //   console.log('secondLevel', key2, this.thirdLevelkeys[i]);
+      // });
+      // this.groupedNestedObject[this.firstLevelKeys[i]]
+    }
+  }
 
   /**
    * groupedNestedObject =

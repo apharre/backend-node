@@ -24,6 +24,8 @@ class CreateChartDataQuery {
     this.boolAllLanes = this.chartFilters.boolAllLanes;
     /**  @private @const Arr[Number] The lanes to be included in the query */
     this.queryLaneNumbers = this.chartFilters.queryLaneNumbers;
+    /** @private @const String The direction that traffic is flowing at this location. Either "NS" or "EW" */
+    this.directionOfTrafficFlow = this.chartFilters.directionOfTrafficFlow;
 
     this.dateQuery = this.setDateQuery();
     this.directionQuery = this.setDirectionQuery();

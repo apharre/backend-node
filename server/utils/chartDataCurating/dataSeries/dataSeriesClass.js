@@ -1,50 +1,59 @@
 class DataSeriesLaneDirectionClass {
-  constructor(laneNumber, direction = '', vehicleType = '') {
-    this.lane = laneNumber;
-    this.direction = direction; // 1 or 0
-    this.vehicleType = vehicleType;
-    this.data = []; // return this
-    this.label = this.makeLabel();
-    this.result = { label: this.label, data: this.data };
+  constructor(seriesLabel, seriesData) {
+    this.seriesLabel = seriesLabel;
+    this.seriesData = seriesData;
+    // this.lane = laneNumber;
+    // this.direction = direction; // 1 or 0
+    // this.vehicleType = vehicleType;
+    this.verified = this.verifyData();
+    // this.data = []; // return this
+    // this.label = this.makeLabel();
+    // this.result = { label: this.label, data: this.data };
   }
 
-  getLane() {
-    return this.lane;
+  verifyData() {
+    console.log('Label:', this.seriesLabel);
+    console.log('Data:', this.seriesData);
+    return true;
   }
 
-  setLane(laneName) {
-    this.lane = laneName;
-  }
+  // getLane() {
+  //   return this.lane;
+  // }
 
-  getDirection() {
-    return this.direction;
-  }
+  // setLane(laneName) {
+  //   this.lane = laneName;
+  // }
 
-  setDirection(directionType) {
-    this.direction = directionType;
-  }
+  // getDirection() {
+  //   return this.direction;
+  // }
 
-  getData() {
-    return this.data;
-  }
+  // setDirection(directionType) {
+  //   this.direction = directionType;
+  // }
 
-  addToData(xyCoordinates) {
-    this.data.push(xyCoordinates);
-  }
+  // getData() {
+  //   return this.data;
+  // }
 
-  getLabel() {
-    return this.label;
-  }
+  // addToData(xyCoordinates) {
+  //   this.data.push(xyCoordinates);
+  // }
 
-  setLabel(labelName) {
-    this.label = labelName;
-  }
+  // getLabel() {
+  //   return this.label;
+  // }
 
-  makeLabel() {
-    // maybe make it "NB" instead of "Northbound"
-    const newLabel = `${this.direction}bound Lane ${this.lane}`;
-    this.setLabel(newLabel);
-  }
+  // setLabel(labelName) {
+  //   this.label = labelName;
+  // }
+
+  // makeLabel() {
+  //   // maybe make it "NB" instead of "Northbound"
+  //   const newLabel = `${this.direction}bound Lane ${this.lane}`;
+  //   this.setLabel(newLabel);
+  // }
 
   // could have one for each lane, in each direction
 

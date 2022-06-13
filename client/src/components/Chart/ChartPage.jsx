@@ -20,6 +20,10 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
   const [vehicleData, setVehicleData] = useState([]);
   const [chartFilters, setChartFilters] = useState({});
   const [urlQuery, setUrlQuery] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [directionOfTraffic, setDirectionOfTraffic] = useState(
+    currentCamera.direction
+  );
 
   useEffect(() => {
     /**
@@ -86,6 +90,7 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
           <ChartForm
             currentCamera={currentCamera}
             setChartFilters={setChartFilters}
+            directionOfTraffic={directionOfTraffic}
           />
         </Grid.Col>
         <Grid.Col md={9.5} lg={9.5}>

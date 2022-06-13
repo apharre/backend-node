@@ -17,7 +17,7 @@ import combineDateAndTimes from "./chartFormFunctions/chartFormFunctions";
 const oneDayAgo = new Date(Date.now() - 86400000); // number of miliseconds in 24 hours
 const todayNow = new Date();
 
-function ChartForm({ currentCamera, setChartFilters }) {
+function ChartForm({ currentCamera, setChartFilters, directionOfTraffic }) {
   /**
    * The input form for the chart Page
    * @param {!currentCamera} Object The current camera whose data the chart is pulling data.
@@ -65,6 +65,7 @@ function ChartForm({ currentCamera, setChartFilters }) {
       querySelectedVehicles: selectedVehicles,
       queryDirectionSelector: directionSelector,
       boolAllDirections: allDirections,
+      directionOfTrafficFlow: directionOfTraffic,
     });
   }
 
