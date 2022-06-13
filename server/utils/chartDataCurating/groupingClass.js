@@ -1,5 +1,6 @@
 import groupArray from 'group-array';
-import DataSeriesLaneDirectionClass from './dataSeries/dataSeriesClass.js';
+// import DataSeriesLaneDirectionClass from './dataSeries/dataSeriesClass.js';
+// TODO: could break data into a bunch of lists
 
 class GroupVehiclesTogether {
   /**
@@ -66,21 +67,24 @@ class GroupVehiclesTogether {
         // 'commuter',                              this.firstLevelKeys[i]
         // [ '0', '1' ]                             this.secondLevelKeys[i];
         // [ [ '1', '2', '3' ], [ '1', '3' ] ]      this.thirdLevelKeys[i];
-        for (let j = 0; j < this.secondLevelKeys[j].length; j += 1) {
-          for (let k = 0; k < this.thirdLevelkeys[k].length; k += 1) {
+        for (let j = 0; j < this.secondLevelKeys[i].length; j += 1) {
+          for (let k = 0; k < this.thirdLevelkeys[i][j].length; k += 1) {
             console.log(
-              'testing3',
-              `${this.firstLevelKeys[i]} direction ${this.secondLevelKeys[i][j]} Lane ${this.thirdLevelkeys[i][j][k]}`
+              'Testing Output: ',
+              `type: ${this.firstLevelKeys[i]} direction: ${this.secondLevelKeys[i][j]} Lane: ${this.thirdLevelkeys[i][j][k]}`
               // need a factory method
             );
+            const type1 = this.firstLevelKeys[i];
+            const direction2 = this.secondLevelKeys[i][j];
+            const lane3 = this.thirdLevelkeys[i][j][k];
+            const currentObj = this.groupedNestedObject[type1][direction2][lane3];
+            console.log('currentObject', currentObj);
+            result.push(currentObj);
           }
         }
       }
-      // this.secondLevelKeys[i].forEach((key2) => {
-      //   console.log('secondLevel', key2, this.thirdLevelkeys[i]);
-      // });
-      // this.groupedNestedObject[this.firstLevelKeys[i]]
     }
+    return result;
   }
 
   /**
