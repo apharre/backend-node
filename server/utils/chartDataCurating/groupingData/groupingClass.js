@@ -35,19 +35,19 @@ class GroupVehiclesTogether {
 
   getSecondLevelKeys() {
     const result = [];
-    console.log('plotcategories length 2', this.plotCategories.length);
+    // console.log('plotcategories length 2', this.plotCategories.length);
     if (this.plotCategories.length >= 2) {
       this.firstLevelKeys.forEach((key) => {
         result.push(Object.keys(this.groupedNestedObject[key]));
       });
-      console.log('secondLevelKeys', result);
+      // console.log('secondLevelKeys', result);
       return result;
     }
     return undefined;
   }
 
   getThirdLevelkeys() {
-    console.log('plotcategories length 3', this.plotCategories.length);
+    // console.log('plotcategories length 3', this.plotCategories.length);
     if (this.plotCategories.length === 3) {
       const result = [];
       for (let i = 0; i < this.firstLevelKeys.length; i += 1) {
@@ -57,38 +57,24 @@ class GroupVehiclesTogether {
         });
         result.push(temp);
       }
-      console.log('thirdLevelKeys', result);
-
+      // console.log('thirdLevelKeys', result);
       return result;
     }
     return undefined;
   }
 
   getLabelCategories() {
-    // if level3, if level 2, if level 1
-    // Data Series creation
     const result = [];
     console.log('Third level Keys', this.thirdLevelkeys);
     if (typeof this.thirdLevelkeys !== 'undefined') {
       for (let i = 0; i < this.firstLevelKeys.length; i += 1) {
-        //                'commuter',                     this.firstLevelKeys[i];
-        //        [ '0',              '1' ]               this.secondLevelKeys[i];
-        // [ [ '1', '2', '3' ], [ '1', '3' ] ]            this.thirdLevelKeys[i];
         for (let j = 0; j < this.secondLevelKeys[i].length; j += 1) {
           for (let k = 0; k < this.thirdLevelkeys[i][j].length; k += 1) {
-            // console.log(
-            //   'Testing Output: ',
-            //   `type: ${this.firstLevelKeys[i]} direction: ${this.secondLevelKeys[i][j]} Lane: ${this.thirdLevelkeys[i][j][k]}`
-            //   // need a factory method
-            // );
             const type1 = this.firstLevelKeys[i];
             const direction2 = this.secondLevelKeys[i][j];
             const lane3 = this.thirdLevelkeys[i][j][k];
             const currentObj = this.groupedNestedObject[type1][direction2][lane3];
-            // console.log('currentObject', currentObj);
-
             const newLabel = `${this.secondLevelKeys[i][j]}B ${this.firstLevelKeys[i]}s Lane ${this.thirdLevelkeys[i][j][k]}`;
-
             // const newSeries = DataSeriesFactory(newLabel, currentObj);
             result.push(DataSeriesFactory(newLabel, currentObj));
           }

@@ -30,7 +30,7 @@ const getAllVehicles = asyncHandler(async (req, res, next) => {
   query = query.sort('date');
   const vehicleData = await query;
   const result = groupingClassFactory(vehicleData, req.query);
-
+  console.log('controller', result);
   res.status(200).json({
     success: true,
     data: result,

@@ -2,6 +2,7 @@
 import React from "react";
 import { Chart } from "react-charts";
 import { Center, Loader } from "@mantine/core";
+// import useChartConfig from "./chartConfig";
 
 // eslint-disable-next-line no-unused-vars
 function LineChart({ vehicleData, isLoading }) {
@@ -33,16 +34,34 @@ function LineChart({ vehicleData, isLoading }) {
   //   []
   // );
 
-  // const data = React.useMemo(() => vehicleData);
-  // const data = vehicleData;
-  // console.log(vehicleData);
-  // const data = vehicleData;
+  const data = React.useMemo(() => vehicleData);
+  // const data = useChartConfig;
+  // const getDatums = React.useCallback((series) => series.data, []);
+  // const getPrimary = React.useCallback(
+  //   (datum, i, series, seriesIndex, data) => originalData.axis[i],
+  //   []
+  // );
+
+  // // Use data.lines[n].data[n].value as each datums secondary value
+  // const getSecondary = React.useCallback((datum) => datum.value, []);
+  // const getLabel = React.useCallback((series) => series.label, []);
 
   const axes = React.useMemo(
     () => [
       { primary: true, type: "linear", position: "bottom" },
-      { type: "linear", position: "left" },
+      { type: "linear", position: "left", id: "speed" },
     ],
+    []
+  );
+
+  const primaryCursor = { showLine: true, snap: true };
+
+  const getLabel = React.useCallback((series) => series.seriesLabel, []);
+
+  const series = React.useMemo(
+    () => ({
+      showPoints: false,
+    }),
     []
   );
 
@@ -59,7 +78,13 @@ function LineChart({ vehicleData, isLoading }) {
             backgroundColor: "white",
           }}
         >
-          <Chart data={vehicleData} axes={axes} />
+          <Chart
+            data={data}
+            axes={axes}
+            getLabel={getLabel}
+            series={series}
+            primaryCursor={primaryCursor}
+          />
         </div>
       )}
     </div>
