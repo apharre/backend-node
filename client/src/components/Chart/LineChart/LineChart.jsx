@@ -5,33 +5,36 @@ import { Center, Loader } from "@mantine/core";
 
 // eslint-disable-next-line no-unused-vars
 function LineChart({ vehicleData, isLoading }) {
-  const data = React.useMemo(
-    () => [
-      {
-        label: "Series 1",
-        data: [
-          // [0, 1],
-          [1, 2],
-          [2.5, 4],
-          [3, 2],
-          [4, 7],
-          [5, 2],
-        ],
-      },
-      {
-        label: "Series 2",
-        data: [
-          // [0, 3],
-          [1, 1],
-          [2.3, 5],
-          [3, 6],
-          [4.68, 4],
-          [5, 9],
-        ],
-      },
-    ],
-    []
-  );
+  // const data = React.useMemo(
+  //   () => [
+  //     {
+  //       label: "Series 1",
+  //       data: [
+  //         // [0, 1],
+  //         [1, 2],
+  //         [2.5, 4],
+  //         [3, 2],
+  //         [4, 7],
+  //         [5, 2],
+  //       ],
+  //     },
+  //     {
+  //       label: "Series 2",
+  //       data: [
+  //         // [0, 3],
+  //         [1, 1],
+  //         [2.3, 5],
+  //         [3, 6],
+  //         [4.68, 4],
+  //         [5, 9],
+  //       ],
+  //     },
+  //   ],
+  //   []
+  // );
+
+  // const data = React.useMemo(() => vehicleData);
+  // const data = vehicleData;
   // console.log(vehicleData);
   // const data = vehicleData;
 
@@ -56,7 +59,7 @@ function LineChart({ vehicleData, isLoading }) {
             backgroundColor: "white",
           }}
         >
-          <Chart data={data} axes={axes} />
+          <Chart data={vehicleData} axes={axes} />
         </div>
       )}
     </div>

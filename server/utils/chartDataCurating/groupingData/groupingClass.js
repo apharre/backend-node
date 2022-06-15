@@ -1,4 +1,5 @@
 import groupArray from 'group-array';
+import DataSeriesFactory from '../dataSeries/seriesFactory.js';
 // import DataSeriesLaneDirectionClass from './dataSeries/dataSeriesClass.js';
 // TODO: could break data into a bunch of lists
 
@@ -10,7 +11,7 @@ class GroupVehiclesTogether {
   constructor(rawData, queryRaw) {
     this.rawData = rawData;
     this.queryRaw = queryRaw;
-    this.plotCategories = ['type', 'direction', 'lane'];
+    this.plotCategories = ['type', 'direction', 'lane']; // ['type', 'direction'];
     this.groupedNestedObject = this.createObjectGroup();
 
     this.firstLevelKeys = this.getFirstLevelKeys();
@@ -34,17 +35,20 @@ class GroupVehiclesTogether {
 
   getSecondLevelKeys() {
     const result = [];
+    console.log('plotcategories length 2', this.plotCategories.length);
     if (this.plotCategories.length >= 2) {
       this.firstLevelKeys.forEach((key) => {
         result.push(Object.keys(this.groupedNestedObject[key]));
       });
+      console.log('secondLevelKeys', result);
       return result;
     }
     return undefined;
   }
 
   getThirdLevelkeys() {
-    if (this.plotCategories.length >= 3) {
+    console.log('plotcategories length 3', this.plotCategories.length);
+    if (this.plotCategories.length === 3) {
       const result = [];
       for (let i = 0; i < this.firstLevelKeys.length; i += 1) {
         const temp = [];
@@ -53,6 +57,8 @@ class GroupVehiclesTogether {
         });
         result.push(temp);
       }
+      console.log('thirdLevelKeys', result);
+
       return result;
     }
     return undefined;
@@ -62,30 +68,54 @@ class GroupVehiclesTogether {
     // if level3, if level 2, if level 1
     // Data Series creation
     const result = [];
-    if (this.thirdLevelkeys) {
+    console.log('Third level Keys', this.thirdLevelkeys);
+    if (typeof this.thirdLevelkeys !== 'undefined') {
       for (let i = 0; i < this.firstLevelKeys.length; i += 1) {
-        // 'commuter',                              this.firstLevelKeys[i]
-        // [ '0', '1' ]                             this.secondLevelKeys[i];
-        // [ [ '1', '2', '3' ], [ '1', '3' ] ]      this.thirdLevelKeys[i];
+        //                'commuter',                     this.firstLevelKeys[i];
+        //        [ '0',              '1' ]               this.secondLevelKeys[i];
+        // [ [ '1', '2', '3' ], [ '1', '3' ] ]            this.thirdLevelKeys[i];
         for (let j = 0; j < this.secondLevelKeys[i].length; j += 1) {
           for (let k = 0; k < this.thirdLevelkeys[i][j].length; k += 1) {
-            console.log(
-              'Testing Output: ',
-              `type: ${this.firstLevelKeys[i]} direction: ${this.secondLevelKeys[i][j]} Lane: ${this.thirdLevelkeys[i][j][k]}`
-              // need a factory method
-            );
+            // console.log(
+            //   'Testing Output: ',
+            //   `type: ${this.firstLevelKeys[i]} direction: ${this.secondLevelKeys[i][j]} Lane: ${this.thirdLevelkeys[i][j][k]}`
+            //   // need a factory method
+            // );
             const type1 = this.firstLevelKeys[i];
             const direction2 = this.secondLevelKeys[i][j];
             const lane3 = this.thirdLevelkeys[i][j][k];
             const currentObj = this.groupedNestedObject[type1][direction2][lane3];
-            console.log('currentObject', currentObj);
-            result.push(currentObj);
+            // console.log('currentObject', currentObj);
+
+            const newLabel = `${this.secondLevelKeys[i][j]}B ${this.firstLevelKeys[i]}s Lane ${this.thirdLevelkeys[i][j][k]}`;
+
+            // const newSeries = DataSeriesFactory(newLabel, currentObj);
+            result.push(DataSeriesFactory(newLabel, currentObj));
           }
         }
       }
+    } else if (typeof this.secondLevelKeys !== 'undefined') {
+      for (let i = 0; i < this.firstLevelKeys.length; i += 1) {
+        for (let j = 0; j < this.secondLevelKeys[i].length; j += 1) {
+          console.log(
+            'Testing Output 2: ',
+            `type: ${this.firstLevelKeys[i]} direction: ${this.secondLevelKeys[i][j]} Lane: None`
+          );
+          const type1 = this.firstLevelKeys[i];
+          const direction2 = this.secondLevelKeys[i][j];
+          const currentObj = this.groupedNestedObject[type1][direction2];
+          console.log('currentObj', currentObj);
+          result.push(currentObj);
+        }
+      }
+    } // TODO: add single query
+    else {
+      console.log('grouping Class Not caught');
     }
+
     return result;
   }
+  //
 
   /**
    * groupedNestedObject =

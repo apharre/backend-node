@@ -49,6 +49,7 @@ function ChartForm({ currentCamera, setChartFilters, directionOfTraffic }) {
   const form = useForm({});
 
   function handleSubmit() {
+    console.log("before submit", laneNumbers);
     setChartFilters({
       combinedDates: combineDateAndTimes(
         dateValue,

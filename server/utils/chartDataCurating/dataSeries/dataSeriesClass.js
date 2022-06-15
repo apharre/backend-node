@@ -1,72 +1,27 @@
 class DataSeriesLaneDirectionClass {
   constructor(seriesLabel, seriesData) {
-    this.seriesLabel = seriesLabel;
-    this.seriesData = seriesData;
-    // this.lane = laneNumber;
-    // this.direction = direction; // 1 or 0
-    // this.vehicleType = vehicleType;
-    this.verified = this.verifyData();
-    // this.data = []; // return this
-    // this.label = this.makeLabel();
-    // this.result = { label: this.label, data: this.data };
+    this.label = seriesLabel;
+    this.data = seriesData;
+    // this.test = this.verifyData();
   }
 
   verifyData() {
-    console.log('Label:', this.seriesLabel);
-    console.log('Data:', this.seriesData);
-    return true;
+    // console.log('Label:', this.seriesLabel);
+    // console.log('Data:', this.seriesData);
+    this.reduceDataToXYSpeed();
   }
 
-  // getLane() {
-  //   return this.lane;
-  // }
-
-  // setLane(laneName) {
-  //   this.lane = laneName;
-  // }
-
-  // getDirection() {
-  //   return this.direction;
-  // }
-
-  // setDirection(directionType) {
-  //   this.direction = directionType;
-  // }
-
-  // getData() {
-  //   return this.data;
-  // }
-
-  // addToData(xyCoordinates) {
-  //   this.data.push(xyCoordinates);
-  // }
-
-  // getLabel() {
-  //   return this.label;
-  // }
-
-  // setLabel(labelName) {
-  //   this.label = labelName;
-  // }
-
-  // makeLabel() {
-  //   // maybe make it "NB" instead of "Northbound"
-  //   const newLabel = `${this.direction}bound Lane ${this.lane}`;
-  //   this.setLabel(newLabel);
-  // }
-
-  // could have one for each lane, in each direction
-
-  // datapoint: x = date, y = speed
-  // series: Break up by:
-  //    Direction, lane, type?
-
-  // const data = [
-  //   {
-  //     label: "WB Trucks Lane 1",
-  //     data: [[123, 456], [124, 457]]
-  //   }
-  // ]
+  reduceDataToXYSpeed() {
+    // for every vehicle in the data array,
+    // remove everything except for date (x) and speed (y)
+    // replace the object with an array [x, y]
+    for (let i = 0; i < this.data.length; i += 1) {
+      const temp = [this.data[i].date, this.data[i].speed];
+      this.data[i] = temp;
+    }
+    console.log('Label 2:', this.label);
+    console.log('Data 2:', this.data);
+  }
 }
 
 export default DataSeriesLaneDirectionClass;

@@ -30,6 +30,7 @@ class CreateChartDataQuery {
     this.dateQuery = this.setDateQuery();
     this.directionQuery = this.setDirectionQuery();
     this.vehicleTypeQuery = this.setVehicleTypeQuery();
+    this.laneQuery = this.setLaneQuery();
     this.speedQuery = this.setSpeedQuery(); // temp lane
     this.temperatureQuery = this.setTemperatureQuery();
   }
@@ -132,7 +133,7 @@ class CreateChartDataQuery {
      * Combines the different queries in the above functions into a single string for the backend to read
      * @return {String} A Mongoose/MongoDB readable query for the backend
      */
-    return `${this.dateQuery}${this.vehicleTypeQuery}${this.speedQuery}${this.temperatureQuery}${this.directionQuery}`;
+    return `${this.dateQuery}${this.vehicleTypeQuery}${this.speedQuery}${this.laneQuery}${this.temperatureQuery}${this.directionQuery}`;
   }
 }
 

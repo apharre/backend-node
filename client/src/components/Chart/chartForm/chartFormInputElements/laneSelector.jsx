@@ -23,6 +23,7 @@ function ChartLaneSelector({
   setLaneNumbers,
 }) {
   const { classes } = useStyles();
+  // console.log(laneNumbers);
 
   return (
     <Collapse in={!allStateObject}>
@@ -30,6 +31,7 @@ function ChartLaneSelector({
         <Chips
           multiple
           classNames={classes}
+          value={laneNumbers}
           spacing="lg"
           size="sm"
           radius="md"

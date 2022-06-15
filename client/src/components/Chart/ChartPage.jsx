@@ -63,8 +63,10 @@ function ChartPage({ currentCamera, setCurrentCamera }) {
           cancelToken: source.token,
         });
         setVehicleData(data.data);
+        console.log("gotData?", urlQuery);
         setLoading(false);
       } catch (error) {
+        setLoading(false);
         if (axios.isCancel(error)) {
           console.log(error, "error");
         }

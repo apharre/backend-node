@@ -1,7 +1,6 @@
 import asyncHandler from '../middleware/asyncHandler.js';
 import VehicleDocument from '../models/vehicleFormat.js';
-import GroupVehiclesTogether from '../utils/chartDataCurating/groupingClass.js';
-// import CreateLineDataSpeed from '../utils/chartDataCurating/speedCuration.js';
+import groupingClassFactory from '../utils/chartDataCurating/groupingData/groupingClassFactory.js';
 
 // TODO: THIS COULD BE A CLASS OR UTILITY LATER
 function queryCleanupToString(query) {
@@ -28,32 +27,13 @@ const getAllVehicles = asyncHandler(async (req, res, next) => {
   const queryStr = queryCleanupToString(req.query);
 
   query = VehicleDocument.find(JSON.parse(queryStr));
-
   query = query.sort('date');
   const vehicleData = await query;
-  // console.log('RAW API RESPONSE', vehicleData.slice(0, 2));
-  console.log('query', queryStr);
-
-  const result = new GroupVehiclesTogether(vehicleData, req.query);
-  console.log('grouped', result.groupedNestedObject, '\n');
-
-  console.log('level1', result.firstLevelKeys, '\n');
-  console.log('level2', result.secondLevelKeys);
-  console.log('level3', result.thirdLevelkeys);
-  result.getLabelCategories();
-
-  // pass in your object structure as array elements
-  // const getNestedObject = (nestedObj, pathArr) =>
-  //   pathArr.reduce(
-  //     (obj, key) => (obj && obj[key] !== 'undefined' ? obj[key] : undefined),
-  //     nestedObj
-  //   );
-  // const name = getNestedObject(result.groupedNestedObject, ['commuter', '0']);
-  // console.log('name', name);
+  const result = groupingClassFactory(vehicleData, req.query);
 
   res.status(200).json({
     success: true,
-    data: vehicleData,
+    data: result,
   });
 });
 
