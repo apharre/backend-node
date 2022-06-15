@@ -11,7 +11,7 @@ class GroupVehiclesTogether {
   constructor(rawData, queryRaw) {
     this.rawData = rawData;
     this.queryRaw = queryRaw;
-    this.plotCategories = ['type', 'direction', 'lane']; // ['type', 'direction'];
+    this.plotCategories = ['type', 'direction']; // ['type', 'direction'];
     this.groupedNestedObject = this.createObjectGroup();
 
     this.firstLevelKeys = this.getFirstLevelKeys();
@@ -103,11 +103,15 @@ class GroupVehiclesTogether {
           );
           const type1 = this.firstLevelKeys[i];
           const direction2 = this.secondLevelKeys[i][j];
+
+          const newLabel = `${this.secondLevelKeys[i][j]}B ${this.firstLevelKeys[i]}s`;
+
           const currentObj = this.groupedNestedObject[type1][direction2];
           console.log('currentObj', currentObj);
-          result.push(currentObj);
+          result.push(DataSeriesFactory(newLabel, currentObj));
         }
       }
+      return result;
     } // TODO: add single query
     else {
       console.log('grouping Class Not caught');
